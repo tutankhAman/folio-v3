@@ -27,6 +27,7 @@ interface TextProps {
   onStart?: () => void;
   onComplete?: () => void;
   autoStart?: boolean; // Whether to start the animation automatically
+  layout?: boolean | "position" | "size" | "preserve-aspect";
 }
 
 // Ref interface to allow external control of the animation

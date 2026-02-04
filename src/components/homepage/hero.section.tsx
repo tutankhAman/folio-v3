@@ -4,6 +4,54 @@ import { AnimatePresence, useMotionValueEvent, useScroll } from "motion/react";
 import { useRef, useState } from "react";
 import VerticalCutReveal from "../animations/text/vertical-cut-reveal";
 
+interface Word {
+  id: string;
+  text: string;
+  className?: string;
+}
+
+// Data structure defining the flow
+const flow: Word[][] = [
+  [
+    { id: "hey", text: "Hey", className: "text-neutral-600" },
+    { id: "im", text: "I'm", className: "text-neutral-600" },
+    { id: "aman", text: "Aman", className: "text-black" },
+  ],
+  [
+    { id: "im", text: "I'm", className: "text-neutral-600" },
+    { id: "a", text: "a", className: "text-neutral-600" },
+    { id: "designer", text: "designer", className: "text-black" },
+  ],
+  [
+    { id: "im", text: "I'm", className: "text-neutral-600" },
+    { id: "a", text: "a", className: "text-neutral-600" },
+    { id: "developer", text: "developer", className: "text-black" },
+  ],
+  [
+    { id: "and", text: "and", className: "text-neutral-600" },
+    { id: "a", text: "a", className: "text-neutral-600" },
+    { id: "cs", text: "cs", className: "text-neutral-600" },
+    { id: "student", text: "student", className: "text-black" },
+  ],
+  [
+    { id: "i", text: "I", className: "text-neutral-600" },
+    { id: "prefer", text: "prefer", className: "text-neutral-600" },
+    { id: "minimal", text: "minimal", className: "text-neutral-600" },
+    { id: "solutions", text: "solutions", className: "text-black" },
+    { id: "with", text: "with", className: "text-neutral-600" },
+    { id: "maximal", text: "maximal", className: "text-neutral-600" },
+    { id: "intent", text: "intent", className: "text-black" },
+  ],
+  [
+    { id: "here", text: "Here", className: "text-neutral-600" },
+    { id: "are", text: "are", className: "text-neutral-600" },
+    { id: "some", text: "some", className: "text-neutral-600" },
+    { id: "of", text: "of", className: "text-neutral-600" },
+    { id: "my", text: "my", className: "text-neutral-600" },
+    { id: "works", text: "works", className: "text-black" },
+  ],
+];
+
 export const HeroSection = () => {
   const containerRef = useRef<HTMLElement>(null);
   const [stage, setStage] = useState(0);
@@ -15,13 +63,17 @@ export const HeroSection = () => {
   });
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    let newStage = 0;
-    if (latest < 0.3) {
+    // Map scroll progress (0-1) to stage index (0 to flow.length - 1)
+    const totalStages = flow.length;
+    const step = 1 / totalStages;
+
+    // Calculate new stage, clamping between 0 and totalStages - 1
+    let newStage = Math.floor(latest / step);
+    if (newStage < 0) {
       newStage = 0;
-    } else if (latest < 0.6) {
-      newStage = 1;
-    } else {
-      newStage = 2;
+    }
+    if (newStage >= totalStages) {
+      newStage = totalStages - 1;
     }
 
     if (newStage !== stage) {
@@ -34,20 +86,12 @@ export const HeroSection = () => {
     }
   });
 
-  const getRole = () => {
-    if (stage === 0) {
-      return "AMAN";
-    }
-    if (stage === 1) {
-      return "Designer";
-    }
-    return "Developer";
-  };
+  const currentWords = flow[stage] || [];
 
   return (
-    <section className="relative h-[300vh]" ref={containerRef}>
+    <section className="relative h-[600vh]" ref={containerRef}>
       <div
-        className="sticky top-0 flex h-dvh w-full flex-col items-center justify-center overflow-hidden text-neutral-600"
+        className="sticky top-0 flex h-dvh w-full flex-col items-center justify-center overflow-hidden"
         style={
           {
             "--reveal-y-hidden": direction === "down" ? "100%" : "-100%",
@@ -55,34 +99,13 @@ export const HeroSection = () => {
           } as React.CSSProperties
         }
       >
-        <div className="relative flex items-center justify-center">
-          <div className="absolute right-full mr-3 flex items-center whitespace-nowrap font-medium font-satoshi text-xl">
-            <AnimatePresence mode="popLayout">
-              {stage === 0 && (
-                <VerticalCutReveal
-                  containerClassName="flex-nowrap whitespace-nowrap mr-1"
-                  key="hey"
-                  splitBy="characters"
-                  staggerDuration={0.025}
-                  staggerFrom="first"
-                  transition={{
-                    type: "spring",
-                    stiffness: 200,
-                    damping: 21,
-                  }}
-                >
-                  Hey,
-                </VerticalCutReveal>
-              )}
-            </AnimatePresence>
-            <span>I'm</span>
-          </div>
-
-          <div className="grid min-w-25 items-center justify-start text-left font-medium font-satoshi text-black text-xl">
-            <AnimatePresence>
+        <div className="flex max-w-4xl flex-wrap items-center justify-center gap-x-[0.3em] gap-y-2 px-4 text-center font-medium font-satoshi text-xl">
+          <AnimatePresence mode="popLayout">
+            {currentWords.map((word) => (
               <VerticalCutReveal
-                containerClassName="flex-nowrap whitespace-nowrap col-start-1 row-start-1"
-                key={getRole()}
+                containerClassName={word.className}
+                key={word.id}
+                layout
                 splitBy="characters"
                 staggerDuration={0.025}
                 staggerFrom="first"
@@ -90,12 +113,12 @@ export const HeroSection = () => {
                   type: "spring",
                   stiffness: 200,
                   damping: 21,
-                }}
+                }} // Enable layout animations for smooth position changes
               >
-                {getRole()}
+                {word.text}
               </VerticalCutReveal>
-            </AnimatePresence>
-          </div>
+            ))}
+          </AnimatePresence>
         </div>
       </div>
     </section>

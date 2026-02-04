@@ -4,7 +4,7 @@ import { HeroSection } from "./components/homepage/hero.section";
 import { Loader } from "./components/shared/loader";
 
 function App() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   return (
     <main className="relative min-h-screen w-full bg-[#f0f0f0]">
