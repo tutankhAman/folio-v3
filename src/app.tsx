@@ -7,29 +7,42 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   return (
-    <main>
+    <main className="relative min-h-screen w-full bg-[#f0f0f0]">
+      {/* Hero Section is always rendered but revealed */}
+      <div className="relative z-0">
+        <HeroSection />
+      </div>
+
       <AnimatePresence mode="wait">
         {loading && (
           <motion.div
-            className="fixed inset-0 z-50"
-            exit={{ opacity: 0, y: -20 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-[#0a0a0a]"
+            exit={
+              {
+                maskImage:
+                  "radial-gradient(circle at center, transparent 150%, black 150%)",
+                WebkitMaskImage:
+                  "radial-gradient(circle at center, transparent 150%, black 150%)",
+              } as Record<string, string>
+            }
+            initial={
+              {
+                maskImage:
+                  "radial-gradient(circle at center, transparent 0%, black 0%)",
+                WebkitMaskImage:
+                  "radial-gradient(circle at center, transparent 0%, black 0%)",
+              } as Record<string, string>
+            }
             key="loader"
-            transition={{ duration: 0.5, ease: "easeInOut" }}
+            transition={{
+              duration: 1.2,
+              ease: [0.76, 0, 0.24, 1],
+            }}
           >
             <AmanLoader onComplete={() => setLoading(false)} />
           </motion.div>
         )}
       </AnimatePresence>
-
-      {!loading && (
-        <motion.div
-          animate={{ opacity: 1, y: 0 }}
-          initial={{ opacity: 0, y: 20 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          <HeroSection />
-        </motion.div>
-      )}
     </main>
   );
 }

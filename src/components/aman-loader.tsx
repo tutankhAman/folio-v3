@@ -47,10 +47,13 @@ export const AmanLoader = ({ onComplete }: { onComplete?: () => void }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden bg-[#0a0a0a] text-[#f0f0f0]">
+    <div className="flex h-full w-full items-center justify-center overflow-hidden text-[#f0f0f0]">
       {/* Main Container */}
       <motion.div
-        animate={{ y: step === 3 ? "25%" : "0%" }}
+        animate={{
+          y: step === 3 ? "25%" : "0%",
+          x: step === 3 ? "0.11em" : "0%",
+        }}
         className="flex flex-col items-center font-generalsans font-semibold text-base leading-none tracking-tighter"
         layoutRoot
         transition={transition}
