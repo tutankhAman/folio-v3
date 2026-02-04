@@ -1,7 +1,7 @@
 import { type Easing, motion, type Transition } from "framer-motion";
 import { useEffect, useState } from "react";
 
-export const AmanLoader = ({ onComplete }: { onComplete?: () => void }) => {
+export const Loader = ({ onComplete }: { onComplete?: () => void }) => {
   const [step, setStep] = useState(0);
 
   // Easing definition
@@ -47,7 +47,7 @@ export const AmanLoader = ({ onComplete }: { onComplete?: () => void }) => {
   };
 
   return (
-    <div className="flex h-full w-full items-center justify-center overflow-hidden text-[#f0f0f0]">
+    <div className="flex h-full w-full items-center justify-center overflow-hidden text-black">
       {/* Main Container */}
       <motion.div
         animate={{
@@ -55,7 +55,6 @@ export const AmanLoader = ({ onComplete }: { onComplete?: () => void }) => {
           x: step === 3 ? "0.11em" : "0%",
         }}
         className="flex flex-col items-center font-generalsans font-semibold text-base leading-none tracking-tighter"
-        layoutRoot
         transition={transition}
       >
         {/* Top Group: AM */}

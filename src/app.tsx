@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-import { AmanLoader } from "./components/aman-loader";
 import { HeroSection } from "./components/homepage/hero.section";
+import { Loader } from "./components/shared/loader";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -16,7 +16,7 @@ function App() {
       <AnimatePresence mode="wait">
         {loading && (
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-[#0a0a0a]"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-white"
             exit={
               {
                 maskImage:
@@ -39,7 +39,7 @@ function App() {
               ease: [0.76, 0, 0.24, 1],
             }}
           >
-            <AmanLoader onComplete={() => setLoading(false)} />
+            <Loader onComplete={() => setLoading(false)} />
           </motion.div>
         )}
       </AnimatePresence>
