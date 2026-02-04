@@ -1,17 +1,21 @@
 @import "tailwindcss";
 
+@theme {
+  --font-array: "Array", sans-serif;
+  --font-dancingscript: "DancingScript", cursive;
+  --font-generalsans: "GeneralSans", sans-serif;
+  --font-kola: "Kola", sans-serif;
+  --font-nippo: "Nippo", sans-serif;
+  --font-satoshi: "Satoshi", sans-serif;
+}
+
+/* Array */
 @font-face {
   font-family: "Array";
   src: url("/fonts/Array-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
-}
-
-@font-face {
-  font-family: "Array";
-  src: url("/fonts/Array-Semibold.woff2") format("woff2");
-  font-weight: 600;
-  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -19,65 +23,141 @@
   src: url("/fonts/Array-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Array";
+  src: url("/fonts/Array-Semibold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Array";
   src: url("/fonts/Array-Wide.woff2") format("woff2");
   font-weight: 400;
-  font-stretch: 125%;
+  font-stretch: expanded;
   font-style: normal;
-}
-
-@font-face {
-  font-family: "Array";
-  src: url("/fonts/Array-SemiboldWide.woff2") format("woff2");
-  font-weight: 600;
-  font-stretch: 125%;
-  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Array";
   src: url("/fonts/Array-BoldWide.woff2") format("woff2");
   font-weight: 700;
-  font-stretch: 125%;
+  font-stretch: expanded;
   font-style: normal;
+  font-display: swap;
 }
 
+@font-face {
+  font-family: "Array";
+  src: url("/fonts/Array-SemiboldWide.woff2") format("woff2");
+  font-weight: 600;
+  font-stretch: expanded;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* DancingScript */
+@font-face {
+  font-family: "DancingScript";
+  src: url("/fonts/DancingScript-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* GeneralSans */
+@font-face {
+  font-family: "GeneralSans";
+  src: url("/fonts/GeneralSans-Variable.woff2") format("woff2");
+  font-weight: 200 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "GeneralSans";
+  src: url("/fonts/GeneralSans-VariableItalic.woff2") format("woff2");
+  font-weight: 200 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Kola */
 @font-face {
   font-family: "Kola";
   src: url("/fonts/Kola-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
+  font-display: swap;
 }
 
+/* Nippo */
 @font-face {
   font-family: "Nippo";
   src: url("/fonts/Nippo-Variable.woff2") format("woff2");
   font-weight: 100 900;
   font-style: normal;
+  font-display: swap;
 }
 
-@theme {
-  --font-heading: "Array", sans-serif;
-  --font-title: "Kola", sans-serif;
-  --font-body: "Nippo", sans-serif;
+@font-face {
+  font-family: "Nippo";
+  src: url("/fonts/Nippo-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
+@font-face {
+  font-family: "Nippo";
+  src: url("/fonts/Nippo-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
 }
 
-.animate-marquee {
-  animation: marquee 20s linear infinite;
+@font-face {
+  font-family: "Nippo";
+  src: url("/fonts/Nippo-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
 }
 
-:root {
-  font-family: var(--font-body);
+@font-face {
+  font-family: "Nippo";
+  src: url("/fonts/Nippo-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nippo";
+  src: url("/fonts/Nippo-Extralight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Satoshi */
+@font-face {
+  font-family: "Satoshi";
+  src: url("/fonts/Satoshi-Variable.woff2") format("woff2");
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Satoshi";
+  src: url("/fonts/Satoshi-VariableItalic.woff2") format("woff2");
+  font-weight: 300 900;
+  font-style: italic;
+  font-display: swap;
 }
