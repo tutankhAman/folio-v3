@@ -15,7 +15,7 @@ const flow: Word[][] = [
   [
     { id: "hey", text: "Hey", className: "text-neutral-600" },
     { id: "im", text: "I'm", className: "text-neutral-600" },
-    { id: "aman", text: "Aman", className: "text-black" },
+    { id: "aman", text: "AMAN", className: "text-black" },
   ],
   [
     { id: "im", text: "I'm", className: "text-neutral-600" },

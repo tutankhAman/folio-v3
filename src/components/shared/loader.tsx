@@ -28,8 +28,12 @@ export const Loader = ({ onComplete }: { onComplete?: () => void }) => {
       await new Promise((r) => setTimeout(r, 1500));
       setStep(3);
 
-      // Wait for final animation to complete + some hold time
+      // Step 4: Shift to the right
       await new Promise((r) => setTimeout(r, 1500));
+      setStep(4);
+
+      // Wait for final animation to complete + some hold time
+      await new Promise((r) => setTimeout(r, 500));
       onComplete?.();
     };
 
@@ -37,7 +41,7 @@ export const Loader = ({ onComplete }: { onComplete?: () => void }) => {
   }, [onComplete]);
 
   const getY = () => {
-    if (step === 3) {
+    if (step >= 3) {
       return "-100%";
     }
     if (step >= 1) {
@@ -46,20 +50,30 @@ export const Loader = ({ onComplete }: { onComplete?: () => void }) => {
     return "-50px";
   };
 
+  const getX = () => {
+    if (step === 4) {
+      return "40px";
+    }
+    if (step >= 3) {
+      return "0.11em";
+    }
+    return "0%";
+  };
+
   return (
     <div className="flex h-full w-full items-center justify-center overflow-hidden text-black">
       {/* Main Container */}
       <motion.div
         animate={{
-          y: step === 3 ? "25%" : "0%",
-          x: step === 3 ? "0.11em" : "0%",
+          y: step >= 3 ? "25%" : "0%",
+          x: getX(),
         }}
         className="flex flex-col items-center font-medium font-satoshi text-xl leading-none tracking-tighter"
         transition={transition}
       >
         {/* Top Group: AM */}
         <motion.div
-          animate={{ x: step === 3 ? "-50%" : "0%" }}
+          animate={{ x: step >= 3 ? "-50%" : "0%" }}
           className="relative z-10 flex"
           transition={transition}
         >
@@ -86,7 +100,7 @@ export const Loader = ({ onComplete }: { onComplete?: () => void }) => {
             height: step >= 1 ? "auto" : 0,
             opacity: step >= 1 ? 1 : 0,
             y: getY(),
-            x: step === 3 ? "50%" : "0%",
+            x: step >= 3 ? "50%" : "0%",
           }}
           className="relative z-0 flex"
           initial={{ height: 0, opacity: 0, y: -50 }}
