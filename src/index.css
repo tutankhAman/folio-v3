@@ -1,12 +1,5 @@
 @import "tailwindcss";
 
-@theme {
-  --font-heading: "Array", sans-serif;
-  --font-title: "Kola", cursive;
-  --font-body: "Nippo", sans-serif;
-}
-
-/* Array */
 @font-face {
   font-family: "Array";
   src: url("/fonts/Array-Regular.woff2") format("woff2");
@@ -28,7 +21,30 @@
   font-style: normal;
 }
 
-/* Kola */
+@font-face {
+  font-family: "Array";
+  src: url("/fonts/Array-Wide.woff2") format("woff2");
+  font-weight: 400;
+  font-stretch: 125%;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Array";
+  src: url("/fonts/Array-SemiboldWide.woff2") format("woff2");
+  font-weight: 600;
+  font-stretch: 125%;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Array";
+  src: url("/fonts/Array-BoldWide.woff2") format("woff2");
+  font-weight: 700;
+  font-stretch: 125%;
+  font-style: normal;
+}
+
 @font-face {
   font-family: "Kola";
   src: url("/fonts/Kola-Regular.woff2") format("woff2");
@@ -36,10 +52,19 @@
   font-style: normal;
 }
 
-/* Nippo */
 @font-face {
   font-family: "Nippo";
   src: url("/fonts/Nippo-Variable.woff2") format("woff2");
   font-weight: 100 900;
   font-style: normal;
+}
+
+@theme {
+  --font-heading: "Array", sans-serif;
+  --font-title: "Kola", sans-serif;
+  --font-body: "Nippo", sans-serif;
+}
+
+:root {
+  font-family: var(--font-body);
 }
