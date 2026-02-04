@@ -54,7 +54,7 @@ export const Loader = ({ onComplete }: { onComplete?: () => void }) => {
           y: step === 3 ? "25%" : "0%",
           x: step === 3 ? "0.11em" : "0%",
         }}
-        className="flex flex-col items-center font-generalsans font-semibold text-base leading-none tracking-tighter"
+        className="flex flex-col items-center font-medium font-satoshi text-xl leading-none tracking-tighter"
         transition={transition}
       >
         {/* Top Group: AM */}
