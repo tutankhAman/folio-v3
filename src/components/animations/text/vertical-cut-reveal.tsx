@@ -148,7 +148,7 @@ const VerticalCutReveal = forwardRef<VerticalCutRevealRef, TextProps>(
     }, [autoStart, startAnimation]);
 
     const variants = {
-      hidden: { y: reverse ? "-100%" : "100%" },
+      hidden: { y: "var(--reveal-y-hidden, 100%)" },
       visible: (i: number) => ({
         y: 0,
         transition: {
@@ -157,7 +157,7 @@ const VerticalCutReveal = forwardRef<VerticalCutRevealRef, TextProps>(
         },
       }),
       exit: (i: number) => ({
-        y: reverse ? "100%" : "-100%",
+        y: "var(--reveal-y-exit, -100%)",
         transition: {
           ...transition,
           delay: ((transition?.delay as number) || 0) + getStaggerDelay(i),

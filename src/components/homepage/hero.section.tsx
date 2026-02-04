@@ -7,6 +7,7 @@ import VerticalCutReveal from "../animations/text/vertical-cut-reveal";
 export const HeroSection = () => {
   const containerRef = useRef<HTMLElement>(null);
   const [stage, setStage] = useState(0);
+  const [direction, setDirection] = useState<"up" | "down">("down");
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -14,12 +15,22 @@ export const HeroSection = () => {
   });
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    let newStage = 0;
     if (latest < 0.3) {
-      setStage(0);
+      newStage = 0;
     } else if (latest < 0.6) {
-      setStage(1);
+      newStage = 1;
     } else {
-      setStage(2);
+      newStage = 2;
+    }
+
+    if (newStage !== stage) {
+      if (newStage > stage) {
+        setDirection("down");
+      } else {
+        setDirection("up");
+      }
+      setStage(newStage);
     }
   });
 
@@ -35,7 +46,15 @@ export const HeroSection = () => {
 
   return (
     <section className="relative h-[300vh]" ref={containerRef}>
-      <div className="sticky top-0 flex h-dvh w-full flex-col items-center justify-center overflow-hidden text-neutral-600">
+      <div
+        className="sticky top-0 flex h-dvh w-full flex-col items-center justify-center overflow-hidden text-neutral-600"
+        style={
+          {
+            "--reveal-y-hidden": direction === "down" ? "100%" : "-100%",
+            "--reveal-y-exit": direction === "down" ? "-100%" : "100%",
+          } as React.CSSProperties
+        }
+      >
         <div className="relative flex items-center justify-center">
           <div className="absolute right-full mr-3 flex items-center whitespace-nowrap font-medium font-satoshi text-xl">
             <AnimatePresence mode="popLayout">
@@ -59,7 +78,7 @@ export const HeroSection = () => {
             <span>I'm</span>
           </div>
 
-          <div className="grid min-w-[100px] items-center justify-start text-left font-medium font-satoshi text-black text-xl">
+          <div className="grid min-w-25 items-center justify-start text-left font-medium font-satoshi text-black text-xl">
             <AnimatePresence>
               <VerticalCutReveal
                 containerClassName="flex-nowrap whitespace-nowrap col-start-1 row-start-1"
