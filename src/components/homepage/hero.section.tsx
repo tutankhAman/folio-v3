@@ -1,8 +1,17 @@
 "use client";
 
-import { AnimatePresence, useMotionValueEvent, useScroll } from "motion/react";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  useSpring,
+  useTransform,
+  useVelocity,
+} from "motion/react";
 import { useRef, useState } from "react";
-import { flow } from "../../data/hero";
+import { cn } from "@/lib/utils";
+import { flow, imageFlow } from "../../data/hero";
 import VerticalCutReveal from "../animations/text/vertical-cut-reveal";
 
 export const HeroSection = () => {
@@ -14,6 +23,22 @@ export const HeroSection = () => {
     target: containerRef,
     offset: ["start start", "end end"],
   });
+
+  // Global scroll for velocity tracking
+  const { scrollY } = useScroll();
+  const scrollVelocity = useVelocity(scrollY);
+  const smoothVelocity = useSpring(scrollVelocity, {
+    damping: 50,
+    stiffness: 400,
+  });
+
+  // "Window wobble" / stretch effect based on scroll velocity
+  const scaleY = useTransform(
+    smoothVelocity,
+    [-3000, 0, 3000],
+    [1.35, 1, 1.35]
+  );
+  const skewY = useTransform(smoothVelocity, [-3000, 0, 3000], [-10, 0, 10]);
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     // Map scroll progress (0-1) to stage index (0 to flow.length - 1)
@@ -40,6 +65,45 @@ export const HeroSection = () => {
   });
 
   const currentWords = flow[stage] || [];
+  const currentImages = imageFlow[stage] || [];
+
+  const imageVariants = {
+    enter: (direction: "up" | "down") => ({
+      y: direction === "down" ? "110vh" : "-110vh",
+      rotateX: direction === "down" ? 65 : -65, // Increased rotation for stronger 3D effect
+      scale: 0.6, // Smaller start scale to exaggerate depth
+      filter: "blur(8px)",
+      opacity: 0,
+    }),
+    center: {
+      y: 0,
+      rotateX: 0,
+      scale: 1,
+      filter: "blur(0px)",
+      opacity: 1,
+      transition: {
+        type: "spring",
+        duration: 1.4, // Slightly longer for more visual time
+        bounce: 0,
+        damping: 18, // Lower damping to let it carry momentum visually
+        stiffness: 80,
+      } as const,
+    },
+    exit: (direction: "up" | "down") => ({
+      y: direction === "down" ? "-110vh" : "110vh",
+      rotateX: direction === "down" ? -65 : 65,
+      scale: 0.6,
+      filter: "blur(8px)",
+      opacity: 0,
+      transition: {
+        type: "spring",
+        duration: 1.4,
+        bounce: 0,
+        damping: 18,
+        stiffness: 80,
+      } as const,
+    }),
+  };
 
   return (
     <section className="relative h-[2000vh]" ref={containerRef}>
@@ -49,10 +113,33 @@ export const HeroSection = () => {
           {
             "--reveal-y-hidden": direction === "down" ? "100%" : "-100%",
             "--reveal-y-exit": direction === "down" ? "-100%" : "100%",
+            perspective: "600px", // Reduced perspective for dramatic foreshortening
           } as React.CSSProperties
         }
       >
-        <div className="flex max-w-4xl flex-wrap items-center justify-center gap-x-[0.3em] gap-y-2 px-4 text-center font-medium font-satoshi text-xl">
+        {/* Images Layer */}
+        <div className="pointer-events-none absolute inset-0 hidden md:block">
+          <AnimatePresence custom={direction}>
+            {currentImages.map((img) => (
+              <motion.div
+                animate="center"
+                className={cn(
+                  "absolute origin-center",
+                  img.className,
+                  img.color
+                )}
+                custom={direction}
+                exit="exit"
+                initial="enter"
+                key={img.id}
+                style={{ scaleY, skewY, transformStyle: "preserve-3d" }} // Enable 3D transform style
+                variants={imageVariants}
+              />
+            ))}
+          </AnimatePresence>
+        </div>
+
+        <div className="relative z-10 flex max-w-4xl flex-wrap items-center justify-center gap-x-[0.3em] gap-y-2 px-4 text-center font-medium font-satoshi text-xl">
           <AnimatePresence mode="popLayout">
             {currentWords.map((word) => (
               <VerticalCutReveal
