@@ -212,3 +212,236 @@ export const flow: Word[][] = [
     { id: "welcome-22", text: "welcome.", className: "text-black" },
   ],
 ];
+
+export interface HeroImage {
+  id: string;
+  alt: string;
+  className?: string; // Used for positioning (left/right/top) and sizing
+  color?: string; // Placeholder color
+}
+
+// Map each stage index to an array of images
+export const imageFlow: Record<number, HeroImage[]> = {
+  // Stage 0: Intro
+  0: [
+    {
+      id: "img-intro-1",
+      alt: "Welcome",
+      className: "left-[5%] top-[15%] w-40 h-52 md:w-56 md:h-72 -rotate-3",
+      color: "bg-orange-100",
+    },
+    {
+      id: "img-intro-2",
+      alt: "Hello",
+      className: "right-[8%] bottom-[20%] w-48 h-48 md:w-64 md:h-64 rotate-2",
+      color: "bg-rose-100",
+    },
+  ],
+  // Stage 2: Developer
+  2: [
+    {
+      id: "img-dev-1",
+      alt: "Code",
+      className: "left-[8%] top-[25%] w-44 h-60 md:w-60 md:h-80 rotate-3",
+      color: "bg-slate-100",
+    },
+    {
+      id: "img-dev-2",
+      alt: "Terminal",
+      className: "right-[12%] top-[10%] w-36 h-36 md:w-48 md:h-48 -rotate-6",
+      color: "bg-zinc-200",
+    },
+    {
+      id: "img-dev-3",
+      alt: "Logic",
+      className: "right-[5%] bottom-[15%] w-40 h-56 md:w-56 md:h-72 rotate-1",
+      color: "bg-neutral-100",
+    },
+  ],
+  // Stage 4: Obsessed
+  4: [
+    {
+      id: "img-obsessed-1",
+      alt: "Detail",
+      className: "left-[5%] top-[10%] w-32 h-32 md:w-48 md:h-48 -rotate-12",
+      color: "bg-red-50",
+    },
+    {
+      id: "img-obsessed-2",
+      alt: "Focus",
+      className: "left-[15%] bottom-[10%] w-48 h-64 md:w-64 md:h-80 rotate-6",
+      color: "bg-amber-100",
+    },
+    {
+      id: "img-obsessed-3",
+      alt: "Passion",
+      className: "right-[8%] top-[20%] w-52 h-40 md:w-72 md:h-56 -rotate-2",
+      color: "bg-yellow-50",
+    },
+    {
+      id: "img-obsessed-4",
+      alt: "Craft",
+      className: "right-[15%] bottom-[25%] w-40 h-40 md:w-56 md:h-56 rotate-4",
+      color: "bg-orange-50",
+    },
+  ],
+  // Stage 6: curiosity about interfaces
+  6: [
+    {
+      id: "img-interfaces-1",
+      alt: "Interface Design",
+      className: "left-[10%] top-[20%] w-48 h-64 md:w-64 md:h-80 -rotate-6",
+      color: "bg-blue-100",
+    },
+    {
+      id: "img-interfaces-2",
+      alt: "UI Components",
+      className: "right-[10%] bottom-[20%] w-40 h-40 md:w-56 md:h-56 rotate-3",
+      color: "bg-indigo-100",
+    },
+  ],
+  // Stage 8: how software actually works
+  8: [
+    {
+      id: "img-code-1",
+      alt: "Code Structure",
+      className: "left-[15%] bottom-[30%] w-56 h-56 -rotate-2",
+      color: "bg-emerald-100",
+    },
+  ],
+  // Stage 10: Learning how experiences feel
+  10: [
+    {
+      id: "img-learn-1",
+      alt: "UX Research",
+      className: "left-[6%] top-[15%] w-44 h-44 md:w-60 md:h-60 rotate-2",
+      color: "bg-teal-100",
+    },
+    {
+      id: "img-learn-2",
+      alt: "Empathy",
+      className: "left-[12%] bottom-[15%] w-48 h-64 md:w-64 md:h-80 -rotate-3",
+      color: "bg-cyan-100",
+    },
+    {
+      id: "img-learn-3",
+      alt: "Feeling",
+      className: "right-[8%] top-[30%] w-52 h-48 md:w-72 md:h-64 rotate-4",
+      color: "bg-sky-100",
+    },
+  ],
+  // Stage 12: Development followed
+  12: [
+    {
+      id: "img-dev-follow-1",
+      alt: "Process",
+      className: "right-[15%] top-[20%] w-56 h-72 -rotate-1",
+      color: "bg-violet-100",
+    },
+  ],
+  // Stage 14: intelligent assistants
+  14: [
+    {
+      id: "img-ai-1",
+      alt: "AI Assistant",
+      className: "left-[5%] top-[15%] w-64 h-48 rotate-2",
+      color: "bg-purple-100",
+    },
+    {
+      id: "img-ai-2",
+      alt: "Neural Network",
+      className: "right-[8%] top-[30%] w-52 h-64 -rotate-3",
+      color: "bg-fuchsia-100",
+    },
+  ],
+  // Stage 16: Seamless web platforms
+  16: [
+    {
+      id: "img-web-1",
+      alt: "Browser",
+      className: "left-[8%] top-[10%] w-48 h-32 md:w-64 md:h-48 -rotate-2",
+      color: "bg-pink-100",
+    },
+    {
+      id: "img-web-2",
+      alt: "Mobile",
+      className: "left-[15%] bottom-[15%] w-32 h-56 md:w-40 md:h-72 rotate-3",
+      color: "bg-rose-100",
+    },
+    {
+      id: "img-web-3",
+      alt: "Tablet",
+      className: "right-[10%] top-[15%] w-44 h-60 md:w-60 md:h-80 -rotate-1",
+      color: "bg-red-100",
+    },
+    {
+      id: "img-web-4",
+      alt: "Desktop",
+      className: "right-[5%] bottom-[20%] w-56 h-40 md:w-72 md:h-56 rotate-4",
+      color: "bg-orange-100",
+    },
+  ],
+  // Stage 18: simplifying complex problems
+  18: [
+    {
+      id: "img-simple-1",
+      alt: "Minimalism",
+      className: "left-[12%] top-[25%] w-60 h-60 rotate-6",
+      color: "bg-stone-100",
+    },
+    {
+      id: "img-simple-2",
+      alt: "Structure",
+      className: "right-[12%] bottom-[15%] w-48 h-72 -rotate-2",
+      color: "bg-neutral-200",
+    },
+  ],
+  // Stage 20: Shipped ideas
+  20: [
+    {
+      id: "img-ship-1",
+      alt: "Launch",
+      className: "left-[8%] top-[20%] w-52 h-52 md:w-64 md:h-64 -rotate-4",
+      color: "bg-lime-100",
+    },
+    {
+      id: "img-ship-2",
+      alt: "Rocket",
+      className: "right-[15%] top-[10%] w-40 h-60 md:w-52 md:h-80 rotate-2",
+      color: "bg-green-100",
+    },
+    {
+      id: "img-ship-3",
+      alt: "Success",
+      className: "right-[5%] bottom-[15%] w-48 h-48 md:w-64 md:h-64 -rotate-2",
+      color: "bg-emerald-100",
+    },
+  ],
+  // Stage 22: Closing
+  22: [
+    {
+      id: "img-close-1",
+      alt: "Thanks",
+      className: "left-[5%] top-[10%] w-40 h-40 md:w-56 md:h-56 rotate-6",
+      color: "bg-slate-200",
+    },
+    {
+      id: "img-close-2",
+      alt: "Connect",
+      className: "left-[12%] bottom-[20%] w-48 h-64 md:w-64 md:h-80 -rotate-3",
+      color: "bg-gray-200",
+    },
+    {
+      id: "img-close-3",
+      alt: "Chat",
+      className: "right-[8%] top-[15%] w-52 h-52 md:w-72 md:h-72 rotate-2",
+      color: "bg-zinc-200",
+    },
+    {
+      id: "img-close-4",
+      alt: "Email",
+      className: "right-[15%] bottom-[10%] w-36 h-36 md:w-48 md:h-48 -rotate-4",
+      color: "bg-neutral-200",
+    },
+  ],
+};
