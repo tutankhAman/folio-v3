@@ -9,7 +9,7 @@ import {
   useTransform,
   useVelocity,
 } from "motion/react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { flow, imageFlow } from "../../data/hero";
 import VerticalCutReveal from "../animations/text/vertical-cut-reveal";
@@ -18,6 +18,16 @@ export const HeroSection = () => {
   const containerRef = useRef<HTMLElement>(null);
   const [stage, setStage] = useState(0);
   const [direction, setDirection] = useState<"up" | "down">("down");
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.matchMedia("(max-width: 1024px)").matches);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -67,16 +77,48 @@ export const HeroSection = () => {
   const currentWords = flow[stage] || [];
   const currentImages = imageFlow[stage] || [];
 
+  const getSide = (className?: string) => {
+    if (!className) {
+      return "left";
+    }
+    if (className.includes("right")) {
+      return "right";
+    }
+    return "left";
+  };
+
   const imageVariants = {
-    enter: (direction: "up" | "down") => ({
-      y: direction === "down" ? "110vh" : "-110vh",
-      rotateX: direction === "down" ? 65 : -65, // Increased rotation for stronger 3D effect
-      scale: 0.6, // Smaller start scale to exaggerate depth
-      filter: "blur(8px)",
-      opacity: 0,
-    }),
+    enter: ({
+      direction,
+      isMobile,
+      side,
+    }: {
+      direction: "up" | "down";
+      isMobile: boolean;
+      side: "left" | "right";
+    }) => {
+      if (isMobile) {
+        return {
+          x: side === "left" ? "-100vw" : "100vw",
+          y: 0,
+          rotateX: 0,
+          scale: 0.6,
+          filter: "blur(8px)",
+          opacity: 0,
+        };
+      }
+      return {
+        y: direction === "down" ? "110vh" : "-110vh",
+        rotateX: direction === "down" ? 65 : -65, // Increased rotation for stronger 3D effect
+        scale: 0.6, // Smaller start scale to exaggerate depth
+        filter: "blur(8px)",
+        opacity: 0,
+        x: 0,
+      };
+    },
     center: {
       y: 0,
+      x: 0,
       rotateX: 0,
       scale: 1,
       filter: "blur(0px)",
@@ -89,20 +131,48 @@ export const HeroSection = () => {
         stiffness: 80,
       } as const,
     },
-    exit: (direction: "up" | "down") => ({
-      y: direction === "down" ? "-110vh" : "110vh",
-      rotateX: direction === "down" ? -65 : 65,
-      scale: 0.6,
-      filter: "blur(8px)",
-      opacity: 0,
-      transition: {
-        type: "spring",
-        duration: 1.4,
-        bounce: 0,
-        damping: 18,
-        stiffness: 80,
-      } as const,
-    }),
+    exit: ({
+      direction,
+      isMobile,
+      side,
+    }: {
+      direction: "up" | "down";
+      isMobile: boolean;
+      side: "left" | "right";
+    }) => {
+      if (isMobile) {
+        return {
+          x: side === "left" ? "-100vw" : "100vw",
+          y: 0,
+          rotateX: 0,
+          scale: 0.6,
+          filter: "blur(8px)",
+          opacity: 0,
+          transition: {
+            type: "spring",
+            duration: 1.4,
+            bounce: 0,
+            damping: 18,
+            stiffness: 80,
+          } as const,
+        };
+      }
+      return {
+        y: direction === "down" ? "-110vh" : "110vh",
+        rotateX: direction === "down" ? -65 : 65,
+        scale: 0.6,
+        filter: "blur(8px)",
+        opacity: 0,
+        x: 0,
+        transition: {
+          type: "spring",
+          duration: 1.4,
+          bounce: 0,
+          damping: 18,
+          stiffness: 80,
+        } as const,
+      };
+    },
   };
 
   return (
@@ -118,8 +188,8 @@ export const HeroSection = () => {
         }
       >
         {/* Images Layer */}
-        <div className="pointer-events-none absolute inset-0 hidden md:block">
-          <AnimatePresence custom={direction}>
+        <div className="pointer-events-none absolute inset-0 block">
+          <AnimatePresence custom={{ direction, isMobile }}>
             {currentImages.map((img) => (
               <motion.div
                 animate="center"
@@ -128,7 +198,7 @@ export const HeroSection = () => {
                   img.className,
                   img.color
                 )}
-                custom={direction}
+                custom={{ direction, isMobile, side: getSide(img.className) }}
                 exit="exit"
                 initial="enter"
                 key={img.id}
