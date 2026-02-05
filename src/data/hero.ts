@@ -56,12 +56,6 @@ export const flow: Word[][] = [
   [
     { id: "curiosity-2", text: "curiosity", className: "text-neutral-600" },
     { id: "about-3", text: "about", className: "text-neutral-600" },
-    { id: "user-4", text: "user", className: "text-black" },
-    { id: "behavior-4", text: "behavior.", className: "text-black" },
-  ],
-  [
-    { id: "curiosity-2", text: "curiosity", className: "text-neutral-600" },
-    { id: "about-3", text: "about", className: "text-neutral-600" },
     { id: "how-5", text: "how", className: "text-neutral-600" },
     { id: "software-5", text: "software", className: "text-neutral-600" },
     { id: "actually-5", text: "actually", className: "text-black" },
@@ -218,6 +212,7 @@ export interface HeroImage {
   alt: string;
   className?: string; // Used for positioning (left/right/top) and sizing
   color?: string; // Placeholder color
+  src?: string;
 }
 
 // Map each stage index to an array of images
@@ -265,43 +260,66 @@ export const imageFlow: Record<number, HeroImage[]> = {
       alt: "Detail",
       className: "left-[5%] top-[10%] w-32 h-32 md:w-48 md:h-48 -rotate-12",
       color: "bg-red-500",
+      src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/v1770310875/psyduck_okkdfm.jpg",
     },
     {
       id: "img-obsessed-2",
       alt: "Focus",
       className: "left-[15%] bottom-[10%] w-48 h-64 md:w-64 md:h-80 rotate-6",
       color: "bg-amber-500",
+      src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/v1770310876/plane_lhyzkr.jpg",
     },
     {
       id: "img-obsessed-3",
       alt: "Passion",
       className: "right-[8%] top-[20%] w-52 h-40 md:w-72 md:h-56 -rotate-2",
       color: "bg-yellow-500",
+      src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/v1770310876/flowers_cudmtq.jpg",
     },
     {
       id: "img-obsessed-4",
       alt: "Craft",
       className: "right-[15%] bottom-[25%] w-40 h-40 md:w-56 md:h-56 rotate-4",
       color: "bg-orange-500",
+      src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/v1770310876/building_cavjwe.jpg",
+    },
+  ],
+  // Stage 5: It began with curiosity
+  5: [
+    {
+      id: "img-curiosity-1",
+      alt: "Curiosity 1",
+      className: "left-[10%] top-[15%] w-40 md:w-100 h-auto -rotate-6",
+      color: "bg-blue-500",
+      src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/v1770314923/curiosity-1_cx2j6o.png",
+    },
+    {
+      id: "img-curiosity-2",
+      alt: "Curiosity 2",
+      className: "right-[10%] bottom-[15%] w-48 md:w-80 h-80 rotate-3",
+      color: "bg-indigo-500",
+      src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/v1770314957/curiosity-2_uewjoa.png",
     },
   ],
   // Stage 6: curiosity about interfaces
   6: [
     {
       id: "img-interfaces-1",
-      alt: "Interface Design",
-      className: "left-[10%] top-[20%] w-48 h-64 md:w-64 md:h-80 -rotate-6",
+      alt: "Interface 1",
+      className: "left-[10%] top-[15%] w-64 md:w-80 h-auto -rotate-6",
       color: "bg-blue-500",
+      src: "https://res.cloudinary.com/dojj6zxs3/image/upload/v1770314940/design-1_vnpgvl.png",
     },
     {
       id: "img-interfaces-2",
-      alt: "UI Components",
-      className: "right-[10%] bottom-[20%] w-40 h-40 md:w-56 md:h-56 rotate-3",
+      alt: "Interface 2",
+      className: "right-[10%] bottom-[15%] w-72 md:w-96 h-auto rotate-3",
       color: "bg-indigo-500",
+      src: "https://res.cloudinary.com/dojj6zxs3/image/upload/v1770314929/design-2_erigpg.png",
     },
   ],
-  // Stage 8: how software actually works
-  8: [
+  // Stage 7: how software actually works
+  7: [
     {
       id: "img-code-1",
       alt: "Code Structure",
@@ -309,8 +327,32 @@ export const imageFlow: Record<number, HeroImage[]> = {
       color: "bg-emerald-500",
     },
   ],
-  // Stage 10: Learning how experiences feel
-  10: [
+  // Stage 8: Design came first
+  8: [
+    {
+      id: "img-larity-banner",
+      alt: "Larity Banner",
+      className: "left-[5%] top-[10%] w-64 md:w-80 h-auto -rotate-3",
+      color: "bg-blue-500",
+      src: "https://res.cloudinary.com/dojj6zxs3/image/upload/v1770314906/larity-banner_erxsgd.png",
+    },
+    {
+      id: "img-lumen-artwork",
+      alt: "Lumen Artwork",
+      className: "right-[5%] top-[15%] w-72 md:w-96 h-auto rotate-2",
+      color: "bg-indigo-500",
+      src: "https://res.cloudinary.com/dojj6zxs3/image/upload/v1770314906/lumen-artwork_fxn5ye.png",
+    },
+    {
+      id: "img-zephyr-artwork",
+      alt: "Zephyr Artwork",
+      className: "left-[15%] bottom-[15%] w-60 md:w-72 h-auto -rotate-1",
+      color: "bg-sky-500",
+      src: "https://res.cloudinary.com/dojj6zxs3/image/upload/v1770314892/zephyr-artwork_zfet5i.png",
+    },
+  ],
+  // Stage 9: Learning how experiences feel
+  9: [
     {
       id: "img-learn-1",
       alt: "UX Research",
@@ -330,59 +372,117 @@ export const imageFlow: Record<number, HeroImage[]> = {
       color: "bg-sky-500",
     },
   ],
-  // Stage 12: Development followed
-  12: [
+  // Stage 10: Learning how interactions should flow
+  10: [
+    {
+      id: "img-interactions-1",
+      alt: "Interactions 1",
+      className: "left-[8%] top-[10%] w-64 md:w-80 h-auto -rotate-2",
+      color: "bg-blue-500",
+      src: "https://res.cloudinary.com/dojj6zxs3/image/upload/v1770314943/interaction-_ktjwig.png",
+    },
+    {
+      id: "img-interactions-2",
+      alt: "Interactions 2",
+      className: "right-[8%] bottom-[10%] w-72 md:w-96 h-auto rotate-3",
+      color: "bg-indigo-500",
+      src: "https://res.cloudinary.com/dojj6zxs3/image/upload/v1770314919/interaction-1_we4bfl.png",
+    },
+  ],
+  // Stage 11: Development followed
+  11: [
     {
       id: "img-dev-follow-1",
-      alt: "Process",
-      className: "right-[15%] top-[20%] w-56 h-72 -rotate-1",
+      alt: "Development 1",
+      className: "left-[10%] top-[15%] w-64 md:w-80 h-auto -rotate-3",
       color: "bg-violet-500",
+      src: "https://res.cloudinary.com/dojj6zxs3/image/upload/v1770314929/development-1_mfuahz.jpg",
+    },
+    {
+      id: "img-dev-follow-2",
+      alt: "Development 2",
+      className: "right-[10%] bottom-[15%] w-72 md:w-96 h-auto rotate-2",
+      color: "bg-purple-500",
+      src: "https://res.cloudinary.com/dojj6zxs3/image/upload/v1770314925/development-2_qziadp.jpg",
     },
   ],
-  // Stage 14: intelligent assistants
+  // Stage 13: intelligent assistants
+  13: [
+    {
+      id: "img-larity-logo",
+      alt: "Larity Logo",
+      className: "left-[8%] top-[15%] w-64 md:w-80 h-auto rotate-2",
+      color: "bg-white",
+      src: "https://res.cloudinary.com/dojj6zxs3/image/upload/v1770316436/larity-logo-light_kbt1ff.svg",
+    },
+    {
+      id: "img-larity-app",
+      alt: "Larity App",
+      className: "right-[8%] top-[25%] w-72 md:w-96 h-auto -rotate-3",
+      color: "bg-blue-600",
+      src: "https://res.cloudinary.com/dojj6zxs3/image/upload/v1770314928/larity_zckjoh.png",
+    },
+  ],
+  // Stage 14: Seamless web platforms
   14: [
     {
-      id: "img-ai-1",
-      alt: "AI Assistant",
-      className: "left-[5%] top-[15%] w-64 h-48 rotate-2",
-      color: "bg-purple-500",
-    },
-    {
-      id: "img-ai-2",
-      alt: "Neural Network",
-      className: "right-[8%] top-[30%] w-52 h-64 -rotate-3",
-      color: "bg-fuchsia-500",
-    },
-  ],
-  // Stage 16: Seamless web platforms
-  16: [
-    {
       id: "img-web-1",
-      alt: "Browser",
-      className: "left-[8%] top-[10%] w-48 h-32 md:w-64 md:h-48 -rotate-2",
-      color: "bg-pink-500",
+      alt: "Singularity Works",
+      className: "left-[5%] top-[15%] w-64 md:w-80 h-auto -rotate-3",
+      color: "bg-blue-500",
+      src: "https://res.cloudinary.com/dojj6zxs3/image/upload/v1770314916/singularityworks_ia2feo.png",
     },
     {
       id: "img-web-2",
-      alt: "Mobile",
-      className: "left-[15%] bottom-[15%] w-32 h-56 md:w-40 md:h-72 rotate-3",
-      color: "bg-rose-500",
+      alt: "Allround",
+      className: "right-[5%] top-[10%] w-72 md:w-96 h-auto rotate-2",
+      color: "bg-indigo-500",
+      src: "https://res.cloudinary.com/dojj6zxs3/image/upload/v1770314930/allorund_neggya.png",
     },
     {
       id: "img-web-3",
-      alt: "Tablet",
-      className: "right-[10%] top-[15%] w-44 h-60 md:w-60 md:h-80 -rotate-1",
-      color: "bg-red-500",
-    },
-    {
-      id: "img-web-4",
-      alt: "Desktop",
-      className: "right-[5%] bottom-[20%] w-56 h-40 md:w-72 md:h-56 rotate-4",
-      color: "bg-orange-500",
+      alt: "Oryx",
+      className: "left-[15%] bottom-[15%] w-60 md:w-72 h-auto -rotate-1",
+      color: "bg-sky-500",
+      src: "https://res.cloudinary.com/dojj6zxs3/image/upload/v1770314896/oryx_gtronv.png",
     },
   ],
-  // Stage 18: simplifying complex problems
-  18: [
+  // Stage 15: AI inside everyday software
+  15: [
+    {
+      id: "img-verq",
+      alt: "Verq App",
+      className: "left-[10%] bottom-[20%] w-64 md:w-80 h-auto -rotate-2",
+      color: "bg-zinc-900",
+      src: "https://res.cloudinary.com/dojj6zxs3/image/upload/v1770314865/verq_nxcqwm.png",
+    },
+  ],
+  // Stage 16: CS student
+  16: [
+    {
+      id: "img-cs-1",
+      alt: "CS Student 1",
+      className: "left-[5%] top-[15%] w-64 md:w-80 h-auto -rotate-6",
+      color: "bg-blue-500",
+      src: "https://res.cloudinary.com/dojj6zxs3/image/upload/v1770314920/cs-1_p7qk7r.jpg",
+    },
+    {
+      id: "img-cs-2",
+      alt: "CS Student 2",
+      className: "right-[5%] top-[20%] w-72 md:w-96 h-auto rotate-3",
+      color: "bg-indigo-500",
+      src: "https://res.cloudinary.com/dojj6zxs3/image/upload/v1770314930/cs-2_xcis5r.jpg",
+    },
+    {
+      id: "img-cs-3",
+      alt: "CS Student 3",
+      className: "left-[15%] bottom-[15%] w-60 md:w-72 h-auto -rotate-2",
+      color: "bg-sky-500",
+      src: "https://res.cloudinary.com/dojj6zxs3/image/upload/v1770314897/cs-3_utjd8x.jpg",
+    },
+  ],
+  // Stage 17: simplifying complex problems
+  17: [
     {
       id: "img-simple-1",
       alt: "Minimalism",
@@ -396,8 +496,8 @@ export const imageFlow: Record<number, HeroImage[]> = {
       color: "bg-neutral-600",
     },
   ],
-  // Stage 20: Shipped ideas
-  20: [
+  // Stage 22: Shipped ideas
+  22: [
     {
       id: "img-ship-1",
       alt: "Launch",
@@ -417,8 +517,8 @@ export const imageFlow: Record<number, HeroImage[]> = {
       color: "bg-emerald-500",
     },
   ],
-  // Stage 22: Closing
-  22: [
+  // Stage 24: Closing
+  24: [
     {
       id: "img-close-1",
       alt: "Thanks",

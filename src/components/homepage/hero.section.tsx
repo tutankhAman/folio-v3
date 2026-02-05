@@ -194,7 +194,7 @@ export const HeroSection = () => {
               <motion.div
                 animate="center"
                 className={cn(
-                  "absolute origin-center",
+                  "absolute origin-center overflow-hidden",
                   img.className,
                   img.color
                 )}
@@ -204,7 +204,17 @@ export const HeroSection = () => {
                 key={img.id}
                 style={{ scaleY, skewY, transformStyle: "preserve-3d" }} // Enable 3D transform style
                 variants={imageVariants}
-              />
+              >
+                {img.src && (
+                  <img
+                    alt={img.alt}
+                    className="h-full w-full object-cover"
+                    height={800}
+                    src={img.src}
+                    width={800}
+                  />
+                )}
+              </motion.div>
             ))}
           </AnimatePresence>
         </div>
