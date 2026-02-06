@@ -21,7 +21,7 @@ export const GlitchLines = () => {
     <div className="relative h-full w-full overflow-hidden">
       {bars.map((bar) => (
         <motion.div
-          animate={{ opacity: [0, 0.08, 0, 0.06, 0] }}
+          animate={{ opacity: [0, 0.16, 0, 0.12, 0] }}
           className="absolute h-px bg-black"
           key={bar.id}
           style={{ top: bar.top, left: bar.left, width: bar.width }}

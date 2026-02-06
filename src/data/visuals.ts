@@ -14,18 +14,12 @@ export const visualFlow: Record<number, VisualConfig[]> = {
     },
   ],
 
-  // Stage 1: "I'm a designer" — layout aesthetics
+  // Stage 1: "I'm a designer" — golden ratio
   1: [
-    {
-      id: "viz-designer-grid",
-      component: "grid-overlay",
-      className: "absolute inset-0",
-    },
     {
       id: "viz-designer-spiral",
       component: "golden-spiral",
-      className:
-        "absolute right-[8%] top-[12%] h-48 w-48 md:h-72 md:w-72 -rotate-12",
+      className: "absolute inset-0",
     },
   ],
 
@@ -37,10 +31,15 @@ export const visualFlow: Record<number, VisualConfig[]> = {
       className: "absolute inset-0",
     },
     {
-      id: "viz-dev-wireframe",
-      component: "wireframe-shape",
-      className: "absolute left-[5%] bottom-[10%] h-32 w-32 md:h-48 md:w-48",
+      id: "viz-dev-cli",
+      component: "cli-typing",
+      className: "absolute right-[30%] bottom-[40%] h-44 w-64 md:h-56 md:w-80",
     },
+    // {
+    //   id: "viz-dev-wireframe",
+    //   component: "wireframe-shape",
+    //   className: "absolute right-[5%] top-[10%] h-32 w-32 md:h-48 md:w-48",
+    // },
   ],
 
   // Stage 3: "I'm a cs undergrad" — academic/binary
@@ -87,11 +86,11 @@ export const visualFlow: Record<number, VisualConfig[]> = {
       component: "flowing-wave",
       className: "absolute inset-0",
     },
-    {
-      id: "viz-feel-pulse",
-      component: "pulse-ring",
-      className: "absolute right-[10%] top-[15%] h-36 w-36 md:h-56 md:w-56",
-    },
+    // {
+    //   id: "viz-feel-pulse",
+    //   component: "pulse-ring",
+    //   className: "absolute right-[10%] top-[15%] h-36 w-36 md:h-56 md:w-56",
+    // },
   ],
 
   // Stage 13: "and balance became the goal" — dual equilibrium
@@ -144,17 +143,17 @@ export const visualFlow: Record<number, VisualConfig[]> = {
       className: "absolute inset-0",
     },
     {
-      id: "viz-experiments-grid",
-      component: "grid-overlay",
-      className: "absolute inset-0",
+      id: "viz-experiments-pulse",
+      component: "pulse-ring",
+      className: "absolute left-[12%] top-[18%] h-36 w-36 md:h-56 md:w-56",
     },
   ],
 
-  // Stage 20: "a collection of projects" — structured grid
+  // Stage 20: "a collection of projects" — structured intent
   20: [
     {
-      id: "viz-projects-grid",
-      component: "grid-overlay",
+      id: "viz-projects-converge",
+      component: "converging-lines",
       className: "absolute inset-0",
     },
     {
@@ -198,14 +197,14 @@ export const visualFlow: Record<number, VisualConfig[]> = {
   ],
 
   // Stage 24: "thank you for being here" — warm pulse
-  24: [
-    {
-      id: "viz-thanks-pulse",
-      component: "pulse-ring",
-      className:
-        "absolute left-1/2 top-1/2 h-48 w-48 -translate-x-1/2 -translate-y-1/2 md:h-72 md:w-72",
-    },
-  ],
+  // 24: [
+  //   {
+  //     id: "viz-thanks-pulse",
+  //     component: "pulse-ring",
+  //     className:
+  //       "absolute left-1/2 top-1/2 h-48 w-48 -translate-x-1/2 -translate-y-1/2 md:h-72 md:w-72",
+  //   },
+  // ],
 
   // Stage 25: "Conversations, ideas, collaborations welcome" — connections
   25: [
