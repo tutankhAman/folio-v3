@@ -68,6 +68,36 @@ const EXPRESSIONS: Expression[] = [
     mouth: [" ", "-", " "],
     label: "meh",
   },
+  {
+    eyeL: "^",
+    eyeR: "-",
+    mouth: [" ", "u", " "],
+    label: "wink",
+  },
+  {
+    eyeL: "x",
+    eyeR: "x",
+    mouth: [" ", ".", " "],
+    label: "dead",
+  },
+  {
+    eyeL: "♥",
+    eyeR: "♥",
+    mouth: [" ", "w", " "],
+    label: "love",
+  },
+  {
+    eyeL: "$",
+    eyeR: "$",
+    mouth: [" ", "_", " "],
+    label: "rich",
+  },
+  {
+    eyeL: "o",
+    eyeR: "O",
+    mouth: [" ", "/", " "],
+    label: "confused",
+  },
 ];
 
 const BLINK_EYE = "-";
