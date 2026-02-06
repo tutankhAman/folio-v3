@@ -61,7 +61,7 @@ export const Loader = ({ onComplete }: { onComplete?: () => void }) => {
   };
 
   return (
-    <div className="flex h-full w-full items-center justify-center overflow-hidden text-black">
+    <div className="flex h-full w-full items-center justify-center overflow-hidden text-white">
       {/* Main Container */}
       <motion.div
         animate={{
