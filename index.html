@@ -12,7 +12,10 @@
     // Prevent flash of wrong theme — runs synchronously before React hydrates
     try {
       const t = localStorage.getItem("folio-theme");
-      if (t === "dark") {
+      if (
+        t === "dark" ||
+        (!t && window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
         document.documentElement.classList.add("dark");
       }
     } catch {
