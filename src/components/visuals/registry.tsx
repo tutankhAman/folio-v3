@@ -1,6 +1,5 @@
 import type { ComponentType } from "react";
 import { BinaryRain } from "./items/binary-rain";
-import { CliRobot } from "./items/cli-robot";
 import { CliTyping } from "./items/cli-typing";
 import { CodeGrid } from "./items/code-grid";
 import { ConvergingLines } from "./items/converging-lines";
@@ -17,7 +16,6 @@ import { WireframeShape } from "./items/wireframe-shape";
 
 export const visualRegistry: Record<string, ComponentType> = {
   "binary-rain": BinaryRain,
-  "cli-robot": CliRobot,
   "cli-typing": CliTyping,
   "code-grid": CodeGrid,
   "converging-lines": ConvergingLines,
