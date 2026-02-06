@@ -12,7 +12,37 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { flow, imageFlow } from "../../data/hero";
+import { visualFlow } from "../../data/visuals";
 import VerticalCutReveal from "../animations/text/vertical-cut-reveal";
+import { visualRegistry } from "../visuals/registry";
+
+const visualVariants = {
+  enter: {
+    opacity: 0,
+    scale: 0.9,
+    filter: "blur(4px)",
+  },
+  center: {
+    opacity: 1,
+    scale: 1,
+    filter: "blur(0px)",
+    transition: {
+      type: "spring",
+      duration: 1.2,
+      bounce: 0,
+    } as const,
+  },
+  exit: {
+    opacity: 0,
+    scale: 0.9,
+    filter: "blur(4px)",
+    transition: {
+      type: "spring",
+      duration: 1.0,
+      bounce: 0,
+    } as const,
+  },
+};
 
 export const HeroSection = () => {
   const containerRef = useRef<HTMLElement>(null);
@@ -76,6 +106,7 @@ export const HeroSection = () => {
 
   const currentWords = flow[stage] || [];
   const currentImages = imageFlow[stage] || [];
+  const currentVisuals = visualFlow[stage] ?? [];
 
   const getSide = (className?: string) => {
     if (!className) {
@@ -216,6 +247,30 @@ export const HeroSection = () => {
                 )}
               </motion.div>
             ))}
+          </AnimatePresence>
+        </div>
+
+        {/* Visuals Layer */}
+        <div className="pointer-events-none absolute inset-0">
+          <AnimatePresence>
+            {currentVisuals.map((viz) => {
+              const Component = visualRegistry[viz.component];
+              if (!Component) {
+                return null;
+              }
+              return (
+                <motion.div
+                  animate="center"
+                  className={cn("overflow-hidden", viz.className)}
+                  exit="exit"
+                  initial="enter"
+                  key={viz.id}
+                  variants={visualVariants}
+                >
+                  <Component />
+                </motion.div>
+              );
+            })}
           </AnimatePresence>
         </div>
 
