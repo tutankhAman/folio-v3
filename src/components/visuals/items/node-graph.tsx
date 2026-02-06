@@ -41,7 +41,7 @@ export const NodeGraph = () => (
       }
       return (
         <motion.line
-          animate={{ opacity: 0.08 }}
+          animate={{ opacity: 0.15 }}
           initial={{ opacity: 0 }}
           key={`${from}-${to}`}
           stroke="black"
@@ -56,7 +56,7 @@ export const NodeGraph = () => (
     })}
     {NODES.map((node, i) => (
       <motion.circle
-        animate={{ opacity: 0.12 }}
+        animate={{ opacity: 0.2 }}
         cx={node.cx}
         cy={node.cy}
         fill="black"

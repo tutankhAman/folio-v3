@@ -23,7 +23,7 @@ export const ScatterDots = () => {
     <div className="relative h-full w-full">
       {items.map((item) => (
         <motion.div
-          animate={{ opacity: 0.1, scale: 1 }}
+          animate={{ opacity: 0.2, scale: 1 }}
           className="absolute"
           initial={{ opacity: 0, scale: 0 }}
           key={item.id}

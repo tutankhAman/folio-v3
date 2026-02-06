@@ -8,9 +8,10 @@ export const visualFlow: Record<number, VisualConfig[]> = {
   // Stage 0: "Hey I'm AMAN" — subtle intro presence
   0: [
     {
-      id: "viz-intro-pulse",
-      component: "pulse-ring",
-      className: "absolute right-[12%] top-[18%] h-32 w-32 md:h-48 md:w-48",
+      id: "viz-intro-robot",
+      component: "cli-robot",
+      className:
+        "absolute left-[6%] top-[10%] h-64 w-48 md:left-[10%] md:h-96 md:w-72",
     },
   ],
 
