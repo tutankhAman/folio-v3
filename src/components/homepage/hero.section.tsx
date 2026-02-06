@@ -17,6 +17,7 @@ import { imageToProject } from "../../data/projects";
 import { visualFlow } from "../../data/visuals";
 import VerticalCutReveal from "../animations/text/vertical-cut-reveal";
 import { visualRegistry } from "../visuals/registry";
+import { HeroBuddy } from "./hero-buddy";
 
 const visualVariants = {
   enter: {
@@ -326,6 +327,11 @@ export const HeroSection = ({ onProjectClick }: HeroSectionProps) => {
             ))}
           </AnimatePresence>
         </div>
+
+        {/* Persistent ASCII Buddy — teleports around viewport, desktop only */}
+        <AnimatePresence mode="wait">
+          <HeroBuddy key={`hero-buddy-${stage}`} stage={stage} />
+        </AnimatePresence>
       </div>
     </section>
   );

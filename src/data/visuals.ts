@@ -5,15 +5,8 @@ export interface VisualConfig {
 }
 
 export const visualFlow: Record<number, VisualConfig[]> = {
-  // Stage 0: "Hey I'm AMAN" — subtle intro presence
-  0: [
-    {
-      id: "viz-intro-buddy",
-      component: "ascii-buddy",
-      className:
-        "absolute right-[30%] top-[20%] h-auto w-32 md:w-48 pointer-events-auto",
-    },
-  ],
+  // Stage 0: "Hey I'm AMAN" — ASCII buddy is now persistent via HeroBuddy component
+  // (no separate visual needed)
 
   // Stage 1: "I'm a designer" — golden ratio
   1: [
