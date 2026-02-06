@@ -7,6 +7,7 @@ import { Loader } from "./components/shared/loader";
 import { Navbar } from "./components/shared/navbar";
 import { ProjectModal } from "./components/shared/project-modal";
 import type { Project } from "./data/projects";
+import ResumePage from "./pages/resume";
 import TestPage from "./pages/test";
 
 function App() {
@@ -69,6 +70,7 @@ function App() {
             path="/"
           />
           <Route element={<TestPage />} path="/test" />
+          <Route element={<ResumePage />} path="/resume" />
         </Routes>
       </div>
 
