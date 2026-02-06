@@ -1,18 +1,15 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
+import { Route, Routes } from "react-router-dom";
 import { HeroSection } from "./components/homepage/hero.section";
 import { Loader } from "./components/shared/loader";
+import TestPage from "./pages/test";
 
 function App() {
   const [loading, setLoading] = useState(true);
 
   return (
     <main className="relative min-h-screen w-full bg-white">
-      {/* Hero Section is always rendered but revealed */}
-      <div className="relative z-0">
-        <HeroSection />
-      </div>
-
       <AnimatePresence mode="wait">
         {loading && (
           <motion.div
@@ -43,6 +40,13 @@ function App() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <div className="relative z-0">
+        <Routes>
+          <Route element={<HeroSection />} path="/" />
+          <Route element={<TestPage />} path="/test" />
+        </Routes>
+      </div>
     </main>
   );
 }
