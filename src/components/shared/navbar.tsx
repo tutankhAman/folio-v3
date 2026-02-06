@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useTheme } from "@/lib/theme";
 import { cn } from "@/lib/utils";
 
@@ -39,6 +40,23 @@ export const Navbar = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const contactBtnRef = useRef<HTMLButtonElement>(null);
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const closeMobile = useCallback(() => {
+    setMobileOpen(false);
+    setContactOpen(false);
+  }, []);
+
+  const handleProjectsClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (location.pathname === "/") {
+      window.dispatchEvent(new CustomEvent("scrollToProjects"));
+    } else {
+      navigate("/?scrollToProjects=true");
+    }
+    closeMobile();
+  };
   // Close dropdown on outside click
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
@@ -88,11 +106,6 @@ export const Navbar = () => {
     setContactOpen(false);
   }, []);
 
-  const closeMobile = useCallback(() => {
-    setMobileOpen(false);
-    setContactOpen(false);
-  }, []);
-
   return (
     <>
       <motion.nav
@@ -125,6 +138,7 @@ export const Navbar = () => {
             <a
               className="relative px-4 py-2 font-mono text-fg/60 text-sm uppercase transition-colors hover:text-fg"
               href="/projects"
+              onClick={handleProjectsClick}
               onMouseEnter={() => setHoveredLink("projects")}
               onMouseLeave={() => setHoveredLink(null)}
             >
@@ -347,7 +361,7 @@ export const Navbar = () => {
                   <a
                     className="group flex items-center gap-3 border-fg/[0.06] border-b border-dashed py-5 font-generalsans font-light text-[28px] text-fg/60 tracking-tight transition-colors duration-300 hover:text-fg"
                     href="/projects"
-                    onClick={closeMobile}
+                    onClick={handleProjectsClick}
                   >
                     <span className="font-mono text-[10px] text-fg/20 uppercase tracking-[0.2em]">
                       01
