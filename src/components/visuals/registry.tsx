@@ -1,4 +1,5 @@
 import type { ComponentType } from "react";
+import { AsciiBuddy } from "../shared/ascii-buddy";
 import { BinaryRain } from "./items/binary-rain";
 import { CliTyping } from "./items/cli-typing";
 import { CodeGrid } from "./items/code-grid";
@@ -15,6 +16,7 @@ import { ScatterDots } from "./items/scatter-dots";
 import { WireframeShape } from "./items/wireframe-shape";
 
 export const visualRegistry: Record<string, ComponentType> = {
+  "ascii-buddy": () => <AsciiBuddy inView={true} />,
   "binary-rain": BinaryRain,
   "cli-typing": CliTyping,
   "code-grid": CodeGrid,

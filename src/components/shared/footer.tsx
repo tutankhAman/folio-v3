@@ -199,9 +199,9 @@ export const Footer = () => {
                   </span>
                   <a
                     className="font-mono text-[13px] text-black/50 transition-colors duration-300 hover:text-black"
-                    href="mailto:hello@aman.dev"
+                    href="mailto:aman@itssingularity.com"
                   >
-                    hello@aman.dev
+                    aman@itssingularity.com
                   </a>
                 </div>
               </StaggeredLine>
