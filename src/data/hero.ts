@@ -232,7 +232,7 @@ export const imageFlow: Record<number, HeroImage[]> = {
       alt: "Detail",
       className:
         "left-[2%] top-[5%] w-28 h-28 md:left-[5%] md:top-[10%] md:w-48 md:h-48 -rotate-12",
-      color: "bg-red-500",
+      color: "bg-neutral-900/10",
       src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/f_auto,q_auto,dpr_auto,fl_progressive/v1770310875/psyduck_okkdfm.jpg",
     },
     {
@@ -240,7 +240,7 @@ export const imageFlow: Record<number, HeroImage[]> = {
       alt: "Focus",
       className:
         "left-[5%] bottom-[5%] w-32 h-40 md:left-[15%] md:bottom-[10%] md:w-64 md:h-80 rotate-6",
-      color: "bg-amber-500",
+      color: "bg-neutral-900/10",
       src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/f_auto,q_auto,dpr_auto,fl_progressive/v1770310876/plane_lhyzkr.jpg",
     },
     {
@@ -248,7 +248,7 @@ export const imageFlow: Record<number, HeroImage[]> = {
       alt: "Passion",
       className:
         "right-[2%] top-[15%] w-36 h-28 md:right-[8%] md:top-[20%] md:w-72 md:h-56 -rotate-2",
-      color: "bg-yellow-500",
+      color: "bg-neutral-900/10",
       src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/f_auto,q_auto,dpr_auto,fl_progressive/v1770310876/flowers_cudmtq.jpg",
     },
     {
@@ -256,7 +256,7 @@ export const imageFlow: Record<number, HeroImage[]> = {
       alt: "Craft",
       className:
         "right-[5%] bottom-[10%] w-28 h-28 md:right-[15%] md:bottom-[25%] md:w-40 md:h-40 rotate-4",
-      color: "bg-orange-500",
+      color: "bg-neutral-900/10",
       src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/f_auto,q_auto,dpr_auto,fl_progressive/v1770310876/building_cavjwe.jpg",
     },
   ],
@@ -267,7 +267,7 @@ export const imageFlow: Record<number, HeroImage[]> = {
       alt: "Curiosity 1",
       className:
         "left-[5%] top-[10%] w-32 md:left-[10%] md:top-[15%] md:w-100 h-auto -rotate-6",
-      color: "bg-blue-500",
+      color: "bg-neutral-900/10",
       src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/f_auto,q_auto,dpr_auto,fl_progressive/v1770314923/curiosity-1_cx2j6o.png",
     },
     {
@@ -275,7 +275,7 @@ export const imageFlow: Record<number, HeroImage[]> = {
       alt: "Curiosity 2",
       className:
         "right-[5%] bottom-[10%] w-36 md:right-[10%] md:bottom-[15%] md:w-80 h-48 md:h-80 rotate-3",
-      color: "bg-indigo-500",
+      color: "bg-neutral-900/10",
       src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/f_auto,q_auto,dpr_auto,fl_progressive/v1770314957/curiosity-2_uewjoa.png",
     },
   ],
@@ -286,7 +286,7 @@ export const imageFlow: Record<number, HeroImage[]> = {
       alt: "Interface 1",
       className:
         "left-[-5%] top-[10%] w-48 md:left-[10%] md:top-[15%] md:w-80 h-auto -rotate-6",
-      color: "bg-blue-500",
+      color: "bg-neutral-900/10",
       src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/v1770314940/design-1_vnpgvl.png",
     },
     {
@@ -294,7 +294,7 @@ export const imageFlow: Record<number, HeroImage[]> = {
       alt: "Interface 2",
       className:
         "right-[-5%] bottom-[10%] w-44 md:right-[10%] md:bottom-[15%] md:w-96 h-auto rotate-3",
-      color: "bg-indigo-500",
+      color: "bg-neutral-900/10",
       src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/v1770314929/design-2_erigpg.png",
     },
   ],
@@ -305,7 +305,7 @@ export const imageFlow: Record<number, HeroImage[]> = {
       alt: "Larity Banner",
       className:
         "left-[-25%] top-[30%] w-64 md:left-[15%] md:top-[20%] md:w-120 h-auto -rotate-3",
-      color: "bg-blue-500",
+      color: "bg-neutral-900/10",
       src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/v1770314906/larity-banner_erxsgd.png",
     },
     {
@@ -313,7 +313,7 @@ export const imageFlow: Record<number, HeroImage[]> = {
       alt: "Lumen Artwork",
       className:
         "right-[-10%] top-[15%] w-56 md:right-[15%] md:top-[15%] md:w-110 h-auto rotate-2",
-      color: "bg-indigo-500",
+      color: "bg-neutral-900/10",
       src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/v1770314906/lumen-artwork_fxn5ye.png",
     },
     {
@@ -321,7 +321,7 @@ export const imageFlow: Record<number, HeroImage[]> = {
       alt: "Zephyr Artwork",
       className:
         "left-[15%] bottom-[20%] w-72 md:left-[35%] md:bottom-[15%] md:w-105 h-auto -rotate-1",
-      color: "bg-sky-500",
+      color: "bg-neutral-900/10",
       src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/v1770314892/zephyr-artwork_zfet5i.png",
     },
   ],
@@ -332,7 +332,7 @@ export const imageFlow: Record<number, HeroImage[]> = {
       alt: "Interactions 1",
       className:
         "left-[-5%] top-[5%] w-40 md:left-[8%] md:top-[10%] md:w-80 h-auto -rotate-2",
-      color: "bg-blue-500",
+      color: "bg-neutral-900/10",
       src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/v1770314943/interaction-_ktjwig.png",
     },
     {
@@ -340,7 +340,7 @@ export const imageFlow: Record<number, HeroImage[]> = {
       alt: "Interactions 2",
       className:
         "right-[-5%] bottom-[5%] w-44 md:right-[8%] md:bottom-[10%] md:w-96 h-auto rotate-3",
-      color: "bg-indigo-500",
+      color: "bg-neutral-900/10",
       src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/v1770314919/interaction-1_we4bfl.png",
     },
   ],
@@ -351,7 +351,7 @@ export const imageFlow: Record<number, HeroImage[]> = {
       alt: "Development 1",
       className:
         "left-[-5%] top-[10%] w-40 md:left-[10%] md:top-[15%] md:w-80 h-auto -rotate-3",
-      color: "bg-violet-500",
+      color: "bg-neutral-900/10",
       src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/v1770314929/development-1_mfuahz.jpg",
     },
     {
@@ -359,7 +359,7 @@ export const imageFlow: Record<number, HeroImage[]> = {
       alt: "Development 2",
       className:
         "right-[-5%] bottom-[10%] w-44 md:right-[10%] md:bottom-[15%] md:w-96 h-auto rotate-2",
-      color: "bg-purple-500",
+      color: "bg-neutral-900/10",
       src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/v1770314925/development-2_qziadp.jpg",
     },
   ],
@@ -370,7 +370,7 @@ export const imageFlow: Record<number, HeroImage[]> = {
       alt: "Larity Logo",
       className:
         "left-[-5%] top-[10%] w-40 md:left-[8%] md:top-[15%] md:w-80 h-auto rotate-2",
-      color: "bg-surface",
+      color: "bg-neutral-900/10",
       src: "https://res.cloudinary.com/dojj6zxs3/image/upload/dpr_auto/v1770316436/larity-logo-light_kbt1ff.svg",
     },
     {
@@ -378,7 +378,7 @@ export const imageFlow: Record<number, HeroImage[]> = {
       alt: "Larity App",
       className:
         "right-[-5%] bottom-[20%] w-64 md:right-[8%] md:top-[25%] md:bottom-auto md:w-96 h-auto -rotate-3",
-      color: "bg-blue-600",
+      color: "bg-neutral-900/10",
       src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/v1770314928/larity_zckjoh.png",
     },
   ],
@@ -389,15 +389,15 @@ export const imageFlow: Record<number, HeroImage[]> = {
       alt: "Singularity Works",
       className:
         "left-[10%] top-[20%] w-64 md:left-[5%] md:top-[15%] md:w-[400px] h-auto -rotate-3",
-      color: "bg-blue-500",
+      color: "bg-neutral-900/10",
       src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/v1770314916/singularityworks_ia2feo.png",
     },
     {
       id: "img-web-2",
       alt: "Allround",
       className:
-        "right-[-10%] bottom-[25%] w-56 md:right-[5%] md:top-[10%] md:w-[500px] h-auto rotate-2",
-      color: "bg-indigo-500",
+        "right-[-10%] h-40 bottom-[25%] w-56 md:right-[5%] md:top-[10%] md:w-120 md:h-[300px] rotate-2",
+      color: "bg-neutral-900/10",
       src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/v1770314930/allorund_neggya.png",
     },
     {
@@ -405,7 +405,7 @@ export const imageFlow: Record<number, HeroImage[]> = {
       alt: "Oryx",
       className:
         "left-[5%] bottom-[5%] w-44 md:left-[15%] md:bottom-[15%] md:w-[350px] h-auto -rotate-1",
-      color: "bg-sky-500",
+      color: "bg-neutral-900/10",
       src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/v1770314896/oryx_gtronv.png",
     },
   ],
@@ -416,7 +416,7 @@ export const imageFlow: Record<number, HeroImage[]> = {
       alt: "Verq App",
       className:
         "right-[5%] top-[15%] w-40 md:right-[15%] md:top-[20%] md:w-80 h-auto -rotate-2",
-      color: "bg-zinc-900",
+      color: "bg-neutral-900/10",
       src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/v1770314865/verq_nxcqwm.png",
     },
   ],
@@ -427,7 +427,7 @@ export const imageFlow: Record<number, HeroImage[]> = {
       alt: "CS Student 1",
       className:
         "left-[-5%] top-[10%] w-40 md:left-[5%] md:top-[15%] md:w-80 h-auto -rotate-6",
-      color: "bg-blue-500",
+      color: "bg-neutral-900/10",
       src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/v1770314920/cs-1_p7qk7r.jpg",
     },
     {
@@ -435,7 +435,7 @@ export const imageFlow: Record<number, HeroImage[]> = {
       alt: "CS Student 2",
       className:
         "right-[-5%] top-[45%] w-44 md:right-[5%] md:top-[20%] md:w-96 h-auto rotate-3",
-      color: "bg-indigo-500",
+      color: "bg-neutral-900/10",
       src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/v1770314930/cs-2_xcis5r.jpg",
     },
     {
@@ -443,7 +443,7 @@ export const imageFlow: Record<number, HeroImage[]> = {
       alt: "CS Student 3",
       className:
         "left-[5%] bottom-[5%] w-40 md:left-[15%] md:bottom-[15%] md:w-72 h-auto -rotate-2",
-      color: "bg-sky-500",
+      color: "bg-neutral-900/10",
       src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/v1770314897/cs-3_utjd8x.jpg",
     },
   ],
