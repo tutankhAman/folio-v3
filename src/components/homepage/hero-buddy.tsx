@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { buddyStageConfig } from "../../data/buddy";
-import { AsciiBuddy } from "../shared/ascii-buddy";
+import { AsciiBuddy, type TeleportState } from "../shared/ascii-buddy";
 
 // ─── Hero Buddy ──────────────────────────────────────────────────────────────
 // A persistent ASCII buddy companion that teleports around the hero viewport.

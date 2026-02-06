@@ -32,6 +32,8 @@ const CONTACT_ITEMS = [
 export const Navbar = () => {
   const [contactOpen, setContactOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [hoveredLink, setHoveredLink] = useState<string | null>(null);
+
   const dropdownRef = useRef<HTMLDivElement>(null);
   const contactBtnRef = useRef<HTMLButtonElement>(null);
 
@@ -95,64 +97,103 @@ export const Navbar = () => {
         animate={{ opacity: 1, y: 0 }}
         aria-label="Main navigation"
         className={cn(
-          "fixed top-0 right-0 left-0 z-40 border-black/[0.08] border-b border-dashed bg-white/80 backdrop-blur-md transition-[border-color] duration-500"
+          "fixed top-6 left-1/2 z-40 w-[90%] max-w-4xl -translate-x-1/2",
+          "border border-black/10 bg-white/70 backdrop-blur-xl",
+          "transition-[width,height,border-radius] duration-500"
         )}
-        initial={{ opacity: 0, y: -8 }}
+        initial={{ opacity: 0, y: -20 }}
         transition={{
-          duration: 0.7,
-          ease: [0.76, 0, 0.24, 1],
-          delay: 1.8,
+          duration: 0.8,
+          ease: [0.16, 1, 0.3, 1],
+          delay: 1.2,
         }}
       >
-        <div className="relative mx-auto flex h-12 max-w-7xl items-center justify-between px-6 py-4 md:px-10 md:py-8">
+        <div className="relative flex h-14 items-center justify-between px-6">
           {/* Left — Logo / Name */}
           <a
-            className="font-generalsans font-medium text-base text-black/80 tracking-tight transition-colors duration-300 hover:text-black"
+            className="font-generalsans font-medium text-black/90 text-lg tracking-tight transition-transform duration-300 hover:scale-105 active:scale-95"
             href="/"
           >
             Aman.
           </a>
 
           {/* Center — Desktop Nav */}
-          <div className="absolute top-1/2 left-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-4 md:flex">
+          <div className="absolute top-1/2 left-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-1 md:flex">
             {/* Projects */}
             <a
-              className="group flex items-center gap-1.5 px-3 py-1.5 font-satoshi text-base text-black/40 transition-colors duration-300 hover:text-black"
+              className="relative px-4 py-2 font-mono text-black/60 text-sm uppercase transition-colors hover:text-black"
               href="/projects"
+              onMouseEnter={() => setHoveredLink("projects")}
+              onMouseLeave={() => setHoveredLink(null)}
             >
-              <span className="inline-block h-px w-0 bg-black/40 transition-all duration-300 group-hover:w-3" />
-              Projects
+              <span className="relative z-10">Projects</span>
+              {hoveredLink === "projects" && (
+                <motion.div
+                  className="absolute inset-0 z-0 rounded-lg bg-black/4"
+                  layoutId="navbar-hover"
+                  transition={{
+                    type: "spring",
+                    bounce: 0.2,
+                    duration: 0.6,
+                  }}
+                />
+              )}
             </a>
 
-            {/* Concise Version — prominent CTA */}
+            {/* Concise Version */}
             <a
-              className="group flex items-center gap-1.5 px-3 py-1.5 font-satoshi font-semibold text-base text-black/80 transition-colors duration-300 hover:text-black"
+              className="relative px-4 py-2 font-mono text-black/60 text-sm uppercase transition-colors hover:text-black"
               href="/resume"
+              onMouseEnter={() => setHoveredLink("resume")}
+              onMouseLeave={() => setHoveredLink(null)}
             >
-              <span className="inline-block h-px w-0 bg-black/40 transition-all duration-300 group-hover:w-3" />
-              Résumé
+              <span className="relative z-10">Résumé</span>
+              {hoveredLink === "resume" && (
+                <motion.div
+                  className="absolute inset-0 z-0 rounded-lg bg-black/[0.04]"
+                  layoutId="navbar-hover"
+                  transition={{
+                    type: "spring",
+                    bounce: 0.2,
+                    duration: 0.6,
+                  }}
+                />
+              )}
             </a>
 
             {/* Theme Placeholder */}
             <button
-              className="group flex items-center gap-1.5 px-3 py-1.5 font-satoshi text-base text-black/40 transition-colors duration-300 hover:text-black"
+              className="relative px-4 py-2 font-mono text-black/60 text-sm uppercase transition-colors hover:text-black"
+              onMouseEnter={() => setHoveredLink("theme")}
+              onMouseLeave={() => setHoveredLink(null)}
               type="button"
             >
-              <span className="inline-block h-px w-0 bg-black/40 transition-all duration-300 group-hover:w-3" />
-              Light
+              <span className="relative z-10">Light</span>
+              {hoveredLink === "theme" && (
+                <motion.div
+                  className="absolute inset-0 z-0 rounded-lg bg-black/[0.04]"
+                  layoutId="navbar-hover"
+                  transition={{
+                    type: "spring",
+                    bounce: 0.2,
+                    duration: 0.6,
+                  }}
+                />
+              )}
             </button>
           </div>
 
           {/* Right — Contact */}
           <div className="hidden items-center md:flex">
-            {/* Contact — with dropdown */}
             <div className="relative">
               <button
                 aria-expanded={contactOpen}
                 aria-haspopup="true"
                 className={cn(
-                  "group flex cursor-pointer items-center gap-1.5 px-3 py-1.5 font-satoshi text-base transition-colors duration-300",
-                  contactOpen ? "text-black" : "text-black/40 hover:text-black"
+                  "group flex cursor-pointer items-center gap-1.5 rounded-lg px-3 py-1.5 font-mono text-sm uppercase transition-all duration-300",
+                  contactOpen
+                    ? "bg-black text-white hover:bg-black/90"
+                    : "text-black/60 hover:bg-black/[0.04] hover:text-black"
                 )}
                 onClick={toggleContact}
                 onKeyDown={(e) => {
@@ -188,9 +229,9 @@ export const Navbar = () => {
                 {contactOpen && (
                   <motion.div
                     animate={{ opacity: 1, y: 0, scale: 1 }}
-                    className="absolute top-full right-0 mt-2 w-56 origin-top-right border border-black/[0.08] border-dashed bg-white/95 backdrop-blur-md"
-                    exit={{ opacity: 0, y: -4, scale: 0.98 }}
-                    initial={{ opacity: 0, y: -4, scale: 0.98 }}
+                    className="absolute top-full right-0 mt-3 w-56 origin-top-right overflow-hidden rounded-xl border border-black/[0.08] bg-white/80 shadow-lg ring-1 ring-black/[0.03] backdrop-blur-xl"
+                    exit={{ opacity: 0, y: -4, scale: 0.96 }}
+                    initial={{ opacity: 0, y: -8, scale: 0.96 }}
                     ref={dropdownRef}
                     role="menu"
                     transition={{
@@ -202,7 +243,7 @@ export const Navbar = () => {
                     <div className="p-1.5">
                       {CONTACT_ITEMS.map((item) => (
                         <a
-                          className="group flex items-center justify-between px-3 py-2.5 font-mono text-[12px] text-black/40 transition-colors duration-200 hover:bg-black/[0.03] hover:text-black"
+                          className="group flex items-center justify-between rounded-lg px-3 py-2.5 font-mono text-[12px] text-black/60 transition-colors duration-200 hover:bg-black/[0.04] hover:text-black"
                           href={item.href}
                           key={item.label}
                           rel={
@@ -212,7 +253,6 @@ export const Navbar = () => {
                           target={item.external ? "_blank" : undefined}
                         >
                           <span className="flex items-center gap-2">
-                            <span className="inline-block h-px w-0 bg-black/30 transition-all duration-300 group-hover:w-2" />
                             {item.label}
                           </span>
                           {item.external && (
@@ -231,8 +271,12 @@ export const Navbar = () => {
                       ))}
                     </div>
                     {/* Bottom accent */}
-                    <div className="border-black/[0.06] border-t border-dashed px-4 py-2.5">
-                      <span className="font-mono text-[10px] text-black/20 uppercase tracking-[0.15em]">
+                    <div className="border-black/[0.06] border-t bg-black/[0.02] px-4 py-2.5">
+                      <span className="flex items-center gap-2 font-mono text-[10px] text-black/40 uppercase tracking-widest">
+                        <span className="relative flex h-1.5 w-1.5">
+                          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                        </span>
                         Open to work
                       </span>
                     </div>
@@ -278,7 +322,7 @@ export const Navbar = () => {
             initial={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.76, 0, 0.24, 1] }}
           >
-            <div className="flex h-full flex-col justify-between px-6 pt-20 pb-10">
+            <div className="flex h-full flex-col justify-between px-6 pt-28 pb-10">
               {/* Nav items */}
               <nav
                 aria-label="Mobile navigation"
@@ -416,8 +460,8 @@ export const Navbar = () => {
               >
                 <span className="flex items-center gap-2 font-mono text-[11px] text-black/25">
                   <span className="relative flex h-1.5 w-1.5">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-black/20" />
-                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-black/40" />
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
                   </span>
                   Open to work
                 </span>
