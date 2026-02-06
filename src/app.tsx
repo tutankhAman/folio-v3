@@ -6,6 +6,7 @@ import { Footer } from "./components/shared/footer";
 import { Loader } from "./components/shared/loader";
 import { Navbar } from "./components/shared/navbar";
 import { ProjectModal } from "./components/shared/project-modal";
+import { SmoothScroll } from "./components/shared/smooth-scroll";
 import type { Project } from "./data/projects";
 import ResumePage from "./pages/resume";
 import TestPage from "./pages/test";
@@ -24,6 +25,7 @@ function App() {
 
   return (
     <main className="relative min-h-screen w-full bg-surface text-fg transition-colors duration-300">
+      <SmoothScroll />
       <AnimatePresence mode="wait">
         {loading && (
           <motion.div
