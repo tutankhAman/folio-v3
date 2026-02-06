@@ -66,11 +66,6 @@ export const visualFlow: Record<number, VisualConfig[]> = {
       component: "wireframe-shape",
       className: "absolute right-[8%] top-[15%] h-48 w-48 md:h-80 md:w-80",
     },
-    {
-      id: "viz-software-code",
-      component: "code-grid",
-      className: "absolute left-[3%] bottom-[8%] h-40 w-40 md:h-56 md:w-56",
-    },
   ],
 
   // Stage 10: "Learning how experiences should feel" — sensory
@@ -122,11 +117,6 @@ export const visualFlow: Record<number, VisualConfig[]> = {
       component: "node-graph",
       className: "absolute right-[10%] top-[15%] h-40 w-56 md:h-60 md:w-80",
     },
-    {
-      id: "viz-simplify-scatter",
-      component: "scatter-dots",
-      className: "absolute left-[5%] top-[10%] h-48 w-48 md:h-64 md:w-64",
-    },
   ],
 
   // Stage 19: "This is a collection of experiments" — scattered exploration
@@ -172,12 +162,6 @@ export const visualFlow: Record<number, VisualConfig[]> = {
       id: "viz-refinements-converge",
       component: "converging-lines",
       className: "absolute inset-0",
-    },
-    {
-      id: "viz-refinements-spiral",
-      component: "golden-spiral",
-      className:
-        "absolute right-[10%] bottom-[15%] h-44 w-44 md:h-64 md:w-64 rotate-6",
     },
   ],
 
