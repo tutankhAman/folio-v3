@@ -329,9 +329,7 @@ export const HeroSection = ({ onProjectClick }: HeroSectionProps) => {
         </div>
 
         {/* Persistent ASCII Buddy — teleports around viewport, desktop only */}
-        <AnimatePresence mode="wait">
-          <HeroBuddy key={`hero-buddy-${stage}`} stage={stage} />
-        </AnimatePresence>
+        <HeroBuddy stage={stage} />
       </div>
     </section>
   );

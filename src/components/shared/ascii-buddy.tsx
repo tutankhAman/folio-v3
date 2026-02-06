@@ -216,7 +216,14 @@ const buildFaceGrid = (
   return grid;
 };
 
-export const AsciiBuddy = ({ inView }: { inView: boolean }) => {
+export const AsciiBuddy = ({
+  inView,
+  expressionHint,
+}: {
+  inView: boolean;
+  /** Optional expression index to snap to when it changes */
+  expressionHint?: number;
+}) => {
   const containerRef = useRef<HTMLElement>(null);
   const [expressionIdx, setExpressionIdx] = useState(0);
   const [isBlinking, setIsBlinking] = useState(false);
@@ -280,6 +287,18 @@ export const AsciiBuddy = ({ inView }: { inView: boolean }) => {
       clearTimeout(timeout);
     };
   }, []);
+
+  // Snap expression when hint changes (stage-driven)
+  useEffect(() => {
+    if (
+      expressionHint != null &&
+      expressionHint >= 0 &&
+      expressionHint < EXPRESSIONS.length &&
+      !isHovered
+    ) {
+      setExpressionIdx(expressionHint);
+    }
+  }, [expressionHint, isHovered]);
 
   // Expression cycle — every 4-8s, skip when hovered
   useEffect(() => {
