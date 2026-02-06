@@ -18,6 +18,7 @@ import { visualFlow } from "../../data/visuals";
 import VerticalCutReveal from "../animations/text/vertical-cut-reveal";
 import { visualRegistry } from "../visuals/registry";
 import { HeroBuddy } from "./hero-buddy";
+import { MiniHeroBuddy } from "./mini-hero-buddy";
 
 const visualVariants = {
   enter: {
@@ -325,6 +326,9 @@ export const HeroSection = ({ onProjectClick }: HeroSectionProps) => {
 
         {/* Persistent ASCII Buddy — teleports around viewport, desktop only */}
         <HeroBuddy stage={stage} />
+
+        {/* Mini Buddy — compact version for mobile, sits at bottom */}
+        <MiniHeroBuddy stage={stage} />
       </div>
     </section>
   );
