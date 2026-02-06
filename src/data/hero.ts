@@ -21,10 +21,18 @@ export const flow: Word[][] = [
     { id: "developer", text: "developer", className: "text-black" },
   ],
   [
-    { id: "and", text: "and", className: "text-neutral-600" },
+    { id: "im", text: "I'm", className: "text-neutral-600" },
+
     { id: "a", text: "a", className: "text-neutral-600" },
     { id: "cs", text: "cs", className: "text-neutral-600" },
-    { id: "student", text: "student", className: "text-black" },
+    { id: "undergrad", text: "undergrad", className: "text-black" },
+  ],
+  [
+    { id: "and-cf", text: "and", className: "text-neutral-600" },
+    { id: "co-founder", text: "Co-founder", className: "text-neutral-600" },
+    { id: "of-cf", text: "of", className: "text-neutral-600" },
+    { id: "singularity", text: "Singularity", className: "text-black" },
+    { id: "works-cf", text: "Works", className: "text-black" },
   ],
   [
     { id: "this-1", text: "This", className: "text-neutral-600" },
@@ -217,8 +225,8 @@ export interface HeroImage {
 
 // Map each stage index to an array of images
 export const imageFlow: Record<number, HeroImage[]> = {
-  // Stage 4: Obsessed
-  4: [
+  // Stage 5: Obsessed
+  5: [
     {
       id: "img-obsessed-1",
       alt: "Detail",
@@ -248,8 +256,8 @@ export const imageFlow: Record<number, HeroImage[]> = {
       src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/f_auto,q_auto,dpr_auto,fl_progressive/v1770310876/building_cavjwe.jpg",
     },
   ],
-  // Stage 5: It began with curiosity
-  5: [
+  // Stage 6: It began with curiosity
+  6: [
     {
       id: "img-curiosity-1",
       alt: "Curiosity 1",
@@ -265,8 +273,8 @@ export const imageFlow: Record<number, HeroImage[]> = {
       src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/f_auto,q_auto,dpr_auto,fl_progressive/v1770314957/curiosity-2_uewjoa.png",
     },
   ],
-  // Stage 6: curiosity about interfaces
-  6: [
+  // Stage 7: curiosity about interfaces
+  7: [
     {
       id: "img-interfaces-1",
       alt: "Interface 1",
@@ -282,8 +290,8 @@ export const imageFlow: Record<number, HeroImage[]> = {
       src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/v1770314929/design-2_erigpg.png",
     },
   ],
-  // Stage 8: Design came first
-  8: [
+  // Stage 9: Design came first
+  9: [
     {
       id: "img-larity-banner",
       alt: "Larity Banner",
@@ -306,8 +314,8 @@ export const imageFlow: Record<number, HeroImage[]> = {
       src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/v1770314892/zephyr-artwork_zfet5i.png",
     },
   ],
-  // Stage 10: Learning how interactions should flow
-  10: [
+  // Stage 11: Learning how interactions should flow
+  11: [
     {
       id: "img-interactions-1",
       alt: "Interactions 1",
@@ -323,8 +331,8 @@ export const imageFlow: Record<number, HeroImage[]> = {
       src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/v1770314919/interaction-1_we4bfl.png",
     },
   ],
-  // Stage 11: Development followed
-  11: [
+  // Stage 12: Development followed
+  12: [
     {
       id: "img-dev-follow-1",
       alt: "Development 1",
@@ -340,8 +348,8 @@ export const imageFlow: Record<number, HeroImage[]> = {
       src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/v1770314925/development-2_qziadp.jpg",
     },
   ],
-  // Stage 13: intelligent assistants
-  13: [
+  // Stage 14: intelligent assistants
+  14: [
     {
       id: "img-larity-logo",
       alt: "Larity Logo",
@@ -357,8 +365,8 @@ export const imageFlow: Record<number, HeroImage[]> = {
       src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/v1770314928/larity_zckjoh.png",
     },
   ],
-  // Stage 14: Seamless web platforms
-  14: [
+  // Stage 15: Seamless web platforms
+  15: [
     {
       id: "img-web-1",
       alt: "Singularity Works",
@@ -381,18 +389,18 @@ export const imageFlow: Record<number, HeroImage[]> = {
       src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/v1770314896/oryx_gtronv.png",
     },
   ],
-  // Stage 15: AI inside everyday software
-  15: [
+  // Stage 16: AI inside everyday software
+  16: [
     {
       id: "img-verq",
       alt: "Verq App",
-      className: "left-[10%] bottom-[20%] w-64 md:w-80 h-auto -rotate-2",
+      className: "right-[15%] top-[20%] w-64 md:w-80 h-auto -rotate-2",
       color: "bg-zinc-900",
       src: "https://res.cloudinary.com/dojj6zxs3/image/upload/f_auto,q_auto,dpr_auto,fl_progressive/v1770314865/verq_nxcqwm.png",
     },
   ],
-  // Stage 16: CS student
-  16: [
+  // Stage 17: CS student
+  17: [
     {
       id: "img-cs-1",
       alt: "CS Student 1",

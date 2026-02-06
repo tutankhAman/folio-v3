@@ -7,7 +7,7 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   return (
-    <main className="relative min-h-screen w-full bg-[#f0f0f0]">
+    <main className="relative min-h-screen w-full bg-white">
       {/* Hero Section is always rendered but revealed */}
       <div className="relative z-0">
         <HeroSection />
