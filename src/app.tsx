@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import { HeroSection } from "./components/homepage/hero.section";
 import { Footer } from "./components/shared/footer";
 import { Loader } from "./components/shared/loader";
+import { Navbar } from "./components/shared/navbar";
 import { ProjectModal } from "./components/shared/project-modal";
 import type { Project } from "./data/projects";
 import TestPage from "./pages/test";
@@ -52,6 +53,9 @@ function App() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Navbar — always visible, z-40 */}
+      {!loading && <Navbar />}
 
       <div className="relative z-0">
         <Routes>
