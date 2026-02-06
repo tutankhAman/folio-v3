@@ -233,7 +233,7 @@ export const HeroSection = ({ onProjectClick }: HeroSectionProps) => {
                     img.className,
                     img.color,
                     isClickable &&
-                      "group cursor-pointer rounded-lg ring-0 ring-black/0 transition-shadow duration-300 hover:shadow-2xl hover:ring-2 hover:ring-black/10"
+                      "group cursor-pointer rounded-lg ring-0 ring-fg/0 transition-shadow duration-300 hover:shadow-2xl hover:ring-2 hover:ring-fg/10"
                   )}
                   custom={{ direction, isMobile, side: getSide(img.className) }}
                   exit="exit"
@@ -264,7 +264,7 @@ export const HeroSection = ({ onProjectClick }: HeroSectionProps) => {
                   {/* Clickable indicator overlay */}
                   {isClickable && (
                     <div className="pointer-events-none absolute inset-0 flex items-end justify-start bg-gradient-to-t from-black/40 via-transparent to-transparent p-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                      <span className="rounded-full bg-white/90 px-3 py-1 font-medium font-mono text-[10px] text-black/70 uppercase tracking-wider backdrop-blur-sm">
+                      <span className="rounded-full bg-surface/90 px-3 py-1 font-medium font-mono text-[10px] text-fg/70 uppercase tracking-wider backdrop-blur-sm">
                         View project ↗
                       </span>
                     </div>

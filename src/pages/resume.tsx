@@ -224,11 +224,11 @@ const SectionLabel = ({
       delay: 0.1 + index * 0.06,
     }}
   >
-    <span className="font-mono text-[10px] text-black/20 uppercase tracking-[0.2em]">
+    <span className="font-mono text-[10px] text-fg/20 uppercase tracking-[0.2em]">
       {String(index).padStart(2, "0")}
     </span>
-    <span className="h-px flex-1 bg-black/[0.08]" />
-    <span className="font-generalsans font-medium text-[11px] text-black/30 uppercase tracking-[0.2em]">
+    <span className="h-px flex-1 bg-fg/[0.08]" />
+    <span className="font-generalsans font-medium text-[11px] text-fg/30 uppercase tracking-[0.2em]">
       {children}
     </span>
   </motion.div>
@@ -261,7 +261,7 @@ const Reveal = ({
 // ─── Skill Tag ────────────────────────────────────────────────────────────────
 
 const SkillTag = ({ children }: { children: React.ReactNode }) => (
-  <span className="inline-block border border-black/[0.08] border-dashed px-2.5 py-1 font-mono text-[11px] text-black/50 transition-colors duration-300 hover:border-black/20 hover:text-black/80">
+  <span className="inline-block border border-fg/[0.08] border-dashed px-2.5 py-1 font-mono text-[11px] text-fg/50 transition-colors duration-300 hover:border-fg/20 hover:text-fg/80">
     {children}
   </span>
 );
@@ -284,11 +284,11 @@ const ProjectItem = ({
   delay: number;
 }) => (
   <Reveal delay={delay} inView={inView}>
-    <div className="group border-black/[0.04] border-b border-dashed pb-8 last:border-b-0 last:pb-0">
+    <div className="group border-fg/[0.04] border-b border-dashed pb-8 last:border-b-0 last:pb-0">
       <div className="flex flex-col gap-1.5 sm:flex-row sm:items-baseline sm:justify-between">
         <div className="flex items-baseline gap-2.5">
           <a
-            className="inline-flex items-center gap-2 font-generalsans font-medium text-[15px] text-black/80 transition-colors duration-300 hover:text-black"
+            className="inline-flex items-center gap-2 font-generalsans font-medium text-[15px] text-fg/80 transition-colors duration-300 hover:text-fg"
             href={project.link}
             onMouseEnter={(e) => onEnter(project.image, e)}
             onMouseLeave={onLeave}
@@ -308,23 +308,23 @@ const ProjectItem = ({
               <path d="M2 10L10 2M10 2H5M10 2v5" />
             </svg>
           </a>
-          <span className="font-mono text-[10px] text-black/20">
+          <span className="font-mono text-[10px] text-fg/20">
             {project.year}
           </span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="font-mono text-[10px] text-black/25 uppercase tracking-[0.15em]">
+          <span className="font-mono text-[10px] text-fg/25 uppercase tracking-[0.15em]">
             {project.category}
           </span>
         </div>
       </div>
 
       <div className="mt-1 flex items-center gap-2">
-        <span className="font-satoshi text-[12px] text-black/35 italic">
+        <span className="font-satoshi text-[12px] text-fg/35 italic">
           {project.role}
         </span>
-        <span className="font-mono text-[10px] text-black/15">—</span>
-        <span className="font-mono text-[10px] text-black/25 uppercase tracking-[0.15em]">
+        <span className="font-mono text-[10px] text-fg/15">—</span>
+        <span className="font-mono text-[10px] text-fg/25 uppercase tracking-[0.15em]">
           {project.tagline}
         </span>
       </div>
@@ -332,10 +332,10 @@ const ProjectItem = ({
       <div className="mt-3 flex flex-col gap-1.5">
         {project.points.map((point) => (
           <p
-            className="font-satoshi text-[13px] text-black/45 leading-[1.65]"
+            className="font-satoshi text-[13px] text-fg/45 leading-[1.65]"
             key={point}
           >
-            <span className="mr-2 inline-block font-mono text-[9px] text-black/20">
+            <span className="mr-2 inline-block font-mono text-[9px] text-fg/20">
               ▸
             </span>
             {point}
@@ -347,12 +347,12 @@ const ProjectItem = ({
       <div className="mt-3 flex flex-wrap gap-1.5">
         {project.tech.map((t) => (
           <span
-            className="font-mono text-[9px] text-black/25 uppercase tracking-[0.1em]"
+            className="font-mono text-[9px] text-fg/25 uppercase tracking-[0.1em]"
             key={t}
           >
             {t}
             {t !== project.tech.at(-1) && (
-              <span className="ml-1.5 text-black/10">·</span>
+              <span className="ml-1.5 text-fg/10">·</span>
             )}
           </span>
         ))}
@@ -360,7 +360,7 @@ const ProjectItem = ({
 
       <div className="mt-2.5 flex items-center gap-3">
         <a
-          className="font-mono text-[10px] text-black/30 uppercase tracking-[0.15em] transition-colors duration-300 hover:text-black/70"
+          className="font-mono text-[10px] text-fg/30 uppercase tracking-[0.15em] transition-colors duration-300 hover:text-fg/70"
           href={project.link}
           onMouseEnter={(e) => onEnter(project.image, e)}
           onMouseLeave={onLeave}
@@ -370,9 +370,9 @@ const ProjectItem = ({
         >
           Live
         </a>
-        <span className="h-px w-2 bg-black/10" />
+        <span className="h-px w-2 bg-fg/10" />
         <a
-          className="font-mono text-[10px] text-black/30 uppercase tracking-[0.15em] transition-colors duration-300 hover:text-black/70"
+          className="font-mono text-[10px] text-fg/30 uppercase tracking-[0.15em] transition-colors duration-300 hover:text-fg/70"
           href={project.repo}
           rel="noopener noreferrer"
           target="_blank"
@@ -447,7 +447,7 @@ export default function ResumePage() {
   return (
     <>
       <div
-        className="relative min-h-screen bg-white pt-20 pb-0 font-generalsans"
+        className="relative min-h-screen bg-surface pt-20 pb-0 font-generalsans"
         ref={containerRef}
       >
         {/* ─── Header ──────────────────────────────────────────────────────── */}
@@ -467,10 +467,10 @@ export default function ResumePage() {
             }}
           >
             <div>
-              <h1 className="font-generalsans font-light text-[clamp(42px,8vw,72px)] text-black leading-[0.9] tracking-tighter">
+              <h1 className="font-generalsans font-light text-[clamp(42px,8vw,72px)] text-fg leading-[0.9] tracking-tighter">
                 Aman <span className="font-medium">Aziz</span>
               </h1>
-              <p className="mt-3 max-w-xl font-satoshi text-[15px] text-black/45 leading-relaxed">
+              <p className="mt-3 max-w-xl font-satoshi text-[15px] text-fg/45 leading-relaxed">
                 Full-stack developer and UI/UX designer with expertise in React,
                 Next.js, Node.js, and MongoDB. Building AI-integrated web
                 applications that drive engagement and results.
@@ -486,38 +486,38 @@ export default function ResumePage() {
               </div>
               <div className="flex flex-col items-start gap-1.5 sm:items-end">
                 <a
-                  className="font-mono text-[11px] text-black/40 transition-colors duration-300 hover:text-black"
+                  className="font-mono text-[11px] text-fg/40 transition-colors duration-300 hover:text-fg"
                   href="mailto:amanaziz2020@gmail.com"
                 >
                   amanaziz2020@gmail.com
                 </a>
-                <span className="font-mono text-[11px] text-black/25">
+                <span className="font-mono text-[11px] text-fg/25">
                   +91 93159 78211
                 </span>
-                <span className="font-mono text-[11px] text-black/25">
+                <span className="font-mono text-[11px] text-fg/25">
                   Bhopal, MP — India
                 </span>
                 <div className="mt-1 flex items-center gap-3">
                   <a
-                    className="font-mono text-[10px] text-black/30 uppercase tracking-[0.15em] transition-colors duration-300 hover:text-black"
+                    className="font-mono text-[10px] text-fg/30 uppercase tracking-[0.15em] transition-colors duration-300 hover:text-fg"
                     href="https://linkedin.com/in/aman-aziz"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
                     LinkedIn
                   </a>
-                  <span className="h-px w-2 bg-black/10" />
+                  <span className="h-px w-2 bg-fg/10" />
                   <a
-                    className="font-mono text-[10px] text-black/30 uppercase tracking-[0.15em] transition-colors duration-300 hover:text-black"
+                    className="font-mono text-[10px] text-fg/30 uppercase tracking-[0.15em] transition-colors duration-300 hover:text-fg"
                     href="https://github.com/tutankhAman"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
                     GitHub
                   </a>
-                  <span className="h-px w-2 bg-black/10" />
+                  <span className="h-px w-2 bg-fg/10" />
                   <a
-                    className="font-mono text-[10px] text-black/30 uppercase tracking-[0.15em] transition-colors duration-300 hover:text-black"
+                    className="font-mono text-[10px] text-fg/30 uppercase tracking-[0.15em] transition-colors duration-300 hover:text-fg"
                     href="/"
                   >
                     Portfolio
@@ -530,7 +530,7 @@ export default function ResumePage() {
           {/* Divider */}
           <motion.div
             animate={headerInView ? { scaleX: 1 } : {}}
-            className="h-px w-full origin-left bg-black/[0.08]"
+            className="h-px w-full origin-left bg-fg/[0.08]"
             initial={{ scaleX: 0 }}
             transition={{
               duration: 1.0,
@@ -558,18 +558,18 @@ export default function ResumePage() {
                 <Reveal delay={0.2} inView={mainInView}>
                   <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
                     <div>
-                      <h3 className="font-generalsans font-medium text-[16px] text-black/80">
+                      <h3 className="font-generalsans font-medium text-[16px] text-fg/80">
                         {EXPERIENCE.company}
                       </h3>
-                      <span className="font-satoshi text-[13px] text-black/40 italic">
+                      <span className="font-satoshi text-[13px] text-fg/40 italic">
                         {EXPERIENCE.role}
                       </span>
                     </div>
                     <div className="flex flex-col items-start gap-0.5 sm:items-end">
-                      <span className="font-mono text-[10px] text-black/30 uppercase tracking-[0.15em]">
+                      <span className="font-mono text-[10px] text-fg/30 uppercase tracking-[0.15em]">
                         {EXPERIENCE.period}
                       </span>
-                      <span className="font-mono text-[10px] text-black/20 uppercase tracking-[0.1em]">
+                      <span className="font-mono text-[10px] text-fg/20 uppercase tracking-[0.1em]">
                         {EXPERIENCE.location}
                       </span>
                     </div>
@@ -579,10 +579,10 @@ export default function ResumePage() {
                   <div className="mt-4 flex flex-col gap-2">
                     {EXPERIENCE.points.map((point) => (
                       <p
-                        className="font-satoshi text-[13px] text-black/45 leading-[1.65]"
+                        className="font-satoshi text-[13px] text-fg/45 leading-[1.65]"
                         key={point}
                       >
-                        <span className="mr-2 inline-block font-mono text-[9px] text-black/20">
+                        <span className="mr-2 inline-block font-mono text-[9px] text-fg/20">
                           ▸
                         </span>
                         {point}
@@ -622,20 +622,20 @@ export default function ResumePage() {
                     {/* IBM */}
                     <div>
                       <div className="mb-2.5 flex items-center gap-2">
-                        <span className="font-generalsans font-medium text-[13px] text-black/60">
+                        <span className="font-generalsans font-medium text-[13px] text-fg/60">
                           IBM
                         </span>
-                        <span className="h-px flex-1 bg-black/[0.05]" />
+                        <span className="h-px flex-1 bg-fg/[0.05]" />
                       </div>
                       <div className="flex flex-wrap gap-1.5">
                         {CERTIFICATIONS.map((cert) => (
                           <span
-                            className="font-mono text-[10px] text-black/35 leading-relaxed"
+                            className="font-mono text-[10px] text-fg/35 leading-relaxed"
                             key={cert}
                           >
                             {cert}
                             {cert !== CERTIFICATIONS.at(-1) && (
-                              <span className="mx-1.5 text-black/15">·</span>
+                              <span className="mx-1.5 text-fg/15">·</span>
                             )}
                           </span>
                         ))}
@@ -644,20 +644,20 @@ export default function ResumePage() {
                     {/* NPTEL */}
                     <div>
                       <div className="mb-2.5 flex items-center gap-2">
-                        <span className="font-generalsans font-medium text-[13px] text-black/60">
+                        <span className="font-generalsans font-medium text-[13px] text-fg/60">
                           NPTEL
                         </span>
-                        <span className="h-px flex-1 bg-black/[0.05]" />
+                        <span className="h-px flex-1 bg-fg/[0.05]" />
                       </div>
                       <div className="flex flex-wrap gap-1.5">
                         {NPTEL_CERTS.map((cert) => (
                           <span
-                            className="font-mono text-[10px] text-black/35 leading-relaxed"
+                            className="font-mono text-[10px] text-fg/35 leading-relaxed"
                             key={cert}
                           >
                             {cert}
                             {cert !== NPTEL_CERTS.at(-1) && (
-                              <span className="mx-1.5 text-black/15">·</span>
+                              <span className="mx-1.5 text-fg/15">·</span>
                             )}
                           </span>
                         ))}
@@ -676,8 +676,8 @@ export default function ResumePage() {
                   <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                     {ACHIEVEMENTS.map((item) => (
                       <div className="flex items-start gap-2.5" key={item}>
-                        <span className="mt-[5px] h-1 w-1 shrink-0 rounded-full bg-black/15" />
-                        <span className="font-satoshi text-[13px] text-black/45 leading-snug">
+                        <span className="mt-[5px] h-1 w-1 shrink-0 rounded-full bg-fg/15" />
+                        <span className="font-satoshi text-[13px] text-fg/45 leading-snug">
                           {item}
                         </span>
                       </div>
@@ -688,25 +688,25 @@ export default function ResumePage() {
             </div>
 
             {/* ──────────── RIGHT COLUMN (4 cols) ──────────── */}
-            <aside className="flex flex-col gap-14 md:col-span-5 md:border-black/[0.06] md:border-l md:border-dashed md:pl-10 lg:col-span-4 lg:pl-14">
+            <aside className="flex flex-col gap-14 md:col-span-5 md:border-fg/[0.06] md:border-l md:border-dashed md:pl-10 lg:col-span-4 lg:pl-14">
               {/* Education */}
               <section>
                 <SectionLabel index={5} inView={mainInView}>
                   Education
                 </SectionLabel>
                 <Reveal delay={0.25} inView={mainInView}>
-                  <h3 className="font-generalsans font-medium text-[14px] text-black/70">
+                  <h3 className="font-generalsans font-medium text-[14px] text-fg/70">
                     {EDUCATION.institution}
                   </h3>
-                  <p className="mt-1 font-satoshi text-[13px] text-black/40 italic">
+                  <p className="mt-1 font-satoshi text-[13px] text-fg/40 italic">
                     {EDUCATION.degree}
                   </p>
                   <div className="mt-2 flex items-center gap-3">
-                    <span className="font-mono text-[10px] text-black/25 uppercase tracking-[0.15em]">
+                    <span className="font-mono text-[10px] text-fg/25 uppercase tracking-[0.15em]">
                       {EDUCATION.period}
                     </span>
-                    <span className="h-px w-2 bg-black/10" />
-                    <span className="font-mono text-[10px] text-black/20 uppercase tracking-[0.1em]">
+                    <span className="h-px w-2 bg-fg/10" />
+                    <span className="font-mono text-[10px] text-fg/20 uppercase tracking-[0.1em]">
                       {EDUCATION.location}
                     </span>
                   </div>
@@ -722,7 +722,7 @@ export default function ResumePage() {
                   {/* Languages */}
                   <Reveal delay={0.2} inView={mainInView}>
                     <div>
-                      <span className="mb-2.5 block font-mono text-[10px] text-black/25 uppercase tracking-[0.2em]">
+                      <span className="mb-2.5 block font-mono text-[10px] text-fg/25 uppercase tracking-[0.2em]">
                         Languages
                       </span>
                       <div className="flex flex-wrap gap-1.5">
@@ -736,7 +736,7 @@ export default function ResumePage() {
                   {/* Frontend */}
                   <Reveal delay={0.25} inView={mainInView}>
                     <div>
-                      <span className="mb-2.5 block font-mono text-[10px] text-black/25 uppercase tracking-[0.2em]">
+                      <span className="mb-2.5 block font-mono text-[10px] text-fg/25 uppercase tracking-[0.2em]">
                         Frontend
                       </span>
                       <div className="flex flex-wrap gap-1.5">
@@ -750,7 +750,7 @@ export default function ResumePage() {
                   {/* Backend */}
                   <Reveal delay={0.3} inView={mainInView}>
                     <div>
-                      <span className="mb-2.5 block font-mono text-[10px] text-black/25 uppercase tracking-[0.2em]">
+                      <span className="mb-2.5 block font-mono text-[10px] text-fg/25 uppercase tracking-[0.2em]">
                         Backend
                       </span>
                       <div className="flex flex-wrap gap-1.5">
@@ -764,7 +764,7 @@ export default function ResumePage() {
                   {/* Cloud & DB */}
                   <Reveal delay={0.35} inView={mainInView}>
                     <div>
-                      <span className="mb-2.5 block font-mono text-[10px] text-black/25 uppercase tracking-[0.2em]">
+                      <span className="mb-2.5 block font-mono text-[10px] text-fg/25 uppercase tracking-[0.2em]">
                         Cloud & Database
                       </span>
                       <div className="flex flex-wrap gap-1.5">
@@ -778,7 +778,7 @@ export default function ResumePage() {
                   {/* Design */}
                   <Reveal delay={0.4} inView={mainInView}>
                     <div>
-                      <span className="mb-2.5 block font-mono text-[10px] text-black/25 uppercase tracking-[0.2em]">
+                      <span className="mb-2.5 block font-mono text-[10px] text-fg/25 uppercase tracking-[0.2em]">
                         Design
                       </span>
                       <div className="flex flex-wrap gap-1.5">
@@ -792,7 +792,7 @@ export default function ResumePage() {
                   {/* Tools */}
                   <Reveal delay={0.45} inView={mainInView}>
                     <div>
-                      <span className="mb-2.5 block font-mono text-[10px] text-black/25 uppercase tracking-[0.2em]">
+                      <span className="mb-2.5 block font-mono text-[10px] text-fg/25 uppercase tracking-[0.2em]">
                         Tools & Platforms
                       </span>
                       <div className="flex flex-wrap gap-1.5">
@@ -828,8 +828,8 @@ export default function ResumePage() {
                   <div className="flex flex-col gap-2.5">
                     {LANGUAGES_SPOKEN.map((lang) => (
                       <div className="flex items-center gap-3" key={lang}>
-                        <span className="h-px w-3 bg-black/10" />
-                        <span className="font-satoshi text-[13px] text-black/50">
+                        <span className="h-px w-3 bg-fg/10" />
+                        <span className="font-satoshi text-[13px] text-fg/50">
                           {lang}
                         </span>
                       </div>
@@ -841,24 +841,24 @@ export default function ResumePage() {
               {/* Status */}
               <section ref={statusRef}>
                 <Reveal delay={0.3} inView={mainInView}>
-                  <div className="border border-black/[0.06] border-dashed p-5">
+                  <div className="border border-fg/[0.06] border-dashed p-5">
                     <div className="flex items-center gap-2">
                       <span className="relative flex h-1.5 w-1.5">
-                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-black/20" />
-                        <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-black/40" />
+                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-fg/20" />
+                        <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-fg/40" />
                       </span>
-                      <span className="font-mono text-[10px] text-black/30 uppercase tracking-[0.2em]">
+                      <span className="font-mono text-[10px] text-fg/30 uppercase tracking-[0.2em]">
                         Open to work
                       </span>
                     </div>
-                    <p className="mt-3 font-satoshi text-[12px] text-black/35 leading-relaxed">
+                    <p className="mt-3 font-satoshi text-[12px] text-fg/35 leading-relaxed">
                       Experienced in building AI-integrated web apps, optimizing
                       performance, and delivering client-focused solutions.
                       Skilled in intuitive interfaces, real-time AI features,
                       and leading small teams.
                     </p>
                     <a
-                      className="mt-4 inline-flex items-center gap-2 font-mono text-[10px] text-black/40 uppercase tracking-[0.15em] transition-colors duration-300 hover:text-black"
+                      className="mt-4 inline-flex items-center gap-2 font-mono text-[10px] text-fg/40 uppercase tracking-[0.15em] transition-colors duration-300 hover:text-fg"
                       href="mailto:amanaziz2020@gmail.com"
                     >
                       Get in touch
@@ -899,7 +899,7 @@ export default function ResumePage() {
                 damping: 30,
               }}
             >
-              <div className="overflow-hidden border border-black/[0.08] shadow-[0_8px_40px_rgba(0,0,0,0.08)]">
+              <div className="overflow-hidden border border-fg/[0.08] shadow-[0_8px_40px_rgba(0,0,0,0.08)]">
                 <img
                   alt=""
                   className="block h-auto w-[240px] object-cover"
@@ -908,7 +908,7 @@ export default function ResumePage() {
                   width={240}
                 />
               </div>
-              <span className="mt-1.5 block font-mono text-[9px] text-black/25 uppercase tracking-[0.2em]">
+              <span className="mt-1.5 block font-mono text-[9px] text-fg/25 uppercase tracking-[0.2em]">
                 Preview
               </span>
             </motion.div>

@@ -11,7 +11,7 @@ export const GridOverlay = () => (
       <line
         key={`gv-${String(i)}`}
         opacity={0.03}
-        stroke="black"
+        stroke="currentColor"
         strokeWidth={0.15}
         x1={(i + 1) * 10}
         x2={(i + 1) * 10}
@@ -25,7 +25,7 @@ export const GridOverlay = () => (
       <line
         key={`gh-${String(i)}`}
         opacity={0.03}
-        stroke="black"
+        stroke="currentColor"
         strokeWidth={0.15}
         x1={0}
         x2={100}

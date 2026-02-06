@@ -3,12 +3,12 @@ import { motion } from "motion/react";
 export const PulseRing = () => (
   <div className="relative flex h-full w-full items-center justify-center">
     {/* Center dot */}
-    <div className="absolute h-1.5 w-1.5 rounded-full bg-black opacity-25" />
+    <div className="absolute h-1.5 w-1.5 rounded-full bg-fg opacity-25" />
 
     {/* Ring 1 */}
     <motion.div
       animate={{ scale: [1, 2.5], opacity: [0.18, 0] }}
-      className="absolute h-8 w-8 rounded-full border border-black"
+      className="absolute h-8 w-8 rounded-full border border-fg"
       transition={{
         duration: 3,
         ease: "easeOut",
@@ -20,7 +20,7 @@ export const PulseRing = () => (
     {/* Ring 2 — staggered */}
     <motion.div
       animate={{ scale: [1, 2.5], opacity: [0.14, 0] }}
-      className="absolute h-8 w-8 rounded-full border border-black"
+      className="absolute h-8 w-8 rounded-full border border-fg"
       transition={{
         duration: 3,
         ease: "easeOut",
@@ -33,7 +33,7 @@ export const PulseRing = () => (
     {/* Ring 3 */}
     <motion.div
       animate={{ scale: [1, 2.5], opacity: [0.1, 0] }}
-      className="absolute h-8 w-8 rounded-full border border-black"
+      className="absolute h-8 w-8 rounded-full border border-fg"
       transition={{
         duration: 3,
         ease: "easeOut",

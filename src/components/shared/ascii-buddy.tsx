@@ -457,9 +457,6 @@ export const AsciiBuddy = ({
           isStructure:
             char === "|" || char === "-" || char === "." || char === "'",
           isEye:
-            // Only count as eye if it matches the expected eye char AND we are not in deep teleport noise
-            // (Strictly speaking checking char against eyeChars.left is enough, but random noise might match by luck.
-            // It's fine visually.)
             char === eyeChars.left &&
             (ci === 6 ||
               ci === 14 ||
@@ -493,7 +490,7 @@ export const AsciiBuddy = ({
         ref={containerRef}
       >
         <div
-          className="grid font-mono text-black leading-none"
+          className="grid font-mono text-fg leading-none"
           style={{
             gridTemplateColumns: `repeat(${String(FACE_WIDTH)}, 1ch)`,
             gridTemplateRows: `repeat(${String(FACE_HEIGHT)}, 1.4em)`,
@@ -504,13 +501,13 @@ export const AsciiBuddy = ({
             let cellClass = "text-transparent";
             if (cell.isStructure) {
               cellClass =
-                "text-black/[0.25] transition-colors duration-500 group-hover:text-black/[0.45]";
+                "text-fg/[0.25] transition-colors duration-500 group-hover:text-fg/[0.45]";
             } else if (cell.isEye) {
               cellClass =
-                "text-black/80 transition-colors duration-300 group-hover:text-black";
+                "text-fg/80 transition-colors duration-300 group-hover:text-fg";
             } else if (cell.isMouth) {
               cellClass =
-                "text-black/75 transition-colors duration-300 group-hover:text-black";
+                "text-fg/75 transition-colors duration-300 group-hover:text-fg";
             }
             return (
               <span className={cellClass} key={cell.id}>
@@ -520,9 +517,10 @@ export const AsciiBuddy = ({
           })}
         </div>
       </figure>
+      {/** biome-ignore lint/style/useSelfClosingElements: <necessary> */}
       <motion.span
         animate={{ opacity: isHovered ? 0.9 : 0.7 }}
-        className="font-mono text-[10px] text-black tracking-[0.15em]"
+        className="font-mono text-[10px] text-fg tracking-[0.15em]"
         transition={{ duration: 0.3 }}
       >
         [{expression.label}]

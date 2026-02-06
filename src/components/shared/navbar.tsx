@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useTheme } from "@/lib/theme";
 import { cn } from "@/lib/utils";
 
 // ─── Contact Dropdown Items ──────────────────────────────────────────────────
@@ -30,6 +31,7 @@ const CONTACT_ITEMS = [
 // ─── Navbar ──────────────────────────────────────────────────────────────────
 
 export const Navbar = () => {
+  const { theme, toggleTheme } = useTheme();
   const [contactOpen, setContactOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
@@ -98,8 +100,8 @@ export const Navbar = () => {
         aria-label="Main navigation"
         className={cn(
           "fixed top-6 left-1/2 z-40 w-[90%] max-w-4xl -translate-x-1/2",
-          "border border-black/10 bg-white/70 backdrop-blur-xl",
-          "transition-[width,height,border-radius] duration-500"
+          "border border-fg/10 bg-surface-elevated backdrop-blur-xl",
+          "transition-[width,height,border-radius,background-color,border-color] duration-500"
         )}
         initial={{ opacity: 0, y: -20 }}
         transition={{
@@ -111,7 +113,7 @@ export const Navbar = () => {
         <div className="relative flex h-14 items-center justify-between px-6">
           {/* Left — Logo / Name */}
           <a
-            className="font-generalsans font-medium text-black/90 text-lg tracking-tight transition-transform duration-300 hover:scale-105 active:scale-95"
+            className="font-generalsans font-medium text-fg/90 text-lg tracking-tight transition-transform duration-300 hover:scale-105 active:scale-95"
             href="/"
           >
             Aman.
@@ -121,7 +123,7 @@ export const Navbar = () => {
           <div className="absolute top-1/2 left-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-1 md:flex">
             {/* Projects */}
             <a
-              className="relative px-4 py-2 font-mono text-black/60 text-sm uppercase transition-colors hover:text-black"
+              className="relative px-4 py-2 font-mono text-fg/60 text-sm uppercase transition-colors hover:text-fg"
               href="/projects"
               onMouseEnter={() => setHoveredLink("projects")}
               onMouseLeave={() => setHoveredLink(null)}
@@ -129,7 +131,7 @@ export const Navbar = () => {
               <span className="relative z-10">Projects</span>
               {hoveredLink === "projects" && (
                 <motion.div
-                  className="absolute inset-0 z-0 rounded-lg bg-black/4"
+                  className="absolute inset-0 z-0 rounded-lg bg-fg/[0.04]"
                   layoutId="navbar-hover"
                   transition={{
                     type: "spring",
@@ -140,9 +142,9 @@ export const Navbar = () => {
               )}
             </a>
 
-            {/* Concise Version */}
+            {/* Résumé */}
             <a
-              className="relative px-4 py-2 font-mono text-black/60 text-sm uppercase transition-colors hover:text-black"
+              className="relative px-4 py-2 font-mono text-fg/60 text-sm uppercase transition-colors hover:text-fg"
               href="/resume"
               onMouseEnter={() => setHoveredLink("resume")}
               onMouseLeave={() => setHoveredLink(null)}
@@ -150,7 +152,7 @@ export const Navbar = () => {
               <span className="relative z-10">Résumé</span>
               {hoveredLink === "resume" && (
                 <motion.div
-                  className="absolute inset-0 z-0 rounded-lg bg-black/[0.04]"
+                  className="absolute inset-0 z-0 rounded-lg bg-fg/[0.04]"
                   layoutId="navbar-hover"
                   transition={{
                     type: "spring",
@@ -161,17 +163,21 @@ export const Navbar = () => {
               )}
             </a>
 
-            {/* Theme Placeholder */}
+            {/* Theme Toggle */}
             <button
-              className="relative px-4 py-2 font-mono text-black/60 text-sm uppercase transition-colors hover:text-black"
+              aria-label={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
+              className="relative px-4 py-2 font-mono text-fg/60 text-sm uppercase transition-colors hover:text-fg"
+              onClick={toggleTheme}
               onMouseEnter={() => setHoveredLink("theme")}
               onMouseLeave={() => setHoveredLink(null)}
               type="button"
             >
-              <span className="relative z-10">Light</span>
+              <span className="relative z-10">
+                {theme === "light" ? "Light" : "Dark"}
+              </span>
               {hoveredLink === "theme" && (
                 <motion.div
-                  className="absolute inset-0 z-0 rounded-lg bg-black/[0.04]"
+                  className="absolute inset-0 z-0 rounded-lg bg-fg/[0.04]"
                   layoutId="navbar-hover"
                   transition={{
                     type: "spring",
@@ -192,8 +198,8 @@ export const Navbar = () => {
                 className={cn(
                   "group flex cursor-pointer items-center gap-1.5 rounded-lg px-3 py-1.5 font-mono text-sm uppercase transition-all duration-300",
                   contactOpen
-                    ? "bg-black text-white hover:bg-black/90"
-                    : "text-black/60 hover:bg-black/[0.04] hover:text-black"
+                    ? "bg-fg text-surface hover:bg-fg/90"
+                    : "text-fg/60 hover:bg-fg/[0.04] hover:text-fg"
                 )}
                 onClick={toggleContact}
                 onKeyDown={(e) => {
@@ -229,7 +235,7 @@ export const Navbar = () => {
                 {contactOpen && (
                   <motion.div
                     animate={{ opacity: 1, y: 0, scale: 1 }}
-                    className="absolute top-full right-0 mt-3 w-56 origin-top-right overflow-hidden rounded-xl border border-black/[0.08] bg-white/80 shadow-lg ring-1 ring-black/[0.03] backdrop-blur-xl"
+                    className="absolute top-full right-0 mt-3 w-56 origin-top-right overflow-hidden rounded-xl border border-fg/[0.08] bg-surface-elevated shadow-lg ring-1 ring-fg/[0.03] backdrop-blur-xl"
                     exit={{ opacity: 0, y: -4, scale: 0.96 }}
                     initial={{ opacity: 0, y: -8, scale: 0.96 }}
                     ref={dropdownRef}
@@ -243,7 +249,7 @@ export const Navbar = () => {
                     <div className="p-1.5">
                       {CONTACT_ITEMS.map((item) => (
                         <a
-                          className="group flex items-center justify-between rounded-lg px-3 py-2.5 font-mono text-[12px] text-black/60 transition-colors duration-200 hover:bg-black/[0.04] hover:text-black"
+                          className="group flex items-center justify-between rounded-lg px-3 py-2.5 font-mono text-[12px] text-fg/60 transition-colors duration-200 hover:bg-fg/[0.04] hover:text-fg"
                           href={item.href}
                           key={item.label}
                           rel={
@@ -271,8 +277,8 @@ export const Navbar = () => {
                       ))}
                     </div>
                     {/* Bottom accent */}
-                    <div className="border-black/[0.06] border-t bg-black/[0.02] px-4 py-2.5">
-                      <span className="flex items-center gap-2 font-mono text-[10px] text-black/40 uppercase tracking-widest">
+                    <div className="border-fg/[0.06] border-t bg-fg/[0.02] px-4 py-2.5">
+                      <span className="flex items-center gap-2 font-mono text-[10px] text-fg/40 uppercase tracking-widest">
                         <span className="relative flex h-1.5 w-1.5">
                           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                           <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
@@ -298,14 +304,14 @@ export const Navbar = () => {
               animate={
                 mobileOpen ? { rotate: 45, y: 3.5 } : { rotate: 0, y: 0 }
               }
-              className="block h-px w-4 bg-black/50"
+              className="block h-px w-4 bg-fg/50"
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
             />
             <motion.span
               animate={
                 mobileOpen ? { rotate: -45, y: -3.5 } : { rotate: 0, y: 0 }
               }
-              className="block h-px w-4 bg-black/50"
+              className="block h-px w-4 bg-fg/50"
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
             />
           </button>
@@ -317,7 +323,7 @@ export const Navbar = () => {
         {mobileOpen && (
           <motion.div
             animate={{ opacity: 1 }}
-            className="fixed inset-0 z-35 bg-white"
+            className="fixed inset-0 z-35 bg-surface"
             exit={{ opacity: 0 }}
             initial={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.76, 0, 0.24, 1] }}
@@ -339,18 +345,18 @@ export const Navbar = () => {
                   }}
                 >
                   <a
-                    className="group flex items-center gap-3 border-black/[0.06] border-b border-dashed py-5 font-generalsans font-light text-[28px] text-black/60 tracking-tight transition-colors duration-300 hover:text-black"
+                    className="group flex items-center gap-3 border-fg/[0.06] border-b border-dashed py-5 font-generalsans font-light text-[28px] text-fg/60 tracking-tight transition-colors duration-300 hover:text-fg"
                     href="/projects"
                     onClick={closeMobile}
                   >
-                    <span className="font-mono text-[10px] text-black/20 uppercase tracking-[0.2em]">
+                    <span className="font-mono text-[10px] text-fg/20 uppercase tracking-[0.2em]">
                       01
                     </span>
                     Projects
                   </a>
                 </motion.div>
 
-                {/* Concise Version — prominent */}
+                {/* Résumé */}
                 <motion.div
                   animate={{ opacity: 1, x: 0 }}
                   initial={{ opacity: 0, x: -12 }}
@@ -361,19 +367,19 @@ export const Navbar = () => {
                   }}
                 >
                   <a
-                    className="group flex items-center justify-between border-black/[0.06] border-b border-dashed py-5"
+                    className="group flex items-center justify-between border-fg/[0.06] border-b border-dashed py-5"
                     href="/resume"
                     onClick={closeMobile}
                   >
                     <span className="flex items-center gap-3">
-                      <span className="font-mono text-[10px] text-black/20 uppercase tracking-[0.2em]">
+                      <span className="font-mono text-[10px] text-fg/20 uppercase tracking-[0.2em]">
                         02
                       </span>
-                      <span className="font-generalsans font-light text-[28px] text-black tracking-tight">
+                      <span className="font-generalsans font-light text-[28px] text-fg tracking-tight">
                         Résumé
                       </span>
                     </span>
-                    <span className="flex items-center gap-2 font-mono text-[10px] text-black/30 uppercase tracking-[0.15em]">
+                    <span className="flex items-center gap-2 font-mono text-[10px] text-fg/30 uppercase tracking-[0.15em]">
                       Concise
                       <svg
                         aria-hidden="true"
@@ -389,6 +395,28 @@ export const Navbar = () => {
                   </a>
                 </motion.div>
 
+                {/* Theme Toggle — mobile */}
+                <motion.div
+                  animate={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0, x: -12 }}
+                  transition={{
+                    duration: 0.5,
+                    ease: [0.76, 0, 0.24, 1],
+                    delay: 0.18,
+                  }}
+                >
+                  <button
+                    className="group flex w-full items-center gap-3 border-fg/[0.06] border-b border-dashed py-5 font-generalsans font-light text-[28px] text-fg/60 tracking-tight transition-colors duration-300 hover:text-fg"
+                    onClick={toggleTheme}
+                    type="button"
+                  >
+                    <span className="font-mono text-[10px] text-fg/20 uppercase tracking-[0.2em]">
+                      ◐
+                    </span>
+                    {theme === "light" ? "Dark Mode" : "Light Mode"}
+                  </button>
+                </motion.div>
+
                 {/* Contact — expanded inline on mobile */}
                 <motion.div
                   animate={{ opacity: 1, x: 0 }}
@@ -399,9 +427,9 @@ export const Navbar = () => {
                     delay: 0.2,
                   }}
                 >
-                  <div className="border-black/[0.06] border-b border-dashed py-5">
-                    <span className="flex items-center gap-3 font-generalsans font-light text-[28px] text-black/60 tracking-tight">
-                      <span className="font-mono text-[10px] text-black/20 uppercase tracking-[0.2em]">
+                  <div className="border-fg/[0.06] border-b border-dashed py-5">
+                    <span className="flex items-center gap-3 font-generalsans font-light text-[28px] text-fg/60 tracking-tight">
+                      <span className="font-mono text-[10px] text-fg/20 uppercase tracking-[0.2em]">
                         03
                       </span>
                       Contact
@@ -411,7 +439,7 @@ export const Navbar = () => {
                       {CONTACT_ITEMS.map((item, i) => (
                         <motion.a
                           animate={{ opacity: 1, x: 0 }}
-                          className="group flex items-center gap-2 font-mono text-[13px] text-black/40 transition-colors duration-300 hover:text-black"
+                          className="group flex items-center gap-2 font-mono text-[13px] text-fg/40 transition-colors duration-300 hover:text-fg"
                           href={item.href}
                           initial={{ opacity: 0, x: -8 }}
                           key={item.label}
@@ -426,7 +454,7 @@ export const Navbar = () => {
                             delay: 0.25 + i * 0.04,
                           }}
                         >
-                          <span className="inline-block h-px w-0 bg-black/30 transition-all duration-300 group-hover:w-3" />
+                          <span className="inline-block h-px w-0 bg-fg/30 transition-all duration-300 group-hover:w-3" />
                           {item.label}
                           {item.external && (
                             <svg
@@ -458,14 +486,14 @@ export const Navbar = () => {
                   delay: 0.4,
                 }}
               >
-                <span className="flex items-center gap-2 font-mono text-[11px] text-black/25">
+                <span className="flex items-center gap-2 font-mono text-[11px] text-fg/25">
                   <span className="relative flex h-1.5 w-1.5">
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                     <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
                   </span>
                   Open to work
                 </span>
-                <span className="font-mono text-[11px] text-black/20">
+                <span className="font-mono text-[11px] text-fg/20">
                   &copy; {new Date().getFullYear()}
                 </span>
               </motion.div>

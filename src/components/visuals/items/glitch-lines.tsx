@@ -22,7 +22,7 @@ export const GlitchLines = () => {
       {bars.map((bar) => (
         <motion.div
           animate={{ opacity: [0, 0.16, 0, 0.12, 0] }}
-          className="absolute h-px bg-black"
+          className="absolute h-px bg-fg"
           key={bar.id}
           style={{ top: bar.top, left: bar.left, width: bar.width }}
           transition={{

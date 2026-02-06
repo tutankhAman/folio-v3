@@ -5,7 +5,7 @@ export const Crosshair = () => (
     {/* Horizontal line */}
     <motion.div
       animate={{ scaleX: 1, opacity: 0.1 }}
-      className="absolute h-px w-full bg-black"
+      className="absolute h-px w-full bg-fg"
       initial={{ scaleX: 0, opacity: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     />
@@ -13,7 +13,7 @@ export const Crosshair = () => (
     {/* Vertical line */}
     <motion.div
       animate={{ scaleY: 1, opacity: 0.1 }}
-      className="absolute h-full w-px bg-black"
+      className="absolute h-full w-px bg-fg"
       initial={{ scaleY: 0, opacity: 0 }}
       transition={{ duration: 0.8, ease: "easeOut", delay: 0.15 }}
     />
@@ -21,7 +21,7 @@ export const Crosshair = () => (
     {/* Center ring */}
     <motion.div
       animate={{ scale: 1, opacity: 0.12 }}
-      className="absolute h-6 w-6 rounded-full border border-black"
+      className="absolute h-6 w-6 rounded-full border border-fg"
       initial={{ scale: 0, opacity: 0 }}
       transition={{ duration: 0.5, ease: "easeOut", delay: 0.4 }}
     />
@@ -29,7 +29,7 @@ export const Crosshair = () => (
     {/* Inner dot */}
     <motion.div
       animate={{ scale: 1, opacity: 0.15 }}
-      className="absolute h-1 w-1 rounded-full bg-black"
+      className="absolute h-1 w-1 rounded-full bg-fg"
       initial={{ scale: 0, opacity: 0 }}
       transition={{ duration: 0.3, ease: "easeOut", delay: 0.6 }}
     />

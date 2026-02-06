@@ -44,7 +44,7 @@ export const NodeGraph = () => (
           animate={{ opacity: 0.15 }}
           initial={{ opacity: 0 }}
           key={`${from}-${to}`}
-          stroke="black"
+          stroke="currentColor"
           strokeWidth={0.5}
           transition={{ delay: i * 0.12, duration: 0.8, ease: "easeOut" }}
           x1={a.cx}
@@ -59,7 +59,7 @@ export const NodeGraph = () => (
         animate={{ opacity: 0.2 }}
         cx={node.cx}
         cy={node.cy}
-        fill="black"
+        fill="currentColor"
         initial={{ opacity: 0 }}
         key={node.id}
         r={2.5}

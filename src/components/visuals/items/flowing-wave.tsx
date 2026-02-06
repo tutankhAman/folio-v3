@@ -31,14 +31,14 @@ const WaveSvg = () => (
       d="M0,100 Q150,30 300,100 T600,100 T900,100 T1200,100"
       fill="none"
       opacity={0.12}
-      stroke="black"
+      stroke="currentColor"
       strokeWidth={1.5}
     />
     <path
       d="M0,115 Q150,50 300,115 T600,115 T900,115 T1200,115"
       fill="none"
       opacity={0.07}
-      stroke="black"
+      stroke="currentColor"
       strokeWidth={0.75}
     />
   </svg>

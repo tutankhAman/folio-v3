@@ -36,7 +36,7 @@ export const ScatterDots = () => {
         >
           {item.shape === "circle" && (
             <div
-              className="rounded-full border border-black"
+              className="rounded-full border border-fg"
               style={{
                 width: item.size,
                 height: item.size,
@@ -45,7 +45,7 @@ export const ScatterDots = () => {
           )}
           {item.shape === "square" && (
             <div
-              className="border border-black"
+              className="border border-fg"
               style={{
                 width: item.size,
                 height: item.size,
@@ -65,7 +65,7 @@ export const ScatterDots = () => {
               <polygon
                 fill="none"
                 points="5,1 9,9 1,9"
-                stroke="black"
+                stroke="currentColor"
                 strokeWidth={1}
               />
             </svg>

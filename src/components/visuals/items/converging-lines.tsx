@@ -9,7 +9,7 @@ export const ConvergingLines = () => (
       return (
         <motion.div
           animate={{ scaleX: [0, 1], opacity: [0, 0.08] }}
-          className="absolute h-px w-full origin-center bg-black"
+          className="absolute h-px w-full origin-center bg-fg"
           key={`cl-${String(i)}`}
           style={{ rotate: `${String(angle)}deg` }}
           transition={{
@@ -23,7 +23,7 @@ export const ConvergingLines = () => (
     {/* Center convergence dot */}
     <motion.div
       animate={{ scale: [0, 1], opacity: [0, 0.15] }}
-      className="absolute h-2 w-2 rounded-full bg-black"
+      className="absolute h-2 w-2 rounded-full bg-fg"
       transition={{ delay: 1, duration: 0.6, ease: "easeOut" }}
     />
   </div>

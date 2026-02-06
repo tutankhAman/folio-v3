@@ -19,7 +19,7 @@ export const CodeGrid = () => {
 
   return (
     <div
-      className="grid h-full w-full place-items-center font-mono text-black text-xs"
+      className="grid h-full w-full place-items-center font-mono text-fg text-xs"
       style={{
         gridTemplateColumns: `repeat(${String(COLS)}, 1fr)`,
         gridTemplateRows: `repeat(${String(ROWS)}, 1fr)`,

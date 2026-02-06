@@ -23,7 +23,7 @@ function App() {
   }, []);
 
   return (
-    <main className="relative min-h-screen w-full bg-white">
+    <main className="relative min-h-screen w-full bg-surface text-fg transition-colors duration-300">
       <AnimatePresence mode="wait">
         {loading && (
           <motion.div

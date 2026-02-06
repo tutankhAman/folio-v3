@@ -1,5 +1,27 @@
 @import "tailwindcss";
 
+/* ─── Theme Variables ─────────────────────────────────────────────────────── */
+
+:root {
+  --theme-surface: #ffffff;
+  --theme-surface-elevated: rgba(255, 255, 255, 0.7);
+  --theme-surface-subtle: #fafafa;
+  --theme-surface-muted: #f5f5f5;
+  --theme-fg: #000000;
+  --theme-muted: #525252;
+  color-scheme: light;
+}
+
+.dark {
+  --theme-surface: #09090b;
+  --theme-surface-elevated: rgba(23, 23, 23, 0.7);
+  --theme-surface-subtle: #171717;
+  --theme-surface-muted: #1a1a1a;
+  --theme-fg: #fafafa;
+  --theme-muted: #a3a3a3;
+  color-scheme: dark;
+}
+
 @theme {
   --font-array: "Array", sans-serif;
   --font-dancingscript: "DancingScript", cursive;
@@ -7,6 +29,14 @@
   --font-kola: "Kola", sans-serif;
   --font-nippo: "Nippo", sans-serif;
   --font-satoshi: "Satoshi", sans-serif;
+
+  /* Semantic color tokens */
+  --color-surface: var(--theme-surface);
+  --color-surface-elevated: var(--theme-surface-elevated);
+  --color-surface-subtle: var(--theme-surface-subtle);
+  --color-surface-muted: var(--theme-surface-muted);
+  --color-fg: var(--theme-fg);
+  --color-muted: var(--theme-muted);
 }
 
 /* Array */

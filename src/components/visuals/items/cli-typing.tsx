@@ -23,7 +23,7 @@ export const CliTyping = () => {
   );
 
   return (
-    <div className="flex h-full w-full flex-col justify-center gap-3 px-6 py-4 font-mono text-[10px] text-black md:text-xs">
+    <div className="flex h-full w-full flex-col justify-center gap-3 px-6 py-4 font-mono text-[10px] text-fg md:text-xs">
       {rows.map((row) => (
         <motion.div
           animate={{ opacity: [0, 0.35, 0.35, 0] }}
@@ -55,7 +55,7 @@ export const CliTyping = () => {
           {/* Blinking cursor */}
           <motion.span
             animate={{ opacity: [0.5, 0.5, 0, 0, 0.5] }}
-            className="ml-0.5 inline-block h-3 w-[1px] bg-black"
+            className="ml-0.5 inline-block h-3 w-[1px] bg-fg"
             transition={{
               duration: 1,
               times: [0, 0.49, 0.5, 0.99, 1],

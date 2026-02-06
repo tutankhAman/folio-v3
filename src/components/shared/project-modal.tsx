@@ -38,7 +38,7 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
           initial={{ opacity: 0 }}
           transition={{ duration: 0.3, ease: [0.76, 0, 0.24, 1] }}
         >
-          {/* Backdrop */}
+          {/* Backdrop — always dark overlay */}
           <motion.div
             animate={{ opacity: 1 }}
             className="absolute inset-0 bg-black/60 backdrop-blur-sm"
@@ -51,7 +51,7 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
           {/* Modal panel — slides up from bottom */}
           <motion.div
             animate={{ y: 0, opacity: 1 }}
-            className="relative z-10 flex max-h-[92vh] w-full max-w-2xl flex-col overflow-hidden bg-white md:max-h-[85vh]"
+            className="relative z-10 flex max-h-[92vh] w-full max-w-2xl flex-col overflow-hidden bg-surface md:max-h-[85vh]"
             exit={{ y: "100%", opacity: 0 }}
             initial={{ y: "100%", opacity: 0 }}
             transition={{
@@ -63,12 +63,12 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
           >
             {/* Drag indicator — mobile */}
             <div className="flex justify-center pt-3 pb-0 md:hidden">
-              <div className="h-1 w-10 bg-black/10" />
+              <div className="h-1 w-10 bg-fg/10" />
             </div>
 
             {/* Close button */}
             <motion.button
-              className="absolute top-4 right-4 z-20 flex h-8 w-8 cursor-pointer items-center justify-center bg-white text-black/40 transition-colors duration-200 hover:bg-black/10 hover:text-black/70"
+              className="absolute top-4 right-4 z-20 flex h-8 w-8 cursor-pointer items-center justify-center bg-surface text-fg/40 transition-colors duration-200 hover:bg-fg/10 hover:text-fg/70"
               onClick={onClose}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
@@ -93,7 +93,7 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
               {/* Hero thumbnail */}
               <motion.div
                 animate={{ scale: 1, opacity: 1 }}
-                className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-100"
+                className="relative aspect-[16/10] w-full overflow-hidden bg-surface-muted"
                 initial={{ scale: 1.1, opacity: 0 }}
                 transition={{
                   duration: 0.6,
@@ -108,8 +108,6 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
                   src={project.thumbnail}
                   width={800}
                 />
-                {/* Gradient overlay at bottom
-                <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/80 to-transparent" /> */}
               </motion.div>
 
               {/* Content */}
@@ -122,21 +120,19 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
                   transition={{ duration: 0.5, delay: 0.15 }}
                 >
                   <div className="mb-2 flex items-baseline gap-3">
-                    <h2 className="font-generalsans font-semibold text-2xl text-black tracking-tight md:text-3xl">
+                    <h2 className="font-generalsans font-semibold text-2xl text-fg tracking-tight md:text-3xl">
                       {project.name}
                     </h2>
-                    <span className="font-mono text-[11px] text-black/25 uppercase tracking-wider">
+                    <span className="font-mono text-[11px] text-fg/25 uppercase tracking-wider">
                       {project.year}
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="bg-black/[0.04] px-2.5 py-0.5 font-mono text-[10px] text-black/40 uppercase tracking-wider">
+                    <span className="bg-fg/[0.04] px-2.5 py-0.5 font-mono text-[10px] text-fg/40 uppercase tracking-wider">
                       {project.category}
                     </span>
-                    <span className="font-mono text-[10px] text-black/20">
-                      •
-                    </span>
-                    <span className="font-mono text-[11px] text-black/30">
+                    <span className="font-mono text-[10px] text-fg/20">•</span>
+                    <span className="font-mono text-[11px] text-fg/30">
                       {project.role}
                     </span>
                   </div>
@@ -145,7 +141,7 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
                 {/* Description */}
                 <motion.p
                   animate={{ opacity: 1, y: 0 }}
-                  className="mb-8 max-w-lg font-satoshi text-[15px] text-black/50 leading-relaxed"
+                  className="mb-8 max-w-lg font-satoshi text-[15px] text-fg/50 leading-relaxed"
                   initial={{ opacity: 0, y: 12 }}
                   transition={{ duration: 0.5, delay: 0.2 }}
                 >
@@ -155,7 +151,7 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
                 {/* Divider */}
                 <motion.div
                   animate={{ scaleX: 1 }}
-                  className="mb-6 border-black/[0.08] border-t border-dashed"
+                  className="mb-6 border-fg/[0.08] border-t border-dashed"
                   initial={{ scaleX: 0 }}
                   style={{ transformOrigin: "left" }}
                   transition={{ duration: 0.6, delay: 0.25 }}
@@ -168,14 +164,14 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
                   initial={{ opacity: 0, y: 12 }}
                   transition={{ duration: 0.5, delay: 0.3 }}
                 >
-                  <span className="mb-3 block font-generalsans font-medium text-[10px] text-black/25 uppercase tracking-[0.2em]">
+                  <span className="mb-3 block font-generalsans font-medium text-[10px] text-fg/25 uppercase tracking-[0.2em]">
                     Tech Stack
                   </span>
                   <div className="flex flex-wrap gap-1.5">
                     {project.tech.map((t, i) => (
                       <motion.span
                         animate={{ opacity: 1, scale: 1 }}
-                        className="border border-black/[0.06] bg-neutral-50 px-2.5 py-1 font-mono text-[11px] text-black/40"
+                        className="border border-fg/[0.06] bg-surface-subtle px-2.5 py-1 font-mono text-[11px] text-fg/40"
                         initial={{ opacity: 0, scale: 0.8 }}
                         key={t}
                         transition={{
@@ -201,10 +197,10 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
                 >
                   {project.links.map((link, i) => (
                     <motion.a
-                      className={`group inline-flex items-center gap-2 rounded-lg px-5 py-2.5 font-mono text-[12px] tracking-wide transition-all duration-200 ${
+                      className={`group inline-flex items-center gap-2 rounded-lg px-5 py-2.5 font-mono text-[12px] tracking-wide transition-all duration-200${
                         i === 0
-                          ? "bg-black text-white hover:bg-black/80"
-                          : "border border-black/[0.08] bg-transparent text-black/50 hover:border-black/20 hover:text-black"
+                          ? "bg-fg text-surface hover:bg-fg/80"
+                          : "border border-fg/[0.08] bg-transparent text-fg/50 hover:border-fg/20 hover:text-fg"
                       }`}
                       href={link.href}
                       key={link.label}

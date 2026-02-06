@@ -11,7 +11,7 @@ export const GoldenSpiral = () => (
       fill="none"
       height={377}
       opacity={0.05}
-      stroke="black"
+      stroke="currentColor"
       strokeWidth={0.4}
       width={610}
       x={0}
@@ -20,7 +20,7 @@ export const GoldenSpiral = () => (
     {/* 377×377 square */}
     <line
       opacity={0.05}
-      stroke="black"
+      stroke="currentColor"
       strokeWidth={0.4}
       x1={377}
       x2={377}
@@ -30,7 +30,7 @@ export const GoldenSpiral = () => (
     {/* 233×233 square */}
     <line
       opacity={0.04}
-      stroke="black"
+      stroke="currentColor"
       strokeWidth={0.4}
       x1={377}
       x2={610}
@@ -40,7 +40,7 @@ export const GoldenSpiral = () => (
     {/* 144×144 */}
     <line
       opacity={0.04}
-      stroke="black"
+      stroke="currentColor"
       strokeWidth={0.4}
       x1={521}
       x2={521}
@@ -50,7 +50,7 @@ export const GoldenSpiral = () => (
     {/* 89×89 */}
     <line
       opacity={0.03}
-      stroke="black"
+      stroke="currentColor"
       strokeWidth={0.4}
       x1={377}
       x2={521}
@@ -60,7 +60,7 @@ export const GoldenSpiral = () => (
     {/* 55×55 */}
     <line
       opacity={0.03}
-      stroke="black"
+      stroke="currentColor"
       strokeWidth={0.4}
       x1={432}
       x2={432}
@@ -73,11 +73,11 @@ export const GoldenSpiral = () => (
       d="M610,377 A377,377 0 0,1 377,0 A233,233 0 0,0 610,233 A144,144 0 0,1 377,89 A89,89 0 0,0 521,233 A55,55 0 0,1 432,144 A34,34 0 0,0 466,178"
       fill="none"
       opacity={0.14}
-      stroke="black"
+      stroke="currentColor"
       strokeWidth={0.75}
     />
 
     {/* Golden ratio mark at spiral convergence */}
-    <circle cx={466} cy={178} fill="black" opacity={0.1} r={2} />
+    <circle cx={466} cy={178} fill="currentColor" opacity={0.1} r={2} />
   </svg>
 );

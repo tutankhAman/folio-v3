@@ -195,18 +195,18 @@ export const HeroBuddy = ({ stage }: HeroBuddyProps) => {
               bounce: 0.15,
             }}
           >
-            <div className="relative rounded-md border border-black/[0.08] bg-white/80 px-3 py-1.5 shadow-sm backdrop-blur-sm">
-              <span className="font-mono text-[11px] text-black/60 leading-none">
+            <div className="relative rounded-md border border-fg/[0.08] bg-surface-elevated px-3 py-1.5 shadow-sm backdrop-blur-sm">
+              <span className="font-mono text-[11px] text-fg/60 leading-none">
                 {comment}
               </span>
               {bubblePosition === "left" && (
-                <div className="absolute top-3 -right-[5px] h-0 w-0 border-y-[4px] border-y-transparent border-l-[5px] border-l-black/[0.08]" />
+                <div className="absolute top-3 -right-[5px] h-0 w-0 border-y-[4px] border-y-transparent border-l-[5px] border-l-fg/[0.08]" />
               )}
               {bubblePosition === "right" && (
-                <div className="absolute top-3 -left-[5px] h-0 w-0 border-y-[4px] border-y-transparent border-r-[5px] border-r-black/[0.08]" />
+                <div className="absolute top-3 -left-[5px] h-0 w-0 border-y-[4px] border-y-transparent border-r-[5px] border-r-fg/[0.08]" />
               )}
               {bubblePosition === "top" && (
-                <div className="absolute -bottom-[5px] left-1/2 h-0 w-0 -translate-x-1/2 border-x-[4px] border-x-transparent border-t-[5px] border-t-black/[0.08]" />
+                <div className="absolute -bottom-[5px] left-1/2 h-0 w-0 -translate-x-1/2 border-x-[4px] border-x-transparent border-t-[5px] border-t-fg/[0.08]" />
               )}
             </div>
           </motion.div>
