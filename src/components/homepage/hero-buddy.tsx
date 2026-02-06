@@ -18,6 +18,7 @@ export const HeroBuddy = ({ stage }: HeroBuddyProps) => {
   const [activePosition, setActivePosition] = useState(
     buddyStageConfig[0]?.position ?? ""
   );
+  const [teleportStatus, setTeleportStatus] = useState<TeleportState>("idle");
   const [comment, setComment] = useState("");
   const [showBubble, setShowBubble] = useState(false);
   const [bubbleKey, setBubbleKey] = useState(0);
@@ -103,25 +104,36 @@ export const HeroBuddy = ({ stage }: HeroBuddyProps) => {
     clearTimeouts();
     setShowBubble(false);
 
-    // Instant swap
-    setActivePosition(targetConfig?.position ?? "");
-    const c = pickComment(targetConfig);
-    setComment(c);
-    setBubbleKey((k) => k + 1);
+    // Teleport sequence
+    setTeleportStatus("out");
 
-    if (c) {
+    schedule(() => {
+      // Instant swap
+      setActivePosition(targetConfig?.position ?? "");
+      setTeleportStatus("in");
+
       schedule(() => {
-        setShowBubble(true);
-      }, 120);
+        setTeleportStatus("idle");
 
-      // Auto-hide bubble after 4-6s
-      schedule(
-        () => {
-          setShowBubble(false);
-        },
-        4000 + Math.random() * 2000
-      );
-    }
+        const c = pickComment(targetConfig);
+        setComment(c);
+        setBubbleKey((k) => k + 1);
+
+        if (c) {
+          schedule(() => {
+            setShowBubble(true);
+          }, 150);
+
+          // Auto-hide bubble after 4-6s
+          schedule(
+            () => {
+              setShowBubble(false);
+            },
+            4000 + Math.random() * 2000
+          );
+        }
+      }, 300); // Wait for appear animation
+    }, 300); // Wait for disappear animation
 
     return () => {
       clearTimeouts();
@@ -142,7 +154,11 @@ export const HeroBuddy = ({ stage }: HeroBuddyProps) => {
       {/* The buddy body */}
       <div className="pointer-events-auto relative origin-bottom">
         {/* The living ASCII buddy — never unmounted */}
-        <AsciiBuddy expressionHint={config?.expressionHint} inView={true} />
+        <AsciiBuddy
+          expressionHint={config?.expressionHint}
+          inView={true}
+          teleportState={teleportStatus}
+        />
       </div>
 
       {/* Speech bubble */}

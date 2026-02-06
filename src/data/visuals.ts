@@ -9,13 +9,13 @@ export const visualFlow: Record<number, VisualConfig[]> = {
   // (no separate visual needed)
 
   // Stage 1: "I'm a designer" — golden ratio
-  1: [
-    {
-      id: "viz-designer-spiral",
-      component: "golden-spiral",
-      className: "absolute inset-0",
-    },
-  ],
+  // 1: [
+  //   {
+  //     id: "viz-designer-spiral",
+  //     component: "golden-spiral",
+  //     className: "absolute inset-0",
+  //   },
+  // ],
 
   // Stage 2: "I'm a developer" — code everywhere
   2: [
@@ -37,27 +37,27 @@ export const visualFlow: Record<number, VisualConfig[]> = {
   ],
 
   // Stage 3: "I'm a cs undergrad" — academic/binary
-  3: [
-    {
-      id: "viz-cs-binary",
-      component: "binary-rain",
-      className: "absolute inset-0",
-    },
-  ],
+  // 3: [
+  //   {
+  //     id: "viz-cs-binary",
+  //     component: "binary-rain",
+  //     className: "absolute inset-0",
+  //   },
+  // ],
 
   // Stage 4: "Co-founder of Singularity Works" — convergence/founding
-  4: [
-    {
-      id: "viz-founder-converge",
-      component: "converging-lines",
-      className: "absolute inset-0",
-    },
-    {
-      id: "viz-founder-pulse",
-      component: "pulse-ring",
-      className: "absolute left-[8%] bottom-[15%] h-36 w-36 md:h-52 md:w-52",
-    },
-  ],
+  // 4: [
+  //   {
+  //     id: "viz-founder-converge",
+  //     component: "converging-lines",
+  //     className: "absolute inset-0",
+  //   },
+  //   {
+  //     id: "viz-founder-pulse",
+  //     component: "pulse-ring",
+  //     className: "absolute left-[8%] bottom-[15%] h-36 w-36 md:h-52 md:w-52",
+  //   },
+  // ],
 
   // Stage 8: "curiosity about how software actually works" — mechanisms
   8: [
@@ -166,13 +166,13 @@ export const visualFlow: Record<number, VisualConfig[]> = {
   ],
 
   // Stage 23: "Shipped ideas" — locked on target
-  23: [
-    {
-      id: "viz-shipped-crosshair",
-      component: "crosshair",
-      className: "absolute inset-0",
-    },
-  ],
+  // 23: [
+  //   {
+  //     id: "viz-shipped-crosshair",
+  //     component: "crosshair",
+  //     className: "absolute inset-0",
+  //   },
+  // ],
 
   // Stage 24: "thank you for being here" — warm pulse
   // 24: [

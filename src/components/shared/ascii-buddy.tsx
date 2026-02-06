@@ -18,6 +18,8 @@ import {
 // A living ASCII face that tracks the cursor, blinks, and shifts expressions.
 // Built entirely from monospace characters at whisper-opacity.
 
+export type TeleportState = "idle" | "out" | "in";
+
 interface Expression {
   eyeL: string;
   eyeR: string;
@@ -227,13 +229,106 @@ const buildFaceGrid = (
   return grid;
 };
 
+// ─── Teleportation Hook ──────────────────────────────────────────────────────
+
+const GLYPHS = "░▒▓█<>/\\[]!@#$%^&*()-=+_?:;.,";
+function getRandomGlyph() {
+  return GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+}
+
+const generateOutGrid = (original: string[][], progress: number) => {
+  const newGrid = original.map((row) => [...row]);
+  const rows = newGrid.length;
+  const cols = newGrid[0].length;
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      if (Math.random() < progress * 1.5) {
+        newGrid[r][c] = progress > 0.6 ? " " : getRandomGlyph();
+      }
+    }
+  }
+  return newGrid;
+};
+
+const generateInGrid = (original: string[][], progress: number) => {
+  const newGrid = original.map((row) => [...row]);
+  const rows = newGrid.length;
+  const cols = newGrid[0].length;
+  const inverseProgress = 1 - progress;
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      if (Math.random() < inverseProgress * 1.5) {
+        newGrid[r][c] = getRandomGlyph();
+      }
+    }
+  }
+  return newGrid;
+};
+
+const useAsciiTeleport = (
+  originalGrid: string[][],
+  status: TeleportState = "idle"
+) => {
+  const [renderedGrid, setRenderedGrid] = useState(originalGrid);
+  const gridRef = useRef(originalGrid);
+
+  // Keep ref in sync
+  useEffect(() => {
+    gridRef.current = originalGrid;
+  }, [originalGrid]);
+
+  useEffect(() => {
+    if (status === "idle") {
+      setRenderedGrid(gridRef.current);
+      return;
+    }
+
+    let startTime: number | null = null;
+    let frameId: number;
+
+    const animate = (time: number) => {
+      if (!startTime) {
+        startTime = time;
+      }
+      // Faster transition (300ms) for sleek feel
+      const duration = 300;
+      const progress = Math.min((time - startTime) / duration, 1);
+
+      const currentGrid = gridRef.current;
+      let newGrid = currentGrid;
+
+      if (status === "out") {
+        newGrid = generateOutGrid(currentGrid, progress);
+      } else if (status === "in") {
+        newGrid = generateInGrid(currentGrid, progress);
+      }
+
+      setRenderedGrid(newGrid);
+
+      if (progress < 1) {
+        frameId = requestAnimationFrame(animate);
+      }
+    };
+
+    frameId = requestAnimationFrame(animate);
+
+    return () => {
+      cancelAnimationFrame(frameId);
+    };
+  }, [status]); // Only restart animation when status changes
+
+  return status === "idle" ? originalGrid : renderedGrid;
+};
+
 export const AsciiBuddy = ({
   inView,
   expressionHint,
+  teleportState = "idle",
 }: {
   inView: boolean;
   /** Optional expression index to snap to when it changes */
   expressionHint?: number;
+  teleportState?: TeleportState;
 }) => {
   const containerRef = useRef<HTMLElement>(null);
   const [expressionIdx, setExpressionIdx] = useState(0);
@@ -351,15 +446,20 @@ export const AsciiBuddy = ({
     [expression, eyeChars, pupilDx, pupilDy]
   );
 
+  const displayGrid = useAsciiTeleport(grid, teleportState);
+
   const flatChars = useMemo(
     () =>
-      grid.flatMap((row, ri) =>
+      displayGrid.flatMap((row, ri) =>
         row.map((char, ci) => ({
           char,
           id: `${String(ri)}-${String(ci)}`,
           isStructure:
             char === "|" || char === "-" || char === "." || char === "'",
           isEye:
+            // Only count as eye if it matches the expected eye char AND we are not in deep teleport noise
+            // (Strictly speaking checking char against eyeChars.left is enough, but random noise might match by luck.
+            // It's fine visually.)
             char === eyeChars.left &&
             (ci === 6 ||
               ci === 14 ||
@@ -370,7 +470,7 @@ export const AsciiBuddy = ({
           isMouth: ri === 6 && ci >= 9 && ci <= 11,
         }))
       ),
-    [grid, eyeChars]
+    [displayGrid, eyeChars]
   );
 
   return (
