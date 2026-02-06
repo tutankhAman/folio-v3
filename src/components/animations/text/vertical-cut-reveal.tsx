@@ -42,9 +42,13 @@ interface WordObject {
 }
 
 // handy function to split text into characters with support for unicode and emojis
+const segmenter =
+  typeof Intl !== "undefined" && "Segmenter" in Intl
+    ? new Intl.Segmenter("en", { granularity: "grapheme" })
+    : null;
+
 const splitIntoCharacters = (text: string): string[] => {
-  if (typeof Intl !== "undefined" && "Segmenter" in Intl) {
-    const segmenter = new Intl.Segmenter("en", { granularity: "grapheme" });
+  if (segmenter) {
     return Array.from(segmenter.segment(text), ({ segment }) => segment);
   }
   // Fallback for browsers that don't support Intl.Segmenter
@@ -98,20 +102,21 @@ const VerticalCutReveal = forwardRef<VerticalCutRevealRef, TextProps>(
       return text.split(splitBy);
     }, [text, splitBy]);
 
+    const totalElements = useMemo(() => {
+      if (splitBy === "characters") {
+        return (elements as WordObject[]).reduce(
+          (acc, word) =>
+            acc + word.characters.length + (word.needsSpace ? 1 : 0),
+          0
+        );
+      }
+      return elements.length;
+    }, [elements, splitBy]);
+
     // Calculate stagger delays based on staggerFrom
     const getStaggerDelay = useCallback(
       (index: number) => {
-        const total =
-          splitBy === "characters"
-            ? elements.reduce(
-                (acc, word) =>
-                  acc +
-                  (typeof word === "string"
-                    ? 1
-                    : word.characters.length + (word.needsSpace ? 1 : 0)),
-                0
-              )
-            : elements.length;
+        const total = totalElements;
         if (staggerFrom === "first") {
           return index * staggerDuration;
         }
@@ -128,7 +133,7 @@ const VerticalCutReveal = forwardRef<VerticalCutRevealRef, TextProps>(
         }
         return Math.abs(staggerFrom - index) * staggerDuration;
       },
-      [elements, splitBy, staggerFrom, staggerDuration]
+      [totalElements, staggerFrom, staggerDuration]
     );
 
     const startAnimation = useCallback(() => {

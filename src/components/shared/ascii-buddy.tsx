@@ -124,15 +124,26 @@ const usePupilOffset = (
   const centerX = useRef(0);
   const centerY = useRef(0);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: containerRef is a ref, its mutation doesn't trigger re-render, we use events instead
   useEffect(() => {
-    const el = containerRef.current;
-    if (!el) {
-      return;
-    }
-    const rect = el.getBoundingClientRect();
-    centerX.current = rect.left + rect.width / 2;
-    centerY.current = rect.top + rect.height / 2;
-  });
+    const updateCenter = () => {
+      const el = containerRef.current;
+      if (!el) {
+        return;
+      }
+      const rect = el.getBoundingClientRect();
+      centerX.current = rect.left + rect.width / 2;
+      centerY.current = rect.top + rect.height / 2;
+    };
+
+    updateCenter();
+    window.addEventListener("resize", updateCenter);
+    window.addEventListener("scroll", updateCenter);
+    return () => {
+      window.removeEventListener("resize", updateCenter);
+      window.removeEventListener("scroll", updateCenter);
+    };
+  }, []);
 
   const dx = useTransform(mouseX, (x) => {
     const diff = x - centerX.current;
@@ -248,10 +259,10 @@ export const AsciiBuddy = ({
 
   useEffect(() => {
     const unsubX = dx.on("change", (v) => {
-      setPupilDx(v);
+      setPupilDx((prev) => (prev === v ? prev : v));
     });
     const unsubY = dy.on("change", (v) => {
-      setPupilDy(v);
+      setPupilDy((prev) => (prev === v ? prev : v));
     });
     return () => {
       unsubX();
@@ -330,7 +341,10 @@ export const AsciiBuddy = ({
   }, []);
 
   const expression = EXPRESSIONS[expressionIdx];
-  const eyeChars = getEyeChars(expression, isBlinking);
+  const eyeChars = useMemo(
+    () => getEyeChars(expression, isBlinking),
+    [expression, isBlinking]
+  );
 
   const grid = useMemo(
     () => buildFaceGrid(expression, eyeChars, pupilDx, pupilDy),

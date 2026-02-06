@@ -9,7 +9,7 @@ import {
   useTransform,
   useVelocity,
 } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { flow, imageFlow } from "../../data/hero";
 import type { Project } from "../../data/projects";
@@ -23,12 +23,10 @@ const visualVariants = {
   enter: {
     opacity: 0,
     scale: 0.9,
-    filter: "blur(4px)",
   },
   center: {
     opacity: 1,
     scale: 1,
-    filter: "blur(0px)",
     transition: {
       type: "spring",
       duration: 1.2,
@@ -38,7 +36,6 @@ const visualVariants = {
   exit: {
     opacity: 0,
     scale: 0.9,
-    filter: "blur(4px)",
     transition: {
       type: "spring",
       duration: 1.0,
@@ -58,12 +55,13 @@ export const HeroSection = ({ onProjectClick }: HeroSectionProps) => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.matchMedia("(max-width: 1024px)").matches);
+    const media = window.matchMedia("(max-width: 1024px)");
+    const checkMobile = (e: MediaQueryListEvent | MediaQueryList) => {
+      setIsMobile(e.matches);
     };
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
+    checkMobile(media);
+    media.addEventListener("change", checkMobile);
+    return () => media.removeEventListener("change", checkMobile);
   }, []);
 
   const { scrollYProgress } = useScroll({
@@ -141,7 +139,6 @@ export const HeroSection = ({ onProjectClick }: HeroSectionProps) => {
           y: 0,
           rotateX: 0,
           scale: 0.6,
-          filter: "blur(8px)",
           opacity: 0,
         };
       }
@@ -149,7 +146,6 @@ export const HeroSection = ({ onProjectClick }: HeroSectionProps) => {
         y: direction === "down" ? "110vh" : "-110vh",
         rotateX: direction === "down" ? 65 : -65, // Increased rotation for stronger 3D effect
         scale: 0.6, // Smaller start scale to exaggerate depth
-        filter: "blur(8px)",
         opacity: 0,
         x: 0,
       };
@@ -159,7 +155,6 @@ export const HeroSection = ({ onProjectClick }: HeroSectionProps) => {
       x: 0,
       rotateX: 0,
       scale: 1,
-      filter: "blur(0px)",
       opacity: 1,
       transition: {
         type: "spring",
@@ -184,7 +179,6 @@ export const HeroSection = ({ onProjectClick }: HeroSectionProps) => {
           y: 0,
           rotateX: 0,
           scale: 0.6,
-          filter: "blur(8px)",
           opacity: 0,
           transition: {
             type: "spring",
@@ -199,7 +193,6 @@ export const HeroSection = ({ onProjectClick }: HeroSectionProps) => {
         y: direction === "down" ? "-110vh" : "110vh",
         rotateX: direction === "down" ? -65 : 65,
         scale: 0.6,
-        filter: "blur(8px)",
         opacity: 0,
         x: 0,
         transition: {
@@ -299,7 +292,9 @@ export const HeroSection = ({ onProjectClick }: HeroSectionProps) => {
                   key={viz.id}
                   variants={visualVariants}
                 >
-                  <Component />
+                  <Suspense fallback={<div className="h-full w-full" />}>
+                    <Component />
+                  </Suspense>
                 </motion.div>
               );
             })}

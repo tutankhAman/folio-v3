@@ -1,8 +1,5 @@
-import type { ComponentType } from "react";
+import { type ComponentType, lazy } from "react";
 import { AsciiBuddy } from "../shared/ascii-buddy";
-import { BinaryRain } from "./items/binary-rain";
-import { CliTyping } from "./items/cli-typing";
-import { CodeGrid } from "./items/code-grid";
 import { ConvergingLines } from "./items/converging-lines";
 import { Crosshair } from "./items/crosshair";
 import { FlowingWave } from "./items/flowing-wave";
@@ -13,7 +10,21 @@ import { NodeGraph } from "./items/node-graph";
 import { OrbitDots } from "./items/orbit-dots";
 import { PulseRing } from "./items/pulse-ring";
 import { ScatterDots } from "./items/scatter-dots";
-import { WireframeShape } from "./items/wireframe-shape";
+
+const BinaryRain = lazy(() =>
+  import("./items/binary-rain").then((mod) => ({ default: mod.BinaryRain }))
+);
+const CliTyping = lazy(() =>
+  import("./items/cli-typing").then((mod) => ({ default: mod.CliTyping }))
+);
+const CodeGrid = lazy(() =>
+  import("./items/code-grid").then((mod) => ({ default: mod.CodeGrid }))
+);
+const WireframeShape = lazy(() =>
+  import("./items/wireframe-shape").then((mod) => ({
+    default: mod.WireframeShape,
+  }))
+);
 
 export const visualRegistry: Record<string, ComponentType> = {
   "ascii-buddy": () => <AsciiBuddy inView={true} />,
