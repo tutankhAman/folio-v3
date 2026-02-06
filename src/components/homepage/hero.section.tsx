@@ -12,6 +12,8 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { flow, imageFlow } from "../../data/hero";
+import type { Project } from "../../data/projects";
+import { imageToProject } from "../../data/projects";
 import { visualFlow } from "../../data/visuals";
 import VerticalCutReveal from "../animations/text/vertical-cut-reveal";
 import { visualRegistry } from "../visuals/registry";
@@ -44,7 +46,11 @@ const visualVariants = {
   },
 };
 
-export const HeroSection = () => {
+interface HeroSectionProps {
+  onProjectClick?: (project: Project) => void;
+}
+
+export const HeroSection = ({ onProjectClick }: HeroSectionProps) => {
   const containerRef = useRef<HTMLElement>(null);
   const [stage, setStage] = useState(0);
   const [direction, setDirection] = useState<"up" | "down">("down");
@@ -219,34 +225,59 @@ export const HeroSection = () => {
         }
       >
         {/* Images Layer */}
-        <div className="pointer-events-none absolute inset-0 block">
+        <div className="absolute inset-0 block">
           <AnimatePresence custom={{ direction, isMobile }}>
-            {currentImages.map((img) => (
-              <motion.div
-                animate="center"
-                className={cn(
-                  "absolute origin-center overflow-hidden",
-                  img.className,
-                  img.color
-                )}
-                custom={{ direction, isMobile, side: getSide(img.className) }}
-                exit="exit"
-                initial="enter"
-                key={img.id}
-                style={{ scaleY, skewY, transformStyle: "preserve-3d" }} // Enable 3D transform style
-                variants={imageVariants}
-              >
-                {img.src && (
-                  <img
-                    alt={img.alt}
-                    className="h-full w-full object-cover"
-                    height={800}
-                    src={img.src}
-                    width={800}
-                  />
-                )}
-              </motion.div>
-            ))}
+            {currentImages.map((img) => {
+              const linkedProject = imageToProject.get(img.id);
+              const isClickable = !!linkedProject && !!onProjectClick;
+
+              return (
+                <motion.div
+                  animate="center"
+                  className={cn(
+                    "absolute origin-center overflow-hidden",
+                    img.className,
+                    img.color,
+                    isClickable &&
+                      "group cursor-pointer rounded-lg ring-0 ring-black/0 transition-shadow duration-300 hover:shadow-2xl hover:ring-2 hover:ring-black/10"
+                  )}
+                  custom={{ direction, isMobile, side: getSide(img.className) }}
+                  exit="exit"
+                  initial="enter"
+                  key={img.id}
+                  onClick={
+                    isClickable
+                      ? (e: React.MouseEvent) => {
+                          e.stopPropagation();
+                          onProjectClick(linkedProject);
+                        }
+                      : undefined
+                  }
+                  style={{ scaleY, skewY, transformStyle: "preserve-3d" }}
+                  variants={imageVariants}
+                  whileHover={isClickable ? { scale: 1.04 } : undefined}
+                  whileTap={isClickable ? { scale: 0.97 } : undefined}
+                >
+                  {img.src && (
+                    <img
+                      alt={img.alt}
+                      className="h-full w-full object-cover"
+                      height={800}
+                      src={img.src}
+                      width={800}
+                    />
+                  )}
+                  {/* Clickable indicator overlay */}
+                  {isClickable && (
+                    <div className="pointer-events-none absolute inset-0 flex items-end justify-start bg-gradient-to-t from-black/40 via-transparent to-transparent p-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                      <span className="rounded-full bg-white/90 px-3 py-1 font-medium font-mono text-[10px] text-black/70 uppercase tracking-wider backdrop-blur-sm">
+                        View project ↗
+                      </span>
+                    </div>
+                  )}
+                </motion.div>
+              );
+            })}
           </AnimatePresence>
         </div>
 

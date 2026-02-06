@@ -1,5 +1,7 @@
 import { motion, useInView } from "motion/react";
 import { useEffect, useRef, useState } from "react";
+import type { Project } from "../../data/projects";
+import { nameToProject } from "../../data/projects";
 import { AsciiBuddy } from "./ascii-buddy";
 
 // ─── Footer Data ─────────────────────────────────────────────────────────────
@@ -76,7 +78,11 @@ const StaggeredLine = ({
 
 // ─── Footer ──────────────────────────────────────────────────────────────────
 
-export const Footer = () => {
+interface FooterProps {
+  onProjectClick?: (project: Project) => void;
+}
+
+export const Footer = ({ onProjectClick }: FooterProps) => {
   const footerRef = useRef<HTMLElement>(null);
   const inView = useInView(footerRef, { once: true, margin: "-80px" });
 
@@ -86,7 +92,7 @@ export const Footer = () => {
       ref={footerRef}
     >
       {/* Thin top border */}
-      <div className="mx-auto w-[calc(100%-2rem)] border-black/[0.08] border-t" />
+      <div className="mx-auto w-[calc(100%-2rem)] border-black/[0.08] border-t border-dashed" />
 
       {/* Main content grid */}
       <div className="mx-auto max-w-7xl px-6 pt-20 pb-8 md:px-10">
@@ -123,18 +129,38 @@ export const Footer = () => {
               </span>
             </StaggeredLine>
             <div className="flex flex-col gap-3">
-              {PROJECTS.map((p, i) => (
-                <StaggeredLine index={i + 1} inView={inView} key={p.label}>
-                  <div className="group cursor-pointer">
-                    <span className="font-mono text-[13px] text-black/50 transition-colors duration-300 group-hover:text-black">
-                      {p.label}
-                    </span>
-                    <span className="ml-2 font-mono text-[10px] text-black/20 transition-colors duration-300 group-hover:text-black/40">
-                      {p.description}
-                    </span>
-                  </div>
-                </StaggeredLine>
-              ))}
+              {PROJECTS.map((p, i) => {
+                const project = nameToProject.get(p.label.toLowerCase());
+                const isClickable = !!project && !!onProjectClick;
+
+                return (
+                  <StaggeredLine index={i + 1} inView={inView} key={p.label}>
+                    {isClickable ? (
+                      <button
+                        className="group flex cursor-pointer items-baseline gap-0 border-none bg-transparent p-0 text-left"
+                        onClick={() => onProjectClick(project)}
+                        type="button"
+                      >
+                        <span className="font-mono text-[13px] text-black/50 transition-colors duration-300 group-hover:text-black">
+                          {p.label}
+                        </span>
+                        <span className="ml-2 font-mono text-[10px] text-black/20 transition-colors duration-300 group-hover:text-black/40">
+                          {p.description}
+                        </span>
+                      </button>
+                    ) : (
+                      <div className="group">
+                        <span className="font-mono text-[13px] text-black/50 transition-colors duration-300 group-hover:text-black">
+                          {p.label}
+                        </span>
+                        <span className="ml-2 font-mono text-[10px] text-black/20 transition-colors duration-300 group-hover:text-black/40">
+                          {p.description}
+                        </span>
+                      </div>
+                    )}
+                  </StaggeredLine>
+                );
+              })}
             </div>
           </div>
 
@@ -233,7 +259,7 @@ export const Footer = () => {
 
       {/* Bottom bar */}
       <div className="mx-auto max-w-7xl px-6 md:px-10">
-        <div className="mt-2 border-black/[0.06] border-t py-5">
+        <div className="mt-2 border-black/[0.06] border-t border-dashed py-5">
           <motion.div
             animate={inView ? { opacity: 1 } : { opacity: 0 }}
             className="flex flex-col items-start justify-between gap-3 md:flex-row md:items-center"
