@@ -29,29 +29,33 @@ function App() {
       <AnimatePresence mode="wait">
         {loading && (
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black will-change-[mask-image,transform]"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black will-change-[mask-image,transform,filter]"
             exit={
               {
                 maskImage:
-                  "radial-gradient(circle at center, transparent 110%, black 130%)",
+                  "radial-gradient(ellipse 160% 160% at center, transparent 50%, black 80%)",
                 WebkitMaskImage:
-                  "radial-gradient(circle at center, transparent 110%, black 130%)",
-                scale: 1.1,
+                  "radial-gradient(ellipse 160% 160% at center, transparent 50%, black 80%)",
+                scale: 1.08,
+                filter: "blur(4px)",
               } as Record<string, string | number>
             }
             initial={
               {
                 maskImage:
-                  "radial-gradient(circle at center, transparent 0%, black 0%)",
+                  "radial-gradient(ellipse 0% 0% at center, transparent 50%, black 80%)",
                 WebkitMaskImage:
-                  "radial-gradient(circle at center, transparent 0%, black 0%)",
+                  "radial-gradient(ellipse 0% 0% at center, transparent 50%, black 80%)",
                 scale: 1,
+                filter: "blur(0px)",
               } as Record<string, string | number>
             }
             key="loader"
             transition={{
-              duration: 1.2,
-              ease: [0.76, 0, 0.24, 1],
+              duration: 1.6,
+              ease: [0.65, 0, 0.35, 1],
+              filter: { duration: 1.2, delay: 0.3, ease: [0.76, 0, 0.24, 1] },
+              scale: { duration: 1.8, ease: [0.33, 1, 0.68, 1] },
             }}
           >
             <Loader onComplete={() => setLoading(false)} />
