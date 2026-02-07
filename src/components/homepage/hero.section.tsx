@@ -86,6 +86,9 @@ export const HeroSection = ({ onProjectClick }: HeroSectionProps) => {
   );
   const skewY = useTransform(smoothVelocity, [-3000, 0, 3000], [-10, 0, 10]);
 
+  const lastUpdateRef = useRef(0);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     // Map scroll progress (0-1) to stage index (0 to flow.length - 1)
     const totalStages = flow.length;
@@ -100,13 +103,50 @@ export const HeroSection = ({ onProjectClick }: HeroSectionProps) => {
       newStage = totalStages - 1;
     }
 
-    if (newStage !== stage) {
-      if (newStage > stage) {
-        setDirection("down");
-      } else {
-        setDirection("up");
+    // Velocity-based throttling
+    const now = Date.now();
+    const velocity = Math.abs(smoothVelocity.get());
+    // If velocity is high (> 100), we throttle updates to avoid
+    // piling up exit animations (glitch/sticking text).
+    const isRapid = velocity > 100;
+    const throttleDelay = isRapid ? 150 : 0;
+
+    // Helper to apply the update
+    const applyUpdate = () => {
+      setStage((prevStage) => {
+        if (newStage !== prevStage) {
+          if (newStage > prevStage) {
+            setDirection("down");
+          } else {
+            setDirection("up");
+          }
+          return newStage;
+        }
+        return prevStage;
+      });
+      lastUpdateRef.current = Date.now();
+    };
+
+    if (now - lastUpdateRef.current >= throttleDelay) {
+      // Time to update (or immediate)
+      applyUpdate();
+      // Clear any pending trailing update since we just updated
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
       }
-      setStage(newStage);
+    } else {
+      // Too soon, schedule a trailing update
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+      timeoutRef.current = setTimeout(
+        () => {
+          applyUpdate();
+          timeoutRef.current = null;
+        },
+        throttleDelay - (now - lastUpdateRef.current)
+      );
     }
   });
 
