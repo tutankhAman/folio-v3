@@ -15,7 +15,7 @@ function computeY(step: number) {
 /** Computes the X translation for the main container based on step */
 function computeX(step: number) {
   if (step === 4 || step === 5) {
-    return "40px";
+    return "37px";
   }
   if (step >= 3) {
     return "0.11em";
@@ -182,7 +182,7 @@ function ProgressBar({
     <div className="absolute bottom-[20%] left-1/2 -translate-x-1/2">
       <motion.div
         animate={{ opacity: step < 5 ? 1 : 0 }}
-        className="relative h-[1px] w-16 overflow-hidden rounded-full bg-white/10"
+        className="relative h-0.25 w-40 overflow-hidden rounded-full bg-white/10"
         initial={{ opacity: 0 }}
         transition={{ duration: 0.5, ease }}
       >
