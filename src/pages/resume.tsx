@@ -471,9 +471,10 @@ export default function ResumePage() {
                 Aman <span className="font-medium">Aziz</span>
               </h1>
               <p className="mt-3 max-w-xl font-satoshi text-[15px] text-fg/45 leading-relaxed">
-                Full-stack developer and UI/UX designer with expertise in React,
-                Next.js, Node.js, and MongoDB. Building AI-integrated web
-                applications that drive engagement and results.
+                Full-stack developer and UI/UX designer with expertise in
+                building scalable systems, UI/UX-driven product design and
+                applied AI systems. Building AI-integrated web applications that
+                drive engagement and results.
               </p>
             </div>
             <div className="flex shrink-0 flex-col items-start gap-4 sm:items-end">

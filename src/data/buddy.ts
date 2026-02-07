@@ -23,7 +23,7 @@ export const buddyStageConfig: Record<number, BuddyStageConfig> = {
       "oh hey, you're here!",
       "welcome welcome~",
       "scroll down, i dare you",
-      "that's my human btw →",
+      "Hey, I'm Larity!",
     ],
     expressionHint: 5, // excited
   },

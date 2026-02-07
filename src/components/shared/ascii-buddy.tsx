@@ -517,7 +517,7 @@ export const AsciiBuddy = ({
           })}
         </div>
       </figure>
-      {/** biome-ignore lint/style/useSelfClosingElements: <necessary> */}
+
       <motion.span
         animate={{ opacity: isHovered ? 0.9 : 0.7 }}
         className="font-mono text-[10px] text-fg tracking-[0.15em]"
