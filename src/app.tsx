@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useState } from "react";
 import { Route, Routes } from "react-router-dom";
@@ -84,6 +85,7 @@ function App() {
 
       {/* Project modal overlay */}
       <ProjectModal onClose={handleCloseModal} project={selectedProject} />
+      <Analytics />
     </main>
   );
 }
