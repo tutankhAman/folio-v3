@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap");
 @import "tailwindcss";
 
 /* ─── Theme Variables ─────────────────────────────────────────────────────── */
@@ -24,11 +26,16 @@
 
 @theme {
   --font-array: "Array", sans-serif;
+  --font-casta: "Casta", serif;
   --font-dancingscript: "DancingScript", cursive;
+  --font-departure: "DepartureMono", monospace;
+  --font-departuremono: "DepartureMono", monospace;
   --font-generalsans: "GeneralSans", sans-serif;
   --font-kola: "Kola", sans-serif;
   --font-nippo: "Nippo", sans-serif;
+  --font-poppins: "Poppins", sans-serif;
   --font-satoshi: "Satoshi", sans-serif;
+  --font-serif: "Lora", serif;
 
   /* Semantic color tokens */
   --color-surface: var(--theme-surface);
@@ -190,4 +197,73 @@
   font-weight: 300 900;
   font-style: italic;
   font-display: swap;
+}
+
+/* Casta */
+@font-face {
+  font-family: "Casta";
+  src: url("/fonts/Casta-Thin.otf") format("opentype");
+  font-weight: 100 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Casta";
+  src: url("/fonts/Casta-ThinSlanted.otf") format("opentype");
+  font-weight: 100 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Departure Mono */
+@font-face {
+  font-family: "DepartureMono";
+  src: url("/fonts/DepartureMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ─── Print Styles for Resume Export ───────────────────────────────────────── */
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 10mm 12mm;
+  }
+
+  body,
+  html {
+    background: #ffffff !important;
+    color: #111111 !important;
+    font-size: 11pt !important;
+  }
+
+  .no-print,
+  nav,
+  footer,
+  .ascii-buddy,
+  button,
+  .cursor-image-preview {
+    display: none !important;
+  }
+
+  .print-page {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    max-width: 100% !important;
+  }
+
+  section,
+  article,
+  .print-break-avoid {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  a {
+    text-decoration: none !important;
+    color: #111111 !important;
+  }
 }

@@ -156,14 +156,14 @@ export const Navbar = () => {
               )}
             </a>
 
-            {/* Résumé */}
+            {/* tl;dr */}
             <a
               className="relative px-4 py-2 font-mono text-fg/60 text-sm uppercase transition-colors hover:text-fg"
               href="/resume"
               onMouseEnter={() => setHoveredLink("resume")}
               onMouseLeave={() => setHoveredLink(null)}
             >
-              <span className="relative z-10">Résumé</span>
+              <span className="relative z-10">tl;dr</span>
               {hoveredLink === "resume" && (
                 <motion.div
                   className="absolute inset-0 z-0 rounded-lg bg-fg/[0.04]"
@@ -370,7 +370,7 @@ export const Navbar = () => {
                   </a>
                 </motion.div>
 
-                {/* Résumé */}
+                {/* tl;dr */}
                 <motion.div
                   animate={{ opacity: 1, x: 0 }}
                   initial={{ opacity: 0, x: -12 }}
@@ -390,7 +390,7 @@ export const Navbar = () => {
                         02
                       </span>
                       <span className="font-generalsans font-light text-[28px] text-fg tracking-tight">
-                        Résumé
+                        tl;dr
                       </span>
                     </span>
                     <span className="flex items-center gap-2 font-mono text-[10px] text-fg/30 uppercase tracking-[0.15em]">
