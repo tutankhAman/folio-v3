@@ -14,7 +14,7 @@ import { ARCHIVED_PROJECTS, type ArchivedProject } from "@/data/projects";
 
 function ArchivedProjectCard({ project }: { project: ArchivedProject }) {
   return (
-    <div className="border border-neutral-300 border-dashed bg-neutral-50/50 p-6 md:p-8">
+    <div className="resume-card border border-neutral-300 border-dashed bg-neutral-50/50 p-6 md:p-8">
       {project.link ? (
         <a
           className="group inline-flex items-center gap-1.5 font-medium font-serif text-2xl text-neutral-800 tracking-tight transition-colors hover:text-neutral-900"
@@ -510,7 +510,7 @@ export default function ResumePage() {
 
             <div className="mt-8 space-y-6">
               {/* Card 1: MLH HackByte 4.0 */}
-              <div className="group border border-neutral-300 border-dashed bg-neutral-50/50 p-6 transition-colors hover:border-neutral-400 md:p-8">
+              <div className="resume-card group border border-neutral-300 border-dashed bg-neutral-50/50 p-6 transition-colors hover:border-neutral-400 md:p-8">
                 <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-2.5">
@@ -542,7 +542,7 @@ export default function ResumePage() {
               </div>
 
               {/* Card 2: Summer of Codefest 2025 */}
-              <div className="group border border-neutral-300 border-dashed bg-neutral-50/50 p-6 transition-colors hover:border-neutral-400 md:p-8">
+              <div className="resume-card group border border-neutral-300 border-dashed bg-neutral-50/50 p-6 transition-colors hover:border-neutral-400 md:p-8">
                 <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-2.5">
@@ -574,7 +574,7 @@ export default function ResumePage() {
               </div>
 
               {/* Card 3: AsyncAPI Conference Singapore */}
-              <div className="group border border-neutral-300 border-dashed bg-neutral-50/50 p-6 transition-colors hover:border-neutral-400 md:p-8">
+              <div className="resume-card group border border-neutral-300 border-dashed bg-neutral-50/50 p-6 transition-colors hover:border-neutral-400 md:p-8">
                 <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-2.5">

@@ -282,6 +282,10 @@
 }
 
 @media (max-width: 639px) {
+  main:has(.resume-page) > nav {
+    width: calc(100% - 2rem);
+  }
+
   .resume-content > section {
     padding: 2rem 1rem;
   }
@@ -290,7 +294,16 @@
     padding-top: 2.5rem;
   }
 
+  .resume-content .resume-card {
+    padding: 0.85rem;
+  }
+
   .resume-content p[class*="text-md"] {
+    font-size: 0.875rem;
+    line-height: 1.65;
+  }
+
+  .resume-content #section-2 ul {
     font-size: 0.875rem;
     line-height: 1.65;
   }

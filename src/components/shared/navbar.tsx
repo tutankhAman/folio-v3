@@ -1,5 +1,6 @@
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Mail } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
+import type React from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTheme } from "@/lib/theme";
@@ -7,26 +8,48 @@ import { cn } from "@/lib/utils";
 
 // ─── Contact Dropdown Items ──────────────────────────────────────────────────
 
+const GithubIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg aria-hidden="true" fill="currentColor" viewBox="0 0 24 24" {...props}>
+    <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+  </svg>
+);
+
+const XIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg aria-hidden="true" fill="currentColor" viewBox="0 0 24 24" {...props}>
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+  </svg>
+);
+
+const LinkedinIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg aria-hidden="true" fill="currentColor" viewBox="0 0 24 24" {...props}>
+    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+  </svg>
+);
+
 const CONTACT_ITEMS = [
   {
     label: "Email",
     href: "mailto:amanaziz2020@gmail.com",
+    icon: Mail,
     detail: "amanaziz2020@gmail.com",
   },
   {
     label: "GitHub",
     href: "https://github.com/tutankhAman",
     external: true,
+    icon: GithubIcon,
   },
   {
     label: "Twitter / X",
     href: "https://x.com/amancooks",
     external: true,
+    icon: XIcon,
   },
   {
     label: "LinkedIn",
     href: "https://linkedin.com/in/aman-aziz",
     external: true,
+    icon: LinkedinIcon,
   },
 ];
 
@@ -45,7 +68,7 @@ export const Navbar = () => {
   const location = useLocation();
 
   const isStoryActive = location.pathname === "/";
-  const isResumeActive = location.pathname === "/resume";
+  const isTldrActive = location.pathname === "/tldr";
 
   const closeMobile = useCallback(() => {
     setMobileOpen(false);
@@ -170,16 +193,16 @@ export const Navbar = () => {
             <a
               className={cn(
                 "relative border border-dashed px-3 py-1 font-mono text-xs uppercase transition-all duration-200",
-                isResumeActive
+                isTldrActive
                   ? "border-neutral-400 bg-neutral-100/70 font-medium text-neutral-900"
                   : "border-transparent text-neutral-500 hover:text-neutral-900"
               )}
-              href="/resume"
-              onMouseEnter={() => setHoveredLink("resume")}
+              href="/tldr"
+              onMouseEnter={() => setHoveredLink("tldr")}
               onMouseLeave={() => setHoveredLink(null)}
             >
               <span className="relative z-10">tl;dr</span>
-              {hoveredLink === "resume" && !isResumeActive && (
+              {hoveredLink === "tldr" && !isTldrActive && (
                 <motion.div
                   className="absolute inset-0 z-0 rounded bg-fg/[0.04]"
                   layoutId="navbar-hover"
@@ -344,11 +367,17 @@ export const Navbar = () => {
             initial={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.76, 0, 0.24, 1] }}
           >
-            <div className="flex h-full flex-col justify-between px-6 pt-28 pb-10">
+            <div className="mx-auto flex h-full w-[calc(100%-2rem)] max-w-4xl flex-col justify-between border-fg/[0.08] border-x border-dashed px-4 pt-24 pb-6 sm:px-6 sm:pt-28 sm:pb-10">
+              <div className="mb-6 border-fg/[0.08] border-b border-dashed pb-4">
+                <div className="flex items-center justify-between font-mono text-[10px] text-fg/30 uppercase tracking-[0.18em]">
+                  <span>Menu / 03</span>
+                  <span>Mobile interface</span>
+                </div>
+              </div>
               {/* Nav items */}
               <nav
                 aria-label="Mobile navigation"
-                className="flex flex-col gap-1"
+                className="flex flex-col gap-2"
               >
                 {/* Story */}
                 <motion.div
@@ -361,11 +390,11 @@ export const Navbar = () => {
                   }}
                 >
                   <a
-                    className="group flex items-center gap-3 border-fg/[0.06] border-b border-dashed py-5 font-generalsans font-light text-[28px] text-fg/60 tracking-tight transition-colors duration-300 hover:text-fg"
+                    className="group flex items-center gap-3 border border-fg/[0.08] border-dashed bg-fg/[0.02] px-4 py-4 font-serif text-2xl text-fg/60 tracking-tight transition-colors duration-300 hover:border-fg/20 hover:bg-fg/[0.04] hover:text-fg"
                     href="/"
                     onClick={handleStoryClick}
                   >
-                    <span className="font-mono text-[10px] text-fg/20 uppercase tracking-[0.2em]">
+                    <span className="flex h-6 w-6 items-center justify-center border border-fg/[0.12] border-dashed font-mono text-[9px] text-fg/30 uppercase tracking-[0.1em]">
                       01
                     </span>
                     Story
@@ -383,30 +412,17 @@ export const Navbar = () => {
                   }}
                 >
                   <a
-                    className="group flex items-center justify-between border-fg/[0.06] border-b border-dashed py-5"
-                    href="/resume"
+                    className="group flex items-center justify-between border border-fg/[0.08] border-dashed bg-fg/[0.02] px-4 py-4 transition-colors duration-300 hover:border-fg/20 hover:bg-fg/[0.04]"
+                    href="/tldr"
                     onClick={closeMobile}
                   >
                     <span className="flex items-center gap-3">
-                      <span className="font-mono text-[10px] text-fg/20 uppercase tracking-[0.2em]">
+                      <span className="flex h-6 w-6 items-center justify-center border border-fg/[0.12] border-dashed font-mono text-[9px] text-fg/30 uppercase tracking-[0.1em]">
                         02
                       </span>
-                      <span className="font-generalsans font-light text-[28px] text-fg tracking-tight">
+                      <span className="font-serif text-2xl text-fg/60 tracking-tight transition-colors group-hover:text-fg">
                         tl;dr
                       </span>
-                    </span>
-                    <span className="flex items-center gap-2 font-mono text-[10px] text-fg/30 uppercase tracking-[0.15em]">
-                      Concise
-                      <svg
-                        aria-hidden="true"
-                        className="h-3 w-3"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth={1.5}
-                        viewBox="0 0 12 12"
-                      >
-                        <path d="M2 10L10 2M10 2H5M10 2v5" />
-                      </svg>
                     </span>
                   </a>
                 </motion.div>
@@ -422,97 +438,17 @@ export const Navbar = () => {
                   }}
                 >
                   <button
-                    className="group flex w-full items-center gap-3 border-fg/[0.06] border-b border-dashed py-5 font-generalsans font-light text-[28px] text-fg/60 tracking-tight transition-colors duration-300 hover:text-fg"
+                    className="group flex w-full items-center gap-3 border border-fg/[0.08] border-dashed bg-fg/[0.02] px-4 py-4 font-serif text-2xl text-fg/60 tracking-tight transition-colors duration-300 hover:border-fg/20 hover:bg-fg/[0.04] hover:text-fg"
                     onClick={toggleTheme}
                     type="button"
                   >
-                    <span className="font-mono text-[10px] text-fg/20 uppercase tracking-[0.2em]">
+                    <span className="flex h-6 w-6 items-center justify-center border border-fg/[0.12] border-dashed font-mono text-[9px] text-fg/30 uppercase tracking-[0.1em]">
                       ◐
                     </span>
                     {theme === "light" ? "Dark Mode" : "Light Mode"}
                   </button>
                 </motion.div>
-
-                {/* Contact — expanded inline on mobile */}
-                <motion.div
-                  animate={{ opacity: 1, x: 0 }}
-                  initial={{ opacity: 0, x: -12 }}
-                  transition={{
-                    duration: 0.5,
-                    ease: [0.76, 0, 0.24, 1],
-                    delay: 0.2,
-                  }}
-                >
-                  <div className="border-fg/[0.06] border-b border-dashed py-5">
-                    <span className="flex items-center gap-3 font-generalsans font-light text-[28px] text-fg/60 tracking-tight">
-                      <span className="font-mono text-[10px] text-fg/20 uppercase tracking-[0.2em]">
-                        03
-                      </span>
-                      Contact
-                    </span>
-                    {/* Sub-links */}
-                    <div className="mt-5 flex flex-col gap-3 pl-10">
-                      {CONTACT_ITEMS.map((item, i) => (
-                        <motion.a
-                          animate={{ opacity: 1, x: 0 }}
-                          className="group flex items-center gap-2 font-mono text-[13px] text-fg/40 transition-colors duration-300 hover:text-fg"
-                          href={item.href}
-                          initial={{ opacity: 0, x: -8 }}
-                          key={item.label}
-                          onClick={closeMobile}
-                          rel={
-                            item.external ? "noopener noreferrer" : undefined
-                          }
-                          target={item.external ? "_blank" : undefined}
-                          transition={{
-                            duration: 0.4,
-                            ease: [0.76, 0, 0.24, 1],
-                            delay: 0.25 + i * 0.04,
-                          }}
-                        >
-                          <span className="inline-block h-px w-0 bg-fg/30 transition-all duration-300 group-hover:w-3" />
-                          {item.label}
-                          {item.external && (
-                            <svg
-                              aria-hidden="true"
-                              className="h-2 w-2 opacity-30"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth={1.5}
-                              viewBox="0 0 12 12"
-                            >
-                              <path d="M2 10L10 2M10 2H5M10 2v5" />
-                            </svg>
-                          )}
-                        </motion.a>
-                      ))}
-                    </div>
-                  </div>
-                </motion.div>
               </nav>
-
-              {/* Bottom — status */}
-              <motion.div
-                animate={{ opacity: 1 }}
-                className="flex items-center justify-between"
-                initial={{ opacity: 0 }}
-                transition={{
-                  duration: 0.6,
-                  ease: [0.76, 0, 0.24, 1],
-                  delay: 0.4,
-                }}
-              >
-                <span className="flex items-center gap-2 font-mono text-[11px] text-fg/25">
-                  <span className="relative flex h-1.5 w-1.5">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                  </span>
-                  Open to work
-                </span>
-                <span className="font-mono text-[11px] text-fg/20">
-                  &copy; {new Date().getFullYear()}
-                </span>
-              </motion.div>
             </div>
           </motion.div>
         )}
