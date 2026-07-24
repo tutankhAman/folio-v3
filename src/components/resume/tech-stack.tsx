@@ -1,8 +1,4 @@
 import type React from "react";
-import {
-  StaggerContainer,
-  StaggerItem,
-} from "@/components/animations/motion-wrapper";
 
 interface TechItem {
   name: string;
@@ -329,24 +325,22 @@ export function TechStack() {
           <h3 className="mb-3 font-mono font-normal text-neutral-400 text-xs uppercase tracking-widest">
             {cat.title}
           </h3>
-          <StaggerContainer
-            className="flex flex-wrap gap-2.5"
-            staggerDelay={0.03}
-          >
+          <div className="flex flex-wrap gap-2.5">
             {cat.items.map((item) => {
               const Icon = item.icon;
               return (
-                <StaggerItem key={item.name}>
-                  <div className="group flex items-center gap-2.5 border border-neutral-300 border-dashed bg-neutral-50/50 px-3.5 py-2 transition-all duration-200 hover:border-neutral-900 hover:bg-neutral-900">
-                    <Icon className="h-4 w-4 shrink-0 transition-colors" />
-                    <span className="font-medium font-poppins text-neutral-800 text-xs transition-colors group-hover:text-white">
-                      {item.name}
-                    </span>
-                  </div>
-                </StaggerItem>
+                <div
+                  className="group flex items-center gap-2.5 border border-neutral-300 border-dashed bg-neutral-50/50 px-3.5 py-2 transition-all duration-200 hover:border-neutral-900 hover:bg-neutral-900"
+                  key={item.name}
+                >
+                  <Icon className="h-4 w-4 shrink-0 transition-colors" />
+                  <span className="font-medium font-poppins text-neutral-800 text-xs transition-colors group-hover:text-white">
+                    {item.name}
+                  </span>
+                </div>
               );
             })}
-          </StaggerContainer>
+          </div>
         </div>
       ))}
     </div>

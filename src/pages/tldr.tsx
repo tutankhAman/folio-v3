@@ -1,12 +1,6 @@
 import { ArrowUpRight, ChevronDown, Mail, Plus, Volume2 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import {
-  ImageReveal,
-  MaskedReveal,
-  StaggerContainer,
-  StaggerItem,
-} from "@/components/animations/motion-wrapper";
 import { ContactSection } from "@/components/resume/contact-section";
 import { GitHubActivity } from "@/components/resume/github-activity";
 import { OutroSection } from "@/components/resume/outro-section";
@@ -259,11 +253,9 @@ export default function ResumePage() {
             {/* Header row split into Left (Name + Dictionary Phonetic) and Right (Social Icons) */}
             <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
               <div>
-                <MaskedReveal>
-                  <h1 className="font-light text-5xl text-neutral-900 tracking-tighter sm:text-6xl md:text-6xl">
-                    <StylizedName />
-                  </h1>
-                </MaskedReveal>
+                <h1 className="font-light text-5xl text-neutral-900 tracking-tighter sm:text-6xl md:text-6xl">
+                  <StylizedName />
+                </h1>
 
                 {/* Dictionary Phonetic Translation */}
                 <div className="mt-3 flex items-center gap-2.5 font-mono text-neutral-500 text-sm">
@@ -290,24 +282,23 @@ export default function ResumePage() {
               </div>
 
               {/* Social Icons */}
-              <StaggerContainer className="flex items-center gap-3 sm:pt-2">
+              <div className="flex items-center gap-3 sm:pt-2">
                 {SOCIAL_LINKS.map((social) => {
                   const Icon = social.icon;
                   return (
-                    <StaggerItem key={social.name}>
-                      <a
-                        aria-label={social.name}
-                        className="flex h-10 w-10 items-center justify-center border border-neutral-200 text-neutral-600 transition-all duration-200 hover:border-neutral-900 hover:bg-neutral-900 hover:text-white"
-                        href={social.href}
-                        rel="noopener noreferrer"
-                        target="_blank"
-                      >
-                        <Icon className="h-4 w-4" />
-                      </a>
-                    </StaggerItem>
+                    <a
+                      aria-label={social.name}
+                      className="flex h-10 w-10 items-center justify-center border border-neutral-200 text-neutral-600 transition-all duration-200 hover:border-neutral-900 hover:bg-neutral-900 hover:text-white"
+                      href={social.href}
+                      key={social.name}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      <Icon className="h-4 w-4" />
+                    </a>
                   );
                 })}
-              </StaggerContainer>
+              </div>
             </div>
 
             <p className="mt-6 w-full font-poppins text-md text-neutral-600 leading-relaxed tracking-normal sm:text-md md:text-md4">
@@ -413,15 +404,13 @@ export default function ResumePage() {
               memory, all without storing raw audio. $1.22 per meeting, sub-2s
               latency.
             </p>
-            <ImageReveal className="mt-10 w-full overflow-hidden border border-neutral-300 border-dashed">
-              <img
-                alt="Larity"
-                className="w-full"
-                height={600}
-                src="/Larity.png"
-                width={1200}
-              />
-            </ImageReveal>
+            <img
+              alt="Larity"
+              className="mt-10 w-full border border-neutral-300 border-dashed"
+              height={600}
+              src="/Larity.png"
+              width={1200}
+            />
           </section>
 
           {/* Section 4 */}
@@ -451,15 +440,13 @@ export default function ResumePage() {
               via OCR, and layers deterministic safety logic on top of
               LLM-driven interaction checks.
             </p>
-            <ImageReveal className="mt-10 w-full overflow-hidden border border-neutral-300 border-dashed">
-              <img
-                alt="Saltwise"
-                className="w-full"
-                height={600}
-                src="/saltwise.webp"
-                width={1200}
-              />
-            </ImageReveal>
+            <img
+              alt="Saltwise"
+              className="mt-10 w-full border border-neutral-300 border-dashed"
+              height={600}
+              src="/saltwise.webp"
+              width={1200}
+            />
           </section>
 
           {/* Section 5: Archived Projects (Collapsible) */}
@@ -521,109 +508,103 @@ export default function ResumePage() {
               Records
             </h2>
 
-            <StaggerContainer className="mt-8 space-y-6" staggerDelay={0.08}>
+            <div className="mt-8 space-y-6">
               {/* Card 1: MLH HackByte 4.0 */}
-              <StaggerItem>
-                <div className="group border border-neutral-300 border-dashed bg-neutral-50/50 p-6 transition-colors hover:border-neutral-400 md:p-8">
-                  <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2.5">
-                        <span className="border border-neutral-200 bg-neutral-100 px-2 py-0.5 font-mono text-neutral-500 text-xs">
-                          Hackathon Winner
-                        </span>
-                        <span className="font-mono text-neutral-400 text-xs">
-                          2026
-                        </span>
-                      </div>
-                      <h3 className="mt-3 font-medium font-serif text-2xl text-neutral-800 tracking-tight md:text-3xl">
-                        1st Place — MLH HackByte 4.0
-                      </h3>
-                      <p className="mt-3 font-poppins text-neutral-600 text-sm leading-relaxed md:text-md4">
-                        Major League Hacking global hackathon. Built and shipped
-                        Chorus, an agent orchestration platform, in one weekend.
-                      </p>
+              <div className="group border border-neutral-300 border-dashed bg-neutral-50/50 p-6 transition-colors hover:border-neutral-400 md:p-8">
+                <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2.5">
+                      <span className="border border-neutral-200 bg-neutral-100 px-2 py-0.5 font-mono text-neutral-500 text-xs">
+                        Hackathon Winner
+                      </span>
+                      <span className="font-mono text-neutral-400 text-xs">
+                        2026
+                      </span>
                     </div>
-                    <ImageReveal className="w-full shrink-0 overflow-hidden border border-neutral-300 border-dashed md:w-72 lg:w-80">
-                      <img
-                        alt="Chorus - MLH HackByte 4.0"
-                        className="h-44 w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        height={350}
-                        src="/hackbyte.jpg"
-                        width={600}
-                      />
-                    </ImageReveal>
+                    <h3 className="mt-3 font-medium font-serif text-2xl text-neutral-800 tracking-tight md:text-3xl">
+                      1st Place — MLH HackByte 4.0
+                    </h3>
+                    <p className="mt-3 font-poppins text-neutral-600 text-sm leading-relaxed md:text-md4">
+                      Major League Hacking global hackathon. Built and shipped
+                      Chorus, an agent orchestration platform, in one weekend.
+                    </p>
+                  </div>
+                  <div className="w-full shrink-0 overflow-hidden border border-neutral-300 border-dashed md:w-72 lg:w-80">
+                    <img
+                      alt="Chorus - MLH HackByte 4.0"
+                      className="h-44 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      height={350}
+                      src="/hackbyte.jpg"
+                      width={600}
+                    />
                   </div>
                 </div>
-              </StaggerItem>
+              </div>
 
               {/* Card 2: Summer of Codefest 2025 */}
-              <StaggerItem>
-                <div className="group border border-neutral-300 border-dashed bg-neutral-50/50 p-6 transition-colors hover:border-neutral-400 md:p-8">
-                  <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2.5">
-                        <span className="border border-neutral-200 bg-neutral-100 px-2 py-0.5 font-mono text-neutral-500 text-xs">
-                          Hackathon Winner
-                        </span>
-                        <span className="font-mono text-neutral-400 text-xs">
-                          2025
-                        </span>
-                      </div>
-                      <h3 className="mt-3 font-medium font-serif text-2xl text-neutral-800 tracking-tight md:text-3xl">
-                        1st Place — Summer of Codefest 2025
-                      </h3>
-                      <p className="mt-3 font-poppins text-neutral-600 text-sm leading-relaxed md:text-md4">
-                        Built VerQ, an AI-powered interview prep platform, from
-                        idea to working product.
-                      </p>
+              <div className="group border border-neutral-300 border-dashed bg-neutral-50/50 p-6 transition-colors hover:border-neutral-400 md:p-8">
+                <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2.5">
+                      <span className="border border-neutral-200 bg-neutral-100 px-2 py-0.5 font-mono text-neutral-500 text-xs">
+                        Hackathon Winner
+                      </span>
+                      <span className="font-mono text-neutral-400 text-xs">
+                        2025
+                      </span>
                     </div>
-                    <ImageReveal className="w-full shrink-0 overflow-hidden border border-neutral-300 border-dashed md:w-72 lg:w-80">
-                      <img
-                        alt="VerQ - Summer of Codefest 2025"
-                        className="h-44 w-full object-cover object-[center_75%] transition-transform duration-500 group-hover:scale-105"
-                        height={350}
-                        src="/codefest-1.jpg"
-                        width={600}
-                      />
-                    </ImageReveal>
+                    <h3 className="mt-3 font-medium font-serif text-2xl text-neutral-800 tracking-tight md:text-3xl">
+                      1st Place — Summer of Codefest 2025
+                    </h3>
+                    <p className="mt-3 font-poppins text-neutral-600 text-sm leading-relaxed md:text-md4">
+                      Built VerQ, an AI-powered interview prep platform, from
+                      idea to working product.
+                    </p>
+                  </div>
+                  <div className="w-full shrink-0 overflow-hidden border border-neutral-300 border-dashed md:w-72 lg:w-80">
+                    <img
+                      alt="VerQ - Summer of Codefest 2025"
+                      className="h-44 w-full object-cover object-[center_75%] transition-transform duration-500 group-hover:scale-105"
+                      height={350}
+                      src="/codefest-1.jpg"
+                      width={600}
+                    />
                   </div>
                 </div>
-              </StaggerItem>
+              </div>
 
               {/* Card 3: AsyncAPI Conference Singapore */}
-              <StaggerItem>
-                <div className="group border border-neutral-300 border-dashed bg-neutral-50/50 p-6 transition-colors hover:border-neutral-400 md:p-8">
-                  <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2.5">
-                        <span className="border border-neutral-200 bg-neutral-100 px-2 py-0.5 font-mono text-neutral-500 text-xs">
-                          OSS Contribution
-                        </span>
-                        <span className="font-mono text-neutral-400 text-xs">
-                          2025
-                        </span>
-                      </div>
-                      <h3 className="mt-3 font-medium font-serif text-2xl text-neutral-800 tracking-tight md:text-3xl">
-                        UI Design Featured — AsyncAPI Conference Singapore
-                      </h3>
-                      <p className="mt-3 font-poppins text-neutral-600 text-sm leading-relaxed md:text-md4">
-                        Design contribution selected and used for AsyncAPI's
-                        official Singapore conference materials.
-                      </p>
+              <div className="group border border-neutral-300 border-dashed bg-neutral-50/50 p-6 transition-colors hover:border-neutral-400 md:p-8">
+                <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2.5">
+                      <span className="border border-neutral-200 bg-neutral-100 px-2 py-0.5 font-mono text-neutral-500 text-xs">
+                        OSS Contribution
+                      </span>
+                      <span className="font-mono text-neutral-400 text-xs">
+                        2025
+                      </span>
                     </div>
-                    <ImageReveal className="w-full shrink-0 overflow-hidden border border-neutral-300 border-dashed md:w-72 lg:w-80">
-                      <img
-                        alt="UI Design Featured - AsyncAPI Conference Singapore"
-                        className="h-44 w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        height={350}
-                        src="/asyncapi.png"
-                        width={600}
-                      />
-                    </ImageReveal>
+                    <h3 className="mt-3 font-medium font-serif text-2xl text-neutral-800 tracking-tight md:text-3xl">
+                      UI Design Featured — AsyncAPI Conference Singapore
+                    </h3>
+                    <p className="mt-3 font-poppins text-neutral-600 text-sm leading-relaxed md:text-md4">
+                      Design contribution selected and used for AsyncAPI's
+                      official Singapore conference materials.
+                    </p>
+                  </div>
+                  <div className="w-full shrink-0 overflow-hidden border border-neutral-300 border-dashed md:w-72 lg:w-80">
+                    <img
+                      alt="UI Design Featured - AsyncAPI Conference Singapore"
+                      className="h-44 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      height={350}
+                      src="/asyncapi.png"
+                      width={600}
+                    />
                   </div>
                 </div>
-              </StaggerItem>
-            </StaggerContainer>
+              </div>
+            </div>
           </section>
 
           {/* Section 7: Stack */}
@@ -695,7 +676,7 @@ export default function ResumePage() {
                       <ArrowUpRight className="mt-1 h-5 w-5 shrink-0 text-neutral-400 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-neutral-800 md:mt-1.5" />
                     </div>
                   </div>
-                  <ImageReveal className="w-full shrink-0 overflow-hidden border border-neutral-300 border-dashed md:w-64 lg:w-72">
+                  <div className="w-full shrink-0 overflow-hidden border border-neutral-300 border-dashed md:w-64 lg:w-72">
                     <img
                       alt="Designing the Singularity Works Website"
                       className="aspect-[2/1] w-full object-cover transition-transform duration-500 group-hover:scale-105"
@@ -703,7 +684,7 @@ export default function ResumePage() {
                       src="/singularity-design.webp"
                       width={600}
                     />
-                  </ImageReveal>
+                  </div>
                 </div>
               </a>
             </div>

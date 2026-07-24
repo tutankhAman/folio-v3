@@ -1,7 +1,5 @@
 import { ArrowUp, ArrowUpRight, Check, Copy, Mail } from "lucide-react";
-import { motion } from "motion/react";
 import { useState } from "react";
-import { SPRING_TACTILE } from "@/components/animations/motion-wrapper";
 
 export function OutroSection() {
   const [copied, setCopied] = useState(false);
@@ -19,54 +17,24 @@ export function OutroSection() {
   return (
     <div className="relative border border-neutral-300 border-dashed bg-neutral-50/50 p-5 text-center transition-colors hover:border-neutral-400 md:p-6">
       {/* Corner Crosshair Accents */}
-      <motion.span
-        className="pointer-events-none absolute -top-2.5 -left-2 select-none font-mono text-neutral-400 text-xs"
-        initial={{ scale: 0, opacity: 0 }}
-        transition={{ ...SPRING_TACTILE, delay: 0.1 }}
-        viewport={{ once: true }}
-        whileInView={{ scale: 1, opacity: 1 }}
-      >
+      <span className="pointer-events-none absolute -top-2.5 -left-2 select-none font-mono text-neutral-400 text-xs">
         +
-      </motion.span>
-      <motion.span
-        className="pointer-events-none absolute -top-2.5 -right-2 select-none font-mono text-neutral-400 text-xs"
-        initial={{ scale: 0, opacity: 0 }}
-        transition={{ ...SPRING_TACTILE, delay: 0.15 }}
-        viewport={{ once: true }}
-        whileInView={{ scale: 1, opacity: 1 }}
-      >
+      </span>
+      <span className="pointer-events-none absolute -top-2.5 -right-2 select-none font-mono text-neutral-400 text-xs">
         +
-      </motion.span>
-      <motion.span
-        className="pointer-events-none absolute -bottom-2.5 -left-2 select-none font-mono text-neutral-400 text-xs"
-        initial={{ scale: 0, opacity: 0 }}
-        transition={{ ...SPRING_TACTILE, delay: 0.2 }}
-        viewport={{ once: true }}
-        whileInView={{ scale: 1, opacity: 1 }}
-      >
+      </span>
+      <span className="pointer-events-none absolute -bottom-2.5 -left-2 select-none font-mono text-neutral-400 text-xs">
         +
-      </motion.span>
-      <motion.span
-        className="pointer-events-none absolute -right-2 -bottom-2.5 select-none font-mono text-neutral-400 text-xs"
-        initial={{ scale: 0, opacity: 0 }}
-        transition={{ ...SPRING_TACTILE, delay: 0.25 }}
-        viewport={{ once: true }}
-        whileInView={{ scale: 1, opacity: 1 }}
-      >
+      </span>
+      <span className="pointer-events-none absolute -right-2 -bottom-2.5 select-none font-mono text-neutral-400 text-xs">
         +
-      </motion.span>
+      </span>
 
       {/* Decorative Watermark */}
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden">
-        <motion.span
-          className="select-none font-serif text-[110px] text-neutral-200 leading-none"
-          initial={{ opacity: 0, scale: 0.8 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          viewport={{ once: true }}
-          whileInView={{ opacity: 0.3, scale: 1 }}
-        >
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden opacity-30">
+        <span className="select-none font-serif text-[110px] text-neutral-200 leading-none">
           “
-        </motion.span>
+        </span>
       </div>
 
       {/* Main Content Layer */}
