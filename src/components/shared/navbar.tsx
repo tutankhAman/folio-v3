@@ -140,7 +140,7 @@ export const Navbar = () => {
         animate={{ opacity: 1, y: 0 }}
         aria-label="Main navigation"
         className={cn(
-          "fixed top-6 left-1/2 z-40 w-[90%] max-w-4xl -translate-x-1/2",
+          "site-navbar fixed top-6 left-1/2 z-40 w-[90%] max-w-4xl -translate-x-1/2",
           "border border-fg/10 bg-surface-elevated backdrop-blur-xl",
           "transition-[width,height,border-radius,background-color,border-color] duration-500"
         )}
@@ -248,7 +248,7 @@ export const Navbar = () => {
                 aria-expanded={contactOpen}
                 aria-haspopup="true"
                 className={cn(
-                  "group flex cursor-pointer items-center gap-1.5 border border-dashed px-3 py-1 font-mono text-xs uppercase transition-all duration-200",
+                  "navbar-contact-trigger group flex cursor-pointer items-center gap-1.5 border border-dashed px-3 py-1 font-mono text-xs uppercase transition-all duration-200",
                   contactOpen
                     ? "border-neutral-900 bg-neutral-900 text-white"
                     : "border-neutral-300 bg-neutral-50/50 text-neutral-700 hover:border-neutral-900 hover:bg-neutral-900 hover:text-white"
@@ -287,7 +287,7 @@ export const Navbar = () => {
                 {contactOpen && (
                   <motion.div
                     animate={{ opacity: 1, y: 0, scale: 1 }}
-                    className="absolute top-full right-0 mt-3 w-56 overflow-hidden border border-neutral-300 border-dashed bg-white shadow-xl backdrop-blur-md"
+                    className="navbar-contact-menu absolute top-full right-0 mt-3 w-56 overflow-hidden border border-neutral-300 border-dashed bg-white shadow-xl backdrop-blur-md"
                     exit={{ opacity: 0, y: -4, scale: 0.96 }}
                     initial={{ opacity: 0, y: -8, scale: 0.96 }}
                     ref={dropdownRef}
@@ -301,7 +301,7 @@ export const Navbar = () => {
                     <div className="space-y-0.5 p-1.5">
                       {CONTACT_ITEMS.map((item) => (
                         <a
-                          className="group flex items-center justify-between border border-transparent border-dashed px-3 py-2 font-mono text-neutral-600 text-xs transition-colors duration-150 hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-900"
+                          className="navbar-contact-item group flex items-center justify-between border border-transparent border-dashed px-3 py-2 font-mono text-neutral-600 text-xs transition-colors duration-150 hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-900"
                           href={item.href}
                           key={item.label}
                           rel={
@@ -314,16 +314,6 @@ export const Navbar = () => {
                           <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-neutral-400 group-hover:text-neutral-800" />
                         </a>
                       ))}
-                    </div>
-                    {/* Bottom status accent */}
-                    <div className="flex items-center justify-between border-neutral-200 border-t border-dashed bg-neutral-50/50 px-3.5 py-2 font-mono text-[10px] text-neutral-500 uppercase tracking-wider">
-                      <div className="flex items-center gap-1.5">
-                        <span className="relative flex h-1.5 w-1.5">
-                          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                        </span>
-                        <span>Open to work</span>
-                      </div>
                     </div>
                   </motion.div>
                 )}

@@ -7,6 +7,7 @@ import { Navbar } from "./components/shared/navbar";
 import { ProjectModal } from "./components/shared/project-modal";
 import { SmoothScroll } from "./components/shared/smooth-scroll";
 import type { Project } from "./data/projects";
+import NotFoundPage from "./pages/not-found";
 import TestPage from "./pages/test";
 import ResumePage from "./pages/tldr";
 
@@ -55,6 +56,7 @@ function App() {
           />
           <Route element={<TestPage />} path="/test" />
           <Route element={<ResumePage />} path="/tldr" />
+          <Route element={<NotFoundPage />} path="*" />
         </Routes>
       </div>
 

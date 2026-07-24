@@ -204,20 +204,6 @@ export const Footer = ({ onProjectClick }: FooterProps) => {
                   </span>
                 </div>
               </StaggeredLine>
-              <StaggeredLine index={2} inView={inView}>
-                <div className="flex flex-col gap-1">
-                  <span className="font-mono text-[10px] text-fg/25 uppercase tracking-[0.15em]">
-                    Availability
-                  </span>
-                  <span className="flex items-center gap-2 font-mono text-[13px] text-fg/50">
-                    <span className="relative flex h-1.5 w-1.5">
-                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-fg/20" />
-                      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-fg/40" />
-                    </span>
-                    Open to work
-                  </span>
-                </div>
-              </StaggeredLine>
               <StaggeredLine index={3} inView={inView}>
                 <div className="flex flex-col gap-1">
                   <span className="font-mono text-[10px] text-fg/25 uppercase tracking-[0.15em]">
