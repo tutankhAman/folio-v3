@@ -333,19 +333,28 @@ export function GitHubActivity({ inView: _inView }: { inView?: boolean }) {
 
       {/* Contribution Heatmap Box */}
       <div className="border border-fg/[0.08] bg-fg/[0.01] p-4 md:p-5">
-        <div className="mb-3 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="font-mono text-[10px] text-fg/40 uppercase tracking-[0.15em]">
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+          <div className="flex items-center gap-2.5">
+            <span className="shrink-0 font-mono text-[10px] text-fg/40 uppercase tracking-[0.15em]">
               52-Week Activity Matrix
             </span>
-            {hoveredCell && (
-              <span className="rounded bg-fg/[0.06] px-2 py-0.5 font-mono text-[10px] text-fg/70">
-                {hoveredCell.count} contribution
-                {hoveredCell.count !== 1 ? "s" : ""} on {hoveredCell.date}
+            <div className="flex h-5 items-center">
+              <span
+                className={`rounded bg-fg/[0.06] px-2 py-0.5 font-mono text-[10px] text-fg/70 transition-all duration-200 ${
+                  hoveredCell
+                    ? "translate-x-0 opacity-100"
+                    : "pointer-events-none -translate-x-1 opacity-0"
+                }`}
+              >
+                {hoveredCell
+                  ? `${hoveredCell.count} contribution${
+                      hoveredCell.count !== 1 ? "s" : ""
+                    } on ${hoveredCell.date}`
+                  : "0 contributions"}
               </span>
-            )}
+            </div>
           </div>
-          <div className="flex items-center gap-1.5 font-mono text-[9px] text-fg/30">
+          <div className="flex shrink-0 items-center gap-1.5 font-mono text-[9px] text-fg/30">
             <span>Less</span>
             <span className="h-2.5 w-2.5 rounded-[1px] bg-fg/[0.05]" />
             <span className="h-2.5 w-2.5 rounded-[1px] bg-emerald-500/30" />
