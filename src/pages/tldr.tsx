@@ -145,7 +145,11 @@ function getActiveSectionId(sections: SectionItem[]): string {
   return bestSectionId;
 }
 
-export default function ResumePage() {
+export default function ResumePage({
+  isLoaderComplete = true,
+}: {
+  isLoaderComplete?: boolean;
+}) {
   const [activeSection, setActiveSection] = useState<string>("section-1");
   const [isPlaying, setIsPlaying] = useState(false);
   const [isArchivedOpen, setIsArchivedOpen] = useState(false);
@@ -227,6 +231,7 @@ export default function ResumePage() {
       {/* Sticky Desktop Side Section Navigation */}
       <StickySideNav
         activeSectionId={activeSection}
+        isLoaderComplete={isLoaderComplete}
         onSelectSection={scrollToSection}
         sections={INITIAL_SECTIONS}
       />

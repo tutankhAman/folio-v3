@@ -10,6 +10,7 @@ interface StickySideNavProps {
   sections: SectionItem[];
   activeSectionId: string;
   onSelectSection: (id: string) => void;
+  isLoaderComplete?: boolean;
 }
 
 const navEase = [0.16, 1, 0.3, 1] as const;
@@ -20,6 +21,7 @@ export function StickySideNav({
   sections,
   activeSectionId,
   onSelectSection,
+  isLoaderComplete = true,
 }: StickySideNavProps) {
   return (
     <nav
@@ -31,7 +33,9 @@ export function StickySideNav({
           const isActive = activeSectionId === sec.id;
           return (
             <motion.button
-              animate={{ opacity: 1, x: 0 }}
+              animate={
+                isLoaderComplete ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
+              }
               className={`group flex items-center gap-2 text-left transition-colors duration-200 ${
                 isActive ? "text-fg" : "text-fg/30 hover:text-fg/70"
               }`}
@@ -41,7 +45,7 @@ export function StickySideNav({
               transition={{
                 duration: 0.55,
                 ease: navEase,
-                delay: WAVE_DELAY + index * WAVE_STAGGER,
+                delay: isLoaderComplete ? WAVE_DELAY + index * WAVE_STAGGER : 0,
               }}
               type="button"
             >

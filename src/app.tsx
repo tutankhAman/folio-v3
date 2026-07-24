@@ -1,8 +1,10 @@
 import { Analytics } from "@vercel/analytics/react";
+import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { HeroSection } from "./components/homepage/hero.section";
 import { Footer } from "./components/shared/footer";
+import { Loader } from "./components/shared/loader";
 import { Navbar } from "./components/shared/navbar";
 import { ProjectModal } from "./components/shared/project-modal";
 import { SmoothScroll } from "./components/shared/smooth-scroll";
@@ -12,8 +14,7 @@ import TestPage from "./pages/test";
 import ResumePage from "./pages/tldr";
 
 function App() {
-  // Loader disabled during development mode
-  const [_loading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const handleProjectClick = useCallback((project: Project) => {
@@ -28,8 +29,7 @@ function App() {
     <main className="relative min-h-screen w-full bg-surface text-fg transition-colors duration-300">
       <SmoothScroll />
 
-      {/* Loader commented out for dev mode */}
-      {/* <AnimatePresence mode="wait">
+      <AnimatePresence mode="wait">
         {loading && (
           <motion.div
             className="fixed inset-0 z-50 flex items-center justify-center bg-black will-change-[mask-image,transform,filter]"
@@ -38,7 +38,7 @@ function App() {
             <Loader onComplete={() => setLoading(false)} />
           </motion.div>
         )}
-      </AnimatePresence> */}
+      </AnimatePresence>
 
       {/* Navbar — always visible, z-40 */}
       <Navbar />
@@ -55,7 +55,10 @@ function App() {
             path="/"
           />
           <Route element={<TestPage />} path="/test" />
-          <Route element={<ResumePage />} path="/tldr" />
+          <Route
+            element={<ResumePage isLoaderComplete={!loading} />}
+            path="/tldr"
+          />
           <Route element={<NotFoundPage />} path="*" />
         </Routes>
       </div>
