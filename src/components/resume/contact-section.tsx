@@ -1,6 +1,10 @@
 import { ArrowUpRight, Check, Copy, Mail } from "lucide-react";
 import type React from "react";
 import { useState } from "react";
+import {
+  StaggerContainer,
+  StaggerItem,
+} from "@/components/animations/motion-wrapper";
 
 const GithubIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg aria-hidden="true" fill="currentColor" viewBox="0 0 24 24" {...props}>
@@ -67,56 +71,60 @@ export function ContactSection() {
   };
 
   return (
-    <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
+    <StaggerContainer
+      className="grid grid-cols-1 gap-3.5 sm:grid-cols-2"
+      staggerDelay={0.06}
+    >
       {CONTACT_ITEMS.map((item) => {
         const Icon = item.icon;
         return (
-          <a
-            className="group relative flex items-center justify-between border border-neutral-300 border-dashed bg-neutral-50/50 p-4 transition-all duration-200 hover:border-neutral-900 hover:bg-neutral-900"
-            href={item.href}
-            key={item.name}
-            rel="noreferrer"
-            target={item.isEmail ? undefined : "_blank"}
-          >
-            <div className="flex min-w-0 items-center gap-3">
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center border border-neutral-200 bg-white text-neutral-700 transition-colors group-hover:border-neutral-700 group-hover:bg-neutral-800 group-hover:text-white">
-                <Icon className="h-3.5 w-3.5" />
+          <StaggerItem key={item.name}>
+            <a
+              className="group relative flex items-center justify-between border border-neutral-300 border-dashed bg-neutral-50/50 p-4 transition-all duration-200 hover:border-neutral-900 hover:bg-neutral-900"
+              href={item.href}
+              rel="noreferrer"
+              target={item.isEmail ? undefined : "_blank"}
+            >
+              <div className="flex min-w-0 items-center gap-3">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center border border-neutral-200 bg-white text-neutral-700 transition-colors group-hover:border-neutral-700 group-hover:bg-neutral-800 group-hover:text-white">
+                  <Icon className="h-3.5 w-3.5" />
+                </div>
+                <div className="min-w-0">
+                  <h3 className="truncate font-medium font-poppins text-neutral-900 text-xs transition-colors group-hover:text-white">
+                    {item.name}
+                  </h3>
+                  <p className="truncate font-mono text-neutral-500 text-xs transition-colors group-hover:text-neutral-300">
+                    {item.value}
+                  </p>
+                </div>
               </div>
-              <div className="min-w-0">
-                <h3 className="truncate font-medium font-poppins text-neutral-900 text-xs transition-colors group-hover:text-white">
-                  {item.name}
-                </h3>
-                <p className="truncate font-mono text-neutral-500 text-xs transition-colors group-hover:text-neutral-300">
-                  {item.value}
-                </p>
-              </div>
-            </div>
 
-            <div className="ml-2 flex shrink-0 items-center gap-1.5">
-              {item.isEmail && (
-                <button
-                  className="flex items-center gap-1 border border-neutral-200 bg-white px-2 py-0.5 font-mono text-[10px] text-neutral-600 transition-colors group-hover:border-neutral-700 group-hover:bg-neutral-800 group-hover:text-neutral-300"
-                  onClick={copyEmail}
-                  type="button"
-                >
-                  {copied ? (
-                    <>
-                      <Check className="h-3 w-3 text-emerald-500" />
-                      <span>Copied</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="h-3 w-3" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-              )}
-              <ArrowUpRight className="h-4 w-4 text-neutral-400 transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white" />
-            </div>
-          </a>
+              <div className="ml-2 flex shrink-0 items-center gap-1.5">
+                {item.isEmail && (
+                  <button
+                    className="flex items-center gap-1 border border-neutral-200 bg-white px-2 py-0.5 font-mono text-[10px] text-neutral-600 transition-colors group-hover:border-neutral-700 group-hover:bg-neutral-800 group-hover:text-neutral-300"
+                    onClick={copyEmail}
+                    type="button"
+                  >
+                    {copied ? (
+                      <>
+                        <Check className="h-3 w-3 text-emerald-500" />
+                        <span>Copied</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="h-3 w-3" />
+                        <span>Copy</span>
+                      </>
+                    )}
+                  </button>
+                )}
+                <ArrowUpRight className="h-4 w-4 text-neutral-400 transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white" />
+              </div>
+            </a>
+          </StaggerItem>
         );
       })}
-    </div>
+    </StaggerContainer>
   );
 }
