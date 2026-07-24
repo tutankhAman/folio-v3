@@ -1,16 +1,44 @@
-import { Mail, Plus, Volume2 } from "lucide-react";
+import { ArrowUpRight, ChevronDown, Mail, Plus, Volume2 } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 import { useCallback, useEffect, useState } from "react";
+import { ContactSection } from "@/components/resume/contact-section";
+import { GitHubActivity } from "@/components/resume/github-activity";
+import { OutroSection } from "@/components/resume/outro-section";
 import {
   type SectionItem,
   StickySideNav,
 } from "@/components/resume/sticky-side-nav";
+import { TechStack } from "@/components/resume/tech-stack";
 import { StylizedName } from "@/components/shared/stylized-name";
+import { ARCHIVED_PROJECTS, type ArchivedProject } from "@/data/projects";
+
+function ArchivedProjectCard({ project }: { project: ArchivedProject }) {
+  return (
+    <div className="border border-neutral-300 border-dashed bg-neutral-50/50 p-6 md:p-8">
+      <h3 className="font-medium font-serif text-2xl text-neutral-800 tracking-tight">
+        {project.title}
+      </h3>
+      <p className="mt-1 font-poppins text-neutral-500 text-xs">
+        {project.stack}
+      </p>
+      <p className="mt-3 font-poppins text-md text-neutral-600 leading-relaxed sm:text-md md:text-md4">
+        {project.description}
+      </p>
+    </div>
+  );
+}
 
 const INITIAL_SECTIONS: SectionItem[] = [
   { id: "section-1", label: "Overview", index: 1 },
-  { id: "section-2", label: "Section 2", index: 2 },
-  { id: "section-3", label: "Section 3", index: 3 },
-  { id: "section-4", label: "Section 4", index: 4 },
+  { id: "section-2", label: "Singularity Works", index: 2 },
+  { id: "section-3", label: "Larity", index: 3 },
+  { id: "section-4", label: "Saltwise", index: 4 },
+  { id: "section-5", label: "Archived Projects", index: 5 },
+  { id: "section-6", label: "Records", index: 6 },
+  { id: "section-7", label: "Stack", index: 7 },
+  { id: "section-8", label: "Contact", index: 8 },
+  { id: "section-9", label: "Blogs", index: 9 },
+  { id: "section-10", label: "Outro", index: 10 },
 ];
 
 const XIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -78,6 +106,7 @@ const SOCIAL_LINKS = [
 export default function ResumePage() {
   const [activeSection, setActiveSection] = useState<string>("section-1");
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isArchivedOpen, setIsArchivedOpen] = useState(false);
 
   const scrollToSection = useCallback((id: string) => {
     setActiveSection(id);
@@ -279,9 +308,11 @@ export default function ResumePage() {
               TypeScript, Elysia, pgvector, Redis, Groq, Gemini
             </p>
             <p className="mt-6 w-full font-poppins text-md text-neutral-600 leading-relaxed tracking-normal sm:text-md md:text-md4">
-              Most meeting tools transcribe. Larity tracks contradictions as
-              they happen and turns scattered meeting notes into a searchable,
-              structured memory, without recording or storing raw audio.
+              Desktop-native meeting intelligence platform. Captures
+              conversations, detects contradictions in real time through a
+              four-tier LLM pipeline, and builds long-horizon organizational
+              memory, all without storing raw audio. $1.22 per meeting, sub-2s
+              latency.
             </p>
             <img
               alt="Larity"
@@ -290,52 +321,6 @@ export default function ResumePage() {
               src="/Larity.png"
               width={1200}
             />
-
-            <ul className="mt-6 w-full space-y-3 font-poppins text-md text-neutral-600 leading-relaxed tracking-normal sm:text-md md:text-md4">
-              <li className="flex gap-3">
-                <Plus className="mt-1.5 h-3 w-3 shrink-0 text-neutral-400" />
-                <span>
-                  Native desktop app for real-time meeting intelligence:
-                  dual-channel audio capture, speaker diarization via voice
-                  activity detection with zero enrollment and zero stored audio
-                </span>
-              </li>
-              <li className="flex gap-3">
-                <Plus className="mt-1.5 h-3 w-3 shrink-0 text-neutral-400" />
-                <span>
-                  Live contradiction detection through a four-tier LLM pipeline:
-                  pre-filter, Groq classification, pgvector semantic search,
-                  Gemini reasoning
-                </span>
-              </li>
-              <li className="flex gap-3">
-                <Plus className="mt-1.5 h-3 w-3 shrink-0 text-neutral-400" />
-                <span>
-                  Post-meeting intelligence layer with decision and task
-                  extraction, versioned audit trails, and a knowledge graph
-                  built on long-horizon vector memory
-                </span>
-              </li>
-              <li className="flex gap-3">
-                <Plus className="mt-1.5 h-3 w-3 shrink-0 text-neutral-400" />
-                <span>
-                  GitHub repo ingestion, calendar and email integration,
-                  automated document generation for contracts, proposals, and
-                  SOWs
-                </span>
-              </li>
-              <li className="flex gap-3">
-                <Plus className="mt-1.5 h-3 w-3 shrink-0 text-neutral-400" />
-                <span>
-                  Multi-user sessions, voice-first grounded Q&A assistant,
-                  workload management with timeline prediction
-                </span>
-              </li>
-              <li className="flex gap-3">
-                <Plus className="mt-1.5 h-3 w-3 shrink-0 text-neutral-400" />
-                <span>All-in cost of $1.22 per meeting</span>
-              </li>
-            </ul>
           </section>
 
           {/* Section 4 */}
@@ -351,11 +336,11 @@ export default function ResumePage() {
               Groq, Firecrawl
             </p>
             <p className="mt-6 w-full font-poppins text-md text-neutral-600 leading-relaxed tracking-normal sm:text-md md:text-md4">
-              Branded drugs in India often cost 3-5x their generic equivalent,
-              but most patients don&apos;t know a generic exists or which one is
-              actually safe to substitute. Saltwise closes that gap: it matches
-              drugs at the salt level, not the brand name, so switching is safe
-              and the savings are real.
+              Prescription intelligence system that maps branded drugs to
+              generic equivalents at the salt level, cutting patient costs 40 to
+              60 percent. Aggregates live pharmacy pricing, reads prescriptions
+              via OCR, and layers deterministic safety logic on top of
+              LLM-driven interaction checks.
             </p>
             <img
               alt="Saltwise"
@@ -364,39 +349,255 @@ export default function ResumePage() {
               src="/saltwise.webp"
               width={1200}
             />
+          </section>
 
-            <ul className="mt-6 w-full space-y-3 font-poppins text-md text-neutral-600 leading-relaxed tracking-normal sm:text-md md:text-md4">
-              <li className="flex gap-3">
-                <Plus className="mt-1.5 h-3 w-3 shrink-0 text-neutral-400" />
-                <span>
-                  Maps branded drugs to safe generic alternatives at the salt
-                  level, reducing patient costs by 40 to 60 percent
+          {/* Section 5: Archived Projects (Collapsible) */}
+          <section
+            className="border-fg/60 border-t border-dashed p-6 md:p-10"
+            id="section-5"
+          >
+            <button
+              aria-expanded={isArchivedOpen}
+              className="group flex w-full items-center justify-between text-left focus:outline-none"
+              onClick={() => setIsArchivedOpen((prev) => !prev)}
+              type="button"
+            >
+              <div className="flex items-center gap-3">
+                <h2 className="font-medium font-serif text-3xl text-neutral-800 tracking-tight transition-colors group-hover:text-neutral-900">
+                  Archived Projects
+                </h2>
+                <span className="border border-neutral-200 bg-neutral-100 px-2 py-0.5 font-mono text-neutral-500 text-xs">
+                  {ARCHIVED_PROJECTS.length}
                 </span>
-              </li>
-              <li className="flex gap-3">
-                <Plus className="mt-1.5 h-3 w-3 shrink-0 text-neutral-400" />
-                <span>
-                  Real-time pharmacy price aggregation by scraping 1mg and
-                  PharmEasy via Firecrawl, with confidence-level tracking and
-                  caching
-                </span>
-              </li>
-              <li className="flex gap-3">
-                <Plus className="mt-1.5 h-3 w-3 shrink-0 text-neutral-400" />
-                <span>
-                  LLM integration via Vercel AI SDK for prescription OCR,
-                  natural language search, and patient-friendly explanations
-                </span>
-              </li>
-              <li className="flex gap-3">
-                <Plus className="mt-1.5 h-3 w-3 shrink-0 text-neutral-400" />
-                <span>
-                  Deterministic drug interaction safety logic layered on top of
-                  LLM outputs, so safety checks don&apos;t rely on model
-                  judgment alone
-                </span>
-              </li>
-            </ul>
+              </div>
+              <div className="flex h-8 w-8 items-center justify-center border border-neutral-200 text-neutral-500 transition-all duration-300 group-hover:border-neutral-900 group-hover:bg-neutral-900 group-hover:text-white">
+                <ChevronDown
+                  className={`h-4 w-4 transition-transform duration-300 ${
+                    isArchivedOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </div>
+            </button>
+
+            <AnimatePresence initial={false}>
+              {isArchivedOpen && (
+                <motion.div
+                  animate={{ height: "auto", opacity: 1 }}
+                  className="overflow-hidden"
+                  exit={{ height: 0, opacity: 0 }}
+                  initial={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <div className="mt-8 space-y-6">
+                    {ARCHIVED_PROJECTS.map((project) => (
+                      <ArchivedProjectCard
+                        key={project.title}
+                        project={project}
+                      />
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </section>
+
+          {/* Section 6: Records */}
+          <section
+            className="border-fg/60 border-t border-dashed p-6 md:p-10"
+            id="section-6"
+          >
+            <h2 className="font-medium font-serif text-3xl text-neutral-800 tracking-tight">
+              Records
+            </h2>
+
+            <div className="mt-8 space-y-6">
+              {/* Card 1: MLH HackByte 4.0 */}
+              <div className="group border border-neutral-300 border-dashed bg-neutral-50/50 p-6 transition-colors hover:border-neutral-400 md:p-8">
+                <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2.5">
+                      <span className="border border-neutral-200 bg-neutral-100 px-2 py-0.5 font-mono text-neutral-500 text-xs">
+                        Hackathon Winner
+                      </span>
+                      <span className="font-mono text-neutral-400 text-xs">
+                        2026
+                      </span>
+                    </div>
+                    <h3 className="mt-3 font-medium font-serif text-2xl text-neutral-800 tracking-tight md:text-3xl">
+                      1st Place — MLH HackByte 4.0
+                    </h3>
+                    <p className="mt-3 font-poppins text-neutral-600 text-sm leading-relaxed md:text-md4">
+                      Major League Hacking global hackathon. Built and shipped
+                      Chorus, an agent orchestration platform, in one weekend.
+                    </p>
+                  </div>
+                  <div className="w-full shrink-0 overflow-hidden border border-neutral-300 border-dashed md:w-72 lg:w-80">
+                    <img
+                      alt="Chorus - MLH HackByte 4.0"
+                      className="h-44 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      height={350}
+                      src="/hackbyte.jpg"
+                      width={600}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Card 2: Summer of Codefest 2025 */}
+              <div className="group border border-neutral-300 border-dashed bg-neutral-50/50 p-6 transition-colors hover:border-neutral-400 md:p-8">
+                <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2.5">
+                      <span className="border border-neutral-200 bg-neutral-100 px-2 py-0.5 font-mono text-neutral-500 text-xs">
+                        Hackathon Winner
+                      </span>
+                      <span className="font-mono text-neutral-400 text-xs">
+                        2025
+                      </span>
+                    </div>
+                    <h3 className="mt-3 font-medium font-serif text-2xl text-neutral-800 tracking-tight md:text-3xl">
+                      1st Place — Summer of Codefest 2025
+                    </h3>
+                    <p className="mt-3 font-poppins text-neutral-600 text-sm leading-relaxed md:text-md4">
+                      Built VerQ, an AI-powered interview prep platform, from
+                      idea to working product.
+                    </p>
+                  </div>
+                  <div className="w-full shrink-0 overflow-hidden border border-neutral-300 border-dashed md:w-72 lg:w-80">
+                    <img
+                      alt="VerQ - Summer of Codefest 2025"
+                      className="h-44 w-full object-cover object-[center_75%] transition-transform duration-500 group-hover:scale-105"
+                      height={350}
+                      src="/codefest-1.jpg"
+                      width={600}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Card 3: AsyncAPI Conference Singapore */}
+              <div className="group border border-neutral-300 border-dashed bg-neutral-50/50 p-6 transition-colors hover:border-neutral-400 md:p-8">
+                <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2.5">
+                      <span className="border border-neutral-200 bg-neutral-100 px-2 py-0.5 font-mono text-neutral-500 text-xs">
+                        OSS Contribution
+                      </span>
+                      <span className="font-mono text-neutral-400 text-xs">
+                        2025
+                      </span>
+                    </div>
+                    <h3 className="mt-3 font-medium font-serif text-2xl text-neutral-800 tracking-tight md:text-3xl">
+                      UI Design Featured — AsyncAPI Conference Singapore
+                    </h3>
+                    <p className="mt-3 font-poppins text-neutral-600 text-sm leading-relaxed md:text-md4">
+                      Design contribution selected and used for AsyncAPI's
+                      official Singapore conference materials.
+                    </p>
+                  </div>
+                  <div className="w-full shrink-0 overflow-hidden border border-neutral-300 border-dashed md:w-72 lg:w-80">
+                    <img
+                      alt="UI Design Featured - AsyncAPI Conference Singapore"
+                      className="h-44 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      height={350}
+                      src="/asyncapi.png"
+                      width={600}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Section 7: Stack */}
+          <section
+            className="border-fg/60 border-t border-dashed p-6 md:p-10"
+            id="section-7"
+          >
+            <h2 className="font-medium font-serif text-3xl text-neutral-800 tracking-tight">
+              Stack
+            </h2>
+            <p className="mt-1.5 font-poppins text-neutral-500 text-sm">
+              Languages, frameworks, databases, and cloud infrastructure tools
+            </p>
+
+            <div className="mt-8">
+              <TechStack />
+            </div>
+
+            {/* GitHub Activity Matrix */}
+            <div className="mt-12">
+              <GitHubActivity inView={true} />
+            </div>
+          </section>
+
+          {/* Section 8: Contact */}
+          <section
+            className="border-fg/60 border-t border-dashed p-6 md:p-10"
+            id="section-8"
+          >
+            <h2 className="font-medium font-serif text-3xl text-neutral-800 tracking-tight">
+              Contact & Socials
+            </h2>
+            <div className="mt-8">
+              <ContactSection />
+            </div>
+          </section>
+
+          {/* Section 9: Blogs */}
+          <section
+            className="border-fg/60 border-t border-dashed p-6 md:p-10"
+            id="section-9"
+          >
+            <h2 className="font-medium font-serif text-3xl text-neutral-800 tracking-tight">
+              Blogs
+            </h2>
+
+            <div className="mt-8 space-y-6">
+              <a
+                className="group block border border-neutral-300 border-dashed bg-neutral-50/50 p-5 transition-colors hover:border-neutral-400 md:p-6"
+                href="https://itssingularity.com/chronicles/designing-singularity-works"
+                rel="noreferrer"
+                target="_blank"
+              >
+                <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2.5">
+                      <span className="border border-neutral-200 bg-neutral-100 px-2 py-0.5 font-mono text-neutral-500 text-xs">
+                        Design
+                      </span>
+                      <span className="font-mono text-neutral-400 text-xs">
+                        9 min read
+                      </span>
+                    </div>
+                    <div className="mt-3 flex items-start justify-between gap-3">
+                      <h3 className="font-medium font-serif text-2xl text-neutral-800 tracking-tight transition-colors group-hover:text-neutral-900 md:text-3xl">
+                        The Hardest Client We Ever Had Was Us — Designing
+                        Singularity Works
+                      </h3>
+                      <ArrowUpRight className="mt-1 h-5 w-5 shrink-0 text-neutral-400 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-neutral-800 md:mt-1.5" />
+                    </div>
+                  </div>
+                  <div className="w-full shrink-0 overflow-hidden border border-neutral-300 border-dashed md:w-64 lg:w-72">
+                    <img
+                      alt="Designing the Singularity Works Website"
+                      className="aspect-[2/1] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      height={300}
+                      src="/singularity-design.webp"
+                      width={600}
+                    />
+                  </div>
+                </div>
+              </a>
+            </div>
+          </section>
+
+          {/* Section 10: Outro */}
+          <section
+            className="border-fg/60 border-y border-dashed p-6 md:p-10"
+            id="section-10"
+          >
+            <OutroSection />
           </section>
         </div>
       </main>
