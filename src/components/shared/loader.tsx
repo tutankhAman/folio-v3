@@ -74,7 +74,7 @@ export const Loader = ({ onComplete }: { onComplete?: () => void }) => {
   }, [onComplete]);
 
   return (
-    <div className="flex h-full w-full items-center justify-center overflow-hidden text-white">
+    <div className="flex h-full w-full items-center justify-center overflow-hidden text-fg">
       {/* Main Container */}
       <motion.div
         animate={{ y: mainY, x: mainX }}
@@ -182,13 +182,13 @@ function ProgressBar({
     <div className="absolute bottom-[20%] left-1/2 -translate-x-1/2">
       <motion.div
         animate={{ opacity: step < 5 ? 1 : 0 }}
-        className="relative h-0.25 w-40 overflow-hidden rounded-full bg-white/10"
+        className="relative h-0.25 w-40 overflow-hidden rounded-full bg-fg/10"
         initial={{ opacity: 0 }}
         transition={{ duration: 0.5, ease }}
       >
         <motion.div
           animate={{ width: `${progress}%` }}
-          className="absolute top-0 left-0 h-full rounded-full bg-white/50"
+          className="absolute top-0 left-0 h-full rounded-full bg-fg/50"
           initial={{ width: "0%" }}
           transition={{ duration: 0.8, ease }}
         />

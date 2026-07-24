@@ -15,6 +15,7 @@ interface StickySideNavProps {
 
 const navEase = [0.16, 1, 0.3, 1] as const;
 const WAVE_DELAY = 0.35;
+const POST_REVEAL_DELAY = 0.18;
 const WAVE_STAGGER = 0.07;
 
 export function StickySideNav({
@@ -45,7 +46,9 @@ export function StickySideNav({
               transition={{
                 duration: 0.55,
                 ease: navEase,
-                delay: isLoaderComplete ? WAVE_DELAY + index * WAVE_STAGGER : 0,
+                delay: isLoaderComplete
+                  ? POST_REVEAL_DELAY + WAVE_DELAY + index * WAVE_STAGGER
+                  : 0,
               }}
               type="button"
             >

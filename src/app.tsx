@@ -15,6 +15,7 @@ import ResumePage from "./pages/tldr";
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const [pageRevealComplete, setPageRevealComplete] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const handleProjectClick = useCallback((project: Project) => {
@@ -32,7 +33,7 @@ function App() {
       <AnimatePresence mode="wait">
         {loading && (
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black will-change-[mask-image,transform,filter]"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-surface text-fg will-change-[mask-image,transform,filter]"
             exit={
               {
                 maskImage:
@@ -70,6 +71,7 @@ function App() {
         <motion.div
           animate={{ opacity: 1, y: 0 }}
           initial={{ opacity: 0, y: 20 }}
+          onAnimationComplete={() => setPageRevealComplete(true)}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           {/* Navbar — z-40 */}
@@ -88,7 +90,7 @@ function App() {
               />
               <Route element={<TestPage />} path="/test" />
               <Route
-                element={<ResumePage isLoaderComplete={!loading} />}
+                element={<ResumePage isLoaderComplete={pageRevealComplete} />}
                 path="/tldr"
               />
               <Route element={<NotFoundPage />} path="*" />
