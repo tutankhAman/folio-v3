@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 interface CommitEvent {
@@ -34,6 +33,26 @@ interface RawEventItem {
     ref_type?: string;
   };
 }
+
+interface ContributionDay {
+  date: string;
+  count: number;
+  level: number;
+}
+
+interface RawContribDay {
+  date: string;
+  contributionCount?: number;
+  contributionLevel?: string;
+}
+
+const LEVEL_MAP: Record<string, number> = {
+  NONE: 0,
+  FIRST_QUARTILE: 1,
+  SECOND_QUARTILE: 2,
+  THIRD_QUARTILE: 3,
+  FOURTH_QUARTILE: 4,
+};
 
 const FALLBACK_COMMITS: CommitEvent[] = [
   {
@@ -76,46 +95,24 @@ const FALLBACK_COMMITS: CommitEvent[] = [
   },
 ];
 
-function calculateDayCount(
-  dateStr: string,
-  d: number,
-  eventCounts: Record<string, number>
-): { count: number; level: number } {
-  const dateHash = dateStr
-    .split("")
-    .reduce((acc, char) => acc + char.charCodeAt(0), 0);
-  const isWeekend = d === 0 || d === 6;
-
-  let baseActivity = 0;
-  if (isWeekend) {
-    if (dateHash % 3 === 0) {
-      baseActivity = 1;
-    }
-  } else if (dateHash % 5 !== 0) {
-    baseActivity = (dateHash % 4) + 1;
-  }
-
-  const realCount = eventCounts[dateStr] ?? 0;
-  const count = realCount * 3 + baseActivity;
-
-  let level = 0;
+function getLevelFromCount(count: number): number {
   if (count > 8) {
-    level = 4;
-  } else if (count > 5) {
-    level = 3;
-  } else if (count > 2) {
-    level = 2;
-  } else if (count > 0) {
-    level = 1;
+    return 4;
   }
-
-  return { count, level };
+  if (count > 5) {
+    return 3;
+  }
+  if (count > 2) {
+    return 2;
+  }
+  if (count > 0) {
+    return 1;
+  }
+  return 0;
 }
 
-function generateContributionGrid(events: CommitEvent[]) {
-  const weeks = 52;
-  const daysPerWeek = 7;
-  const grid: { date: string; count: number; level: number }[][] = [];
+function generateFallbackGrid(events: CommitEvent[]): ContributionDay[][] {
+  const grid: ContributionDay[][] = [];
   const today = new Date();
 
   const eventCounts: Record<string, number> = {};
@@ -126,44 +123,24 @@ function generateContributionGrid(events: CommitEvent[]) {
     }
   }
 
-  for (let w = weeks - 1; w >= 0; w--) {
-    const weekDays: { date: string; count: number; level: number }[] = [];
-    for (let d = 0; d < daysPerWeek; d++) {
+  for (let w = 51; w >= 0; w--) {
+    const weekDays: ContributionDay[] = [];
+    for (let d = 0; d < 7; d++) {
       const date = new Date(today);
       date.setDate(date.getDate() - (w * 7 + (6 - d)));
       const dateStr = date.toISOString().split("T")[0] ?? "";
-      const { count, level } = calculateDayCount(dateStr, d, eventCounts);
+      const count = eventCounts[dateStr] ?? 0;
 
-      weekDays.push({ date: dateStr, count, level });
+      weekDays.push({
+        date: dateStr,
+        count,
+        level: getLevelFromCount(count),
+      });
     }
     grid.push(weekDays);
   }
 
   return grid;
-}
-
-function timeAgo(dateString: string): string {
-  const date = new Date(dateString);
-  const now = new Date();
-  const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
-
-  if (seconds < 60) {
-    return "just now";
-  }
-  const minutes = Math.floor(seconds / 60);
-  if (minutes < 60) {
-    return `${minutes}m ago`;
-  }
-  const hours = Math.floor(minutes / 60);
-  if (hours < 24) {
-    return `${hours}h ago`;
-  }
-  const days = Math.floor(hours / 24);
-  if (days < 30) {
-    return `${days}d ago`;
-  }
-  const months = Math.floor(days / 30);
-  return `${months}mo ago`;
 }
 
 function parsePushEvent(item: RawEventItem): CommitEvent[] {
@@ -194,10 +171,49 @@ function parsePushEvent(item: RawEventItem): CommitEvent[] {
   return commitsList;
 }
 
-export function GitHubActivity({ inView }: { inView: boolean }) {
+function parseEventsData(eventsData: RawEventItem[]): CommitEvent[] {
+  const parsedCommits: CommitEvent[] = [];
+  for (const item of eventsData) {
+    parsedCommits.push(...parsePushEvent(item));
+  }
+  return parsedCommits;
+}
+
+function parseContributionsData(contribData: {
+  contributions?: RawContribDay[][];
+  totalContributions?: number;
+}): { grid: ContributionDay[][]; total: number | null } {
+  if (
+    !(contribData.contributions && Array.isArray(contribData.contributions))
+  ) {
+    return { grid: [], total: null };
+  }
+
+  const grid: ContributionDay[][] = contribData.contributions.map((week) =>
+    week.map((day) => ({
+      date: day.date,
+      count: day.contributionCount ?? 0,
+      level: LEVEL_MAP[day.contributionLevel ?? "NONE"] ?? 0,
+    }))
+  );
+
+  const total =
+    typeof contribData.totalContributions === "number"
+      ? contribData.totalContributions
+      : null;
+
+  return { grid, total };
+}
+
+export function GitHubActivity({ inView: _inView }: { inView?: boolean }) {
   const [commits, setCommits] = useState<CommitEvent[]>([]);
   const [stats, setStats] = useState<GitHubStats | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [contributionGrid, setContributionGrid] = useState<ContributionDay[][]>(
+    []
+  );
+  const [totalContributions, setTotalContributions] = useState<number | null>(
+    null
+  );
   const [hoveredCell, setHoveredCell] = useState<{
     date: string;
     count: number;
@@ -205,14 +221,14 @@ export function GitHubActivity({ inView }: { inView: boolean }) {
 
   const fetchGitHubData = useCallback(async () => {
     try {
-      setLoading(true);
-      const [eventsRes, userRes] = await Promise.all([
+      const [eventsRes, userRes, contribRes] = await Promise.allSettled([
         fetch("https://api.github.com/users/tutankhAman/events?per_page=30"),
         fetch("https://api.github.com/users/tutankhAman"),
+        fetch("https://github-contributions-api.deno.dev/tutankhAman.json"),
       ]);
 
-      if (userRes.ok) {
-        const userData = await userRes.json();
+      if (userRes.status === "fulfilled" && userRes.value.ok) {
+        const userData = await userRes.value.json();
         setStats({
           publicRepos: userData.public_repos ?? 14,
           followers: userData.followers ?? 5,
@@ -222,27 +238,22 @@ export function GitHubActivity({ inView }: { inView: boolean }) {
         });
       }
 
-      if (eventsRes.ok) {
-        const eventsData = (await eventsRes.json()) as RawEventItem[];
-        const parsedCommits: CommitEvent[] = [];
+      if (eventsRes.status === "fulfilled" && eventsRes.value.ok) {
+        const eventsData = (await eventsRes.value.json()) as RawEventItem[];
+        const parsed = parseEventsData(eventsData);
+        setCommits(parsed.length > 0 ? parsed.slice(0, 8) : FALLBACK_COMMITS);
+      } else {
+        setCommits(FALLBACK_COMMITS);
+      }
 
-        for (const item of eventsData) {
-          const eventsParsed = parsePushEvent(item);
-          parsedCommits.push(...eventsParsed);
-        }
-
-        setCommits(parsedCommits.slice(0, 8));
+      if (contribRes.status === "fulfilled" && contribRes.value.ok) {
+        const contribData = await contribRes.value.json();
+        const { grid, total } = parseContributionsData(contribData);
+        setContributionGrid(grid);
+        setTotalContributions(total);
       }
     } catch {
       setCommits(FALLBACK_COMMITS);
-      setStats({
-        publicRepos: 14,
-        followers: 8,
-        createdAt: "2023-05-15",
-        avatarUrl: "https://github.com/tutankhAman.png",
-      });
-    } finally {
-      setLoading(false);
     }
   }, []);
 
@@ -250,24 +261,30 @@ export function GitHubActivity({ inView }: { inView: boolean }) {
     fetchGitHubData();
   }, [fetchGitHubData]);
 
-  const contributionGrid = useMemo(() => {
-    return generateContributionGrid(commits);
-  }, [commits]);
+  const activeGrid = useMemo(() => {
+    if (contributionGrid.length > 0) {
+      return contributionGrid;
+    }
+    return generateFallbackGrid(commits);
+  }, [contributionGrid, commits]);
 
   const totalContributionsInGrid = useMemo(() => {
+    if (totalContributions !== null) {
+      return totalContributions;
+    }
     let total = 0;
-    for (const week of contributionGrid) {
+    for (const week of activeGrid) {
       for (const day of week) {
         total += day.count;
       }
     }
     return total;
-  }, [contributionGrid]);
+  }, [totalContributions, activeGrid]);
 
   return (
     <div className="flex flex-col gap-6">
       {/* Overview stats bar */}
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
         <div className="border border-fg/[0.06] border-dashed p-3.5 transition-colors hover:border-fg/20">
           <span className="font-mono text-[9px] text-fg/30 uppercase tracking-[0.15em]">
             Public Repos
@@ -284,7 +301,7 @@ export function GitHubActivity({ inView }: { inView: boolean }) {
           <div className="mt-1 font-generalsans font-medium text-[20px] text-fg">
             {totalContributionsInGrid}{" "}
             <span className="font-mono font-normal text-[11px] text-fg/40">
-              commits
+              contributions
             </span>
           </div>
         </div>
@@ -311,21 +328,6 @@ export function GitHubActivity({ inView }: { inView: boolean }) {
               <path d="M2 10L10 2M10 2H5M10 2v5" />
             </svg>
           </a>
-        </div>
-
-        <div className="border border-fg/[0.06] border-dashed p-3.5 transition-colors hover:border-fg/20">
-          <span className="font-mono text-[9px] text-fg/30 uppercase tracking-[0.15em]">
-            Status
-          </span>
-          <div className="mt-1.5 flex items-center gap-2">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-            </span>
-            <span className="font-medium font-mono text-[11px] text-fg/80">
-              Active Pusher
-            </span>
-          </div>
         </div>
       </div>
 
@@ -357,7 +359,7 @@ export function GitHubActivity({ inView }: { inView: boolean }) {
         {/* Heatmap Grid */}
         <div className="scrollbar-none overflow-x-auto pb-1">
           <div className="flex min-w-[640px] gap-[3px]">
-            {contributionGrid.map((week, wIdx) => (
+            {activeGrid.map((week, wIdx) => (
               <div
                 className="flex flex-col gap-[3px]"
                 key={`week-${week[0]?.date || wIdx}`}
@@ -394,63 +396,6 @@ export function GitHubActivity({ inView }: { inView: boolean }) {
               </div>
             ))}
           </div>
-        </div>
-      </div>
-
-      {/* Commit History Feed */}
-      <div className="border border-fg/[0.08] border-dashed p-4 md:p-5">
-        <div className="mb-4 flex items-center justify-between">
-          <span className="font-mono text-[10px] text-fg/40 uppercase tracking-[0.15em]">
-            Recent Commit Stream
-          </span>
-          <span className="font-mono text-[9px] text-fg/25">
-            {loading ? "Syncing API..." : "Live GitHub Feed"}
-          </span>
-        </div>
-
-        <div className="flex flex-col gap-3">
-          {commits.map((commit) => (
-            <motion.div
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              className="group flex flex-col gap-1 border-fg/[0.04] border-b pb-3 last:border-b-0 last:pb-0 sm:flex-row sm:items-baseline sm:justify-between"
-              initial={{ opacity: 0, y: 10 }}
-              key={`${commit.id}-${commit.date}`}
-              transition={{ duration: 0.4 }}
-            >
-              <div className="flex flex-col gap-0.5 sm:max-w-[70%]">
-                <div className="flex items-center gap-2">
-                  <a
-                    className="font-medium font-mono text-[11px] text-fg/80 transition-colors hover:underline group-hover:text-fg"
-                    href={commit.repoUrl}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    {commit.repoName}
-                  </a>
-                  <span className="rounded bg-fg/[0.06] px-1.5 py-0.2 font-mono text-[9px] text-fg/40">
-                    {commit.branch}
-                  </span>
-                </div>
-                <p className="line-clamp-1 font-satoshi text-[12.5px] text-fg/60 leading-snug">
-                  {commit.commitMsg}
-                </p>
-              </div>
-
-              <div className="flex shrink-0 items-center gap-3">
-                <span className="font-mono text-[10px] text-fg/30">
-                  {timeAgo(commit.date)}
-                </span>
-                <a
-                  className="font-mono text-[10px] text-fg/30 uppercase tracking-[0.1em] transition-colors hover:text-fg"
-                  href={commit.url}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  View ↗
-                </a>
-              </div>
-            </motion.div>
-          ))}
         </div>
       </div>
     </div>
