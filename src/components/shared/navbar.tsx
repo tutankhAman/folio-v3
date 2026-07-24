@@ -44,8 +44,7 @@ export const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const isProjectsActive =
-    location.pathname === "/" || location.pathname === "/projects";
+  const isStoryActive = location.pathname === "/";
   const isResumeActive = location.pathname === "/resume";
 
   const closeMobile = useCallback(() => {
@@ -53,12 +52,12 @@ export const Navbar = () => {
     setContactOpen(false);
   }, []);
 
-  const handleProjectsClick = (e: React.MouseEvent) => {
+  const handleStoryClick = (e: React.MouseEvent) => {
     e.preventDefault();
     if (location.pathname === "/") {
-      window.dispatchEvent(new CustomEvent("scrollToProjects"));
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
-      navigate("/?scrollToProjects=true");
+      navigate("/");
     }
     closeMobile();
   };
@@ -140,21 +139,21 @@ export const Navbar = () => {
 
           {/* Center — Desktop Nav */}
           <div className="absolute top-1/2 left-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-1.5 md:flex">
-            {/* Projects */}
+            {/* Story */}
             <a
               className={cn(
                 "relative border border-dashed px-3 py-1 font-mono text-xs uppercase transition-all duration-200",
-                isProjectsActive
+                isStoryActive
                   ? "border-neutral-400 bg-neutral-100/70 font-medium text-neutral-900"
                   : "border-transparent text-neutral-500 hover:text-neutral-900"
               )}
-              href="/projects"
-              onClick={handleProjectsClick}
-              onMouseEnter={() => setHoveredLink("projects")}
+              href="/"
+              onClick={handleStoryClick}
+              onMouseEnter={() => setHoveredLink("story")}
               onMouseLeave={() => setHoveredLink(null)}
             >
-              <span className="relative z-10">Projects</span>
-              {hoveredLink === "projects" && !isProjectsActive && (
+              <span className="relative z-10">Story</span>
+              {hoveredLink === "story" && !isStoryActive && (
                 <motion.div
                   className="absolute inset-0 z-0 rounded bg-fg/[0.04]"
                   layoutId="navbar-hover"
@@ -351,7 +350,7 @@ export const Navbar = () => {
                 aria-label="Mobile navigation"
                 className="flex flex-col gap-1"
               >
-                {/* Projects */}
+                {/* Story */}
                 <motion.div
                   animate={{ opacity: 1, x: 0 }}
                   initial={{ opacity: 0, x: -12 }}
@@ -363,13 +362,13 @@ export const Navbar = () => {
                 >
                   <a
                     className="group flex items-center gap-3 border-fg/[0.06] border-b border-dashed py-5 font-generalsans font-light text-[28px] text-fg/60 tracking-tight transition-colors duration-300 hover:text-fg"
-                    href="/projects"
-                    onClick={handleProjectsClick}
+                    href="/"
+                    onClick={handleStoryClick}
                   >
                     <span className="font-mono text-[10px] text-fg/20 uppercase tracking-[0.2em]">
                       01
                     </span>
-                    Projects
+                    Story
                   </a>
                 </motion.div>
 
