@@ -138,6 +138,34 @@ export default function ResumePage() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((entry) => entry.isIntersecting);
+        if (visible.length > 0) {
+          const topMost = visible.reduce((prev, curr) =>
+            Math.abs(curr.boundingClientRect.top) <
+            Math.abs(prev.boundingClientRect.top)
+              ? curr
+              : prev
+          );
+          setActiveSection(topMost.target.id);
+        }
+      },
+      {
+        rootMargin: "-15% 0px -50% 0px",
+        threshold: [0, 0.1, 0.25],
+      }
+    );
+
+    for (const sec of INITIAL_SECTIONS) {
+      const el = document.getElementById(sec.id);
+      if (el) {
+        observer.observe(el);
+      }
+    }
+
+    return () => observer.disconnect();
   }, []);
 
   return (
