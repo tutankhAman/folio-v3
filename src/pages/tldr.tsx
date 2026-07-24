@@ -223,7 +223,7 @@ export default function ResumePage() {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-white font-generalsans">
+    <div className="resume-page relative min-h-screen bg-white font-generalsans">
       {/* Sticky Desktop Side Section Navigation */}
       <StickySideNav
         activeSectionId={activeSection}
@@ -247,13 +247,13 @@ export default function ResumePage() {
         </div> */}
 
         {/* Page Content Container - Set bg-white so it covers the background ScrollVelocity */}
-        <div className="relative z-10 mx-auto w-[90%] max-w-4xl border-fg/60 border-x border-dashed bg-white pt-20">
+        <div className="resume-content relative z-10 mx-auto w-[90%] max-w-4xl border-fg/60 border-x border-dashed bg-white pt-20">
           {/* Section 1 */}
           <section className="p-6 pt-12 md:p-10 md:pt-16" id="section-1">
             {/* Header row split into Left (Name + Dictionary Phonetic) and Right (Social Icons) */}
             <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
               <div>
-                <h1 className="font-light text-5xl text-neutral-900 tracking-tighter sm:text-6xl md:text-6xl">
+                <h1 className="font-light text-4xl text-neutral-900 tracking-tighter sm:text-6xl md:text-6xl">
                   <StylizedName />
                 </h1>
 
@@ -315,7 +315,7 @@ export default function ResumePage() {
             className="border-fg/40 border-t border-dashed p-6 md:p-10"
             id="section-2"
           >
-            <h2 className="font-serif text-3xl text-neutral-800 leading-snug tracking-tight">
+            <h2 className="font-serif text-2xl text-neutral-800 leading-snug tracking-tight sm:text-3xl">
               {/* <span className="text-5xl text-neutral-500">
                 <em>I&apos;m</em>
               </span>
@@ -461,7 +461,7 @@ export default function ResumePage() {
               type="button"
             >
               <div className="flex items-center gap-3">
-                <h2 className="font-medium font-serif text-3xl text-neutral-800 tracking-tight transition-colors group-hover:text-neutral-900">
+                <h2 className="font-medium font-serif text-2xl text-neutral-800 tracking-tight transition-colors group-hover:text-neutral-900 sm:text-3xl">
                   Archived Projects
                 </h2>
                 <span className="border border-neutral-200 bg-neutral-100 px-2 py-0.5 font-mono text-neutral-500 text-xs">
@@ -504,7 +504,7 @@ export default function ResumePage() {
             className="border-fg/60 border-t border-dashed p-6 md:p-10"
             id="section-6"
           >
-            <h2 className="font-medium font-serif text-3xl text-neutral-800 tracking-tight">
+            <h2 className="font-medium font-serif text-2xl text-neutral-800 tracking-tight sm:text-3xl">
               Records
             </h2>
 
@@ -612,7 +612,7 @@ export default function ResumePage() {
             className="border-fg/60 border-t border-dashed p-6 md:p-10"
             id="section-7"
           >
-            <h2 className="font-medium font-serif text-3xl text-neutral-800 tracking-tight">
+            <h2 className="font-medium font-serif text-2xl text-neutral-800 tracking-tight sm:text-3xl">
               Stack
             </h2>
             <p className="mt-1.5 font-poppins text-neutral-500 text-sm">
@@ -634,7 +634,7 @@ export default function ResumePage() {
             className="border-fg/60 border-t border-dashed p-6 md:p-10"
             id="section-8"
           >
-            <h2 className="font-medium font-serif text-3xl text-neutral-800 tracking-tight">
+            <h2 className="font-medium font-serif text-2xl text-neutral-800 tracking-tight sm:text-3xl">
               Contact & Socials
             </h2>
             <div className="mt-8">
