@@ -15,9 +15,23 @@ import { ARCHIVED_PROJECTS, type ArchivedProject } from "@/data/projects";
 function ArchivedProjectCard({ project }: { project: ArchivedProject }) {
   return (
     <div className="border border-neutral-300 border-dashed bg-neutral-50/50 p-6 md:p-8">
-      <h3 className="font-medium font-serif text-2xl text-neutral-800 tracking-tight">
-        {project.title}
-      </h3>
+      {project.link ? (
+        <a
+          className="group inline-flex items-center gap-1.5 font-medium font-serif text-2xl text-neutral-800 tracking-tight transition-colors hover:text-neutral-900"
+          href={project.link}
+          rel="noreferrer"
+          target="_blank"
+        >
+          <span className="underline-offset-4 group-hover:underline">
+            {project.title}
+          </span>
+          <ArrowUpRight className="h-5 w-5 shrink-0 text-neutral-400 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-neutral-800" />
+        </a>
+      ) : (
+        <h3 className="font-medium font-serif text-2xl text-neutral-800 tracking-tight">
+          {project.title}
+        </h3>
+      )}
       <p className="mt-1 font-poppins text-neutral-500 text-xs">
         {project.stack}
       </p>
@@ -368,9 +382,17 @@ export default function ResumePage() {
             className="border-fg/60 border-t border-dashed p-6 md:p-10"
             id="section-3"
           >
-            <h2 className="font-medium font-serif text-3xl text-neutral-800 tracking-tight">
-              Larity
-            </h2>
+            <a
+              className="group inline-flex items-center gap-2 font-medium font-serif text-3xl text-neutral-800 tracking-tight transition-colors hover:text-neutral-900"
+              href="https://larity.itssingularity.com"
+              rel="noreferrer"
+              target="_blank"
+            >
+              <span className="underline-offset-4 group-hover:underline">
+                Larity
+              </span>
+              <ArrowUpRight className="h-6 w-6 shrink-0 text-neutral-400 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-neutral-800" />
+            </a>
             <p className="mt-1.5 font-poppins text-neutral-500 text-sm">
               Organizational memory and intelligence platform | Tauri,
               TypeScript, Elysia, pgvector, Redis, Groq, Gemini
@@ -396,9 +418,17 @@ export default function ResumePage() {
             className="border-fg/60 border-t border-dashed p-6 md:p-10"
             id="section-4"
           >
-            <h2 className="font-medium font-serif text-3xl text-neutral-800 tracking-tight">
-              Saltwise
-            </h2>
+            <a
+              className="group inline-flex items-center gap-2 font-medium font-serif text-3xl text-neutral-800 tracking-tight transition-colors hover:text-neutral-900"
+              href="https://saltwise.vercel.app"
+              rel="noreferrer"
+              target="_blank"
+            >
+              <span className="underline-offset-4 group-hover:underline">
+                Saltwise
+              </span>
+              <ArrowUpRight className="h-6 w-6 shrink-0 text-neutral-400 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-neutral-800" />
+            </a>
             <p className="mt-1.5 font-poppins text-neutral-500 text-sm">
               Prescription intelligence system | Next.js, TypeScript, Supabase,
               Groq, Firecrawl

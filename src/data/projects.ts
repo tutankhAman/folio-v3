@@ -113,6 +113,7 @@ for (const project of projects) {
 
 export interface ArchivedProject {
   title: string;
+  link?: string;
   stack: string;
   description: string;
 }
@@ -127,6 +128,7 @@ export const ARCHIVED_PROJECTS: ArchivedProject[] = [
   },
   {
     title: "Attest",
+    link: "https://attest-frontend.vercel.app",
     stack:
       "React 19, Vite, TanStack Query, TanStack Router, Recharts, Bun, Elysia",
     description:
@@ -134,6 +136,7 @@ export const ARCHIVED_PROJECTS: ArchivedProject[] = [
   },
   {
     title: "Pebbles",
+    link: "https://pebbles-theta.vercel.app",
     stack:
       "Next.js 16, React 19, TypeScript, Tailwind CSS v4, Yjs, Cloudflare Workers (Hono), Durable Objects, HyperFormula",
     description:
@@ -141,12 +144,14 @@ export const ARCHIVED_PROJECTS: ArchivedProject[] = [
   },
   {
     title: "Zippy",
+    link: "https://github.com/tutankhAman/zippy",
     stack: "Bun, Puppeteer, Chrome DevTools Protocol, Gemini 3.0 Flash API",
     description:
       "CLI browser automation tool that speedruns Google Cloud Skills Boost courses. Hooks into an existing Chrome session via CDP, auto-completes lessons, solves practice quizzes with Gemini 3.0 Flash, and pauses on graded work for manual approval. Built with Bun and Puppeteer.",
   },
   {
     title: "Arkaiv",
+    link: "https://arkaiv.vercel.app",
     stack:
       "Node.js, Express, MongoDB, Playwright, Vite, React, React-Query, Hugging Face Inference API, OpenAI API",
     description:
@@ -154,6 +159,7 @@ export const ARCHIVED_PROJECTS: ArchivedProject[] = [
   },
   {
     title: "VerQ",
+    link: "https://verqai.vercel.app",
     stack:
       "React, Vite, Tailwind CSS, Node.js, OpenAI API, Gemini API, Deepgram",
     description:
