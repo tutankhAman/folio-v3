@@ -415,7 +415,12 @@
 }
 
 .dark .resume-page #section-7 .group img {
+  opacity: 0.65;
   filter: invert(1);
+}
+
+.dark .resume-page img {
+  opacity: 0.72;
 }
 
 .dark .resume-page .hover\:text-neutral-900:hover,
