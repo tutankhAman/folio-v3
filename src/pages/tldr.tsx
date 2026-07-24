@@ -1,6 +1,6 @@
 import { ArrowUpRight, ChevronDown, Mail, Plus, Volume2 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ContactSection } from "@/components/resume/contact-section";
 import { GitHubActivity } from "@/components/resume/github-activity";
 import { OutroSection } from "@/components/resume/outro-section";
@@ -103,17 +103,58 @@ const SOCIAL_LINKS = [
   },
 ];
 
+function getActiveSectionId(sections: SectionItem[]): string {
+  const isAtBottom =
+    window.innerHeight + window.scrollY >=
+    document.documentElement.scrollHeight - 60;
+
+  if (isAtBottom) {
+    return sections.at(-1)?.id ?? "section-10";
+  }
+
+  const targetPoint = window.innerHeight * 0.3;
+  let bestSectionId = sections[0].id;
+  let minDistance = Number.POSITIVE_INFINITY;
+
+  for (const sec of sections) {
+    const el = document.getElementById(sec.id);
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      const distance = Math.abs(rect.top - targetPoint);
+      if (rect.top <= targetPoint + 120 && distance < minDistance) {
+        minDistance = distance;
+        bestSectionId = sec.id;
+      }
+    }
+  }
+
+  return bestSectionId;
+}
+
 export default function ResumePage() {
   const [activeSection, setActiveSection] = useState<string>("section-1");
   const [isPlaying, setIsPlaying] = useState(false);
   const [isArchivedOpen, setIsArchivedOpen] = useState(false);
 
+  const isClickScrollingRef = useRef(false);
+  const clickTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const scrollToSection = useCallback((id: string) => {
     setActiveSection(id);
+    isClickScrollingRef.current = true;
+
+    if (clickTimeoutRef.current) {
+      clearTimeout(clickTimeoutRef.current);
+    }
+
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
+
+    clickTimeoutRef.current = setTimeout(() => {
+      isClickScrollingRef.current = false;
+    }, 800);
   }, []);
 
   const playPronunciation = useCallback(() => {
@@ -139,33 +180,32 @@ export default function ResumePage() {
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.filter((entry) => entry.isIntersecting);
-        if (visible.length > 0) {
-          const topMost = visible.reduce((prev, curr) =>
-            Math.abs(curr.boundingClientRect.top) <
-            Math.abs(prev.boundingClientRect.top)
-              ? curr
-              : prev
-          );
-          setActiveSection(topMost.target.id);
-        }
-      },
-      {
-        rootMargin: "-15% 0px -50% 0px",
-        threshold: [0, 0.1, 0.25],
-      }
-    );
+    let ticking = false;
 
-    for (const sec of INITIAL_SECTIONS) {
-      const el = document.getElementById(sec.id);
-      if (el) {
-        observer.observe(el);
+    const handleScroll = () => {
+      if (isClickScrollingRef.current) {
+        return;
       }
-    }
 
-    return () => observer.disconnect();
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          ticking = false;
+          setActiveSection(getActiveSectionId(INITIAL_SECTIONS));
+        });
+
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (clickTimeoutRef.current) {
+        clearTimeout(clickTimeoutRef.current);
+      }
+    };
   }, []);
 
   return (
