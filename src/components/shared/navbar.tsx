@@ -1,3 +1,4 @@
+import { ArrowUpRight } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -9,8 +10,8 @@ import { cn } from "@/lib/utils";
 const CONTACT_ITEMS = [
   {
     label: "Email",
-    href: "mailto:aman@itssingularity.com",
-    detail: "aman@itssingularity.com",
+    href: "mailto:amanaziz2020@gmail.com",
+    detail: "amanaziz2020@gmail.com",
   },
   {
     label: "GitHub",
@@ -43,6 +44,10 @@ export const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const isProjectsActive =
+    location.pathname === "/" || location.pathname === "/projects";
+  const isResumeActive = location.pathname === "/resume";
+
   const closeMobile = useCallback(() => {
     setMobileOpen(false);
     setContactOpen(false);
@@ -57,6 +62,7 @@ export const Navbar = () => {
     }
     closeMobile();
   };
+
   // Close dropdown on outside click
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
@@ -133,19 +139,24 @@ export const Navbar = () => {
           </a>
 
           {/* Center — Desktop Nav */}
-          <div className="absolute top-1/2 left-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-1 md:flex">
+          <div className="absolute top-1/2 left-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-1.5 md:flex">
             {/* Projects */}
             <a
-              className="relative px-4 py-2 font-mono text-fg/60 text-sm uppercase transition-colors hover:text-fg"
+              className={cn(
+                "relative border border-dashed px-3 py-1 font-mono text-xs uppercase transition-all duration-200",
+                isProjectsActive
+                  ? "border-neutral-400 bg-neutral-100/70 font-medium text-neutral-900"
+                  : "border-transparent text-neutral-500 hover:text-neutral-900"
+              )}
               href="/projects"
               onClick={handleProjectsClick}
               onMouseEnter={() => setHoveredLink("projects")}
               onMouseLeave={() => setHoveredLink(null)}
             >
               <span className="relative z-10">Projects</span>
-              {hoveredLink === "projects" && (
+              {hoveredLink === "projects" && !isProjectsActive && (
                 <motion.div
-                  className="absolute inset-0 z-0 rounded-lg bg-fg/[0.04]"
+                  className="absolute inset-0 z-0 rounded bg-fg/[0.04]"
                   layoutId="navbar-hover"
                   transition={{
                     type: "spring",
@@ -158,15 +169,20 @@ export const Navbar = () => {
 
             {/* tl;dr */}
             <a
-              className="relative px-4 py-2 font-mono text-fg/60 text-sm uppercase transition-colors hover:text-fg"
+              className={cn(
+                "relative border border-dashed px-3 py-1 font-mono text-xs uppercase transition-all duration-200",
+                isResumeActive
+                  ? "border-neutral-400 bg-neutral-100/70 font-medium text-neutral-900"
+                  : "border-transparent text-neutral-500 hover:text-neutral-900"
+              )}
               href="/resume"
               onMouseEnter={() => setHoveredLink("resume")}
               onMouseLeave={() => setHoveredLink(null)}
             >
               <span className="relative z-10">tl;dr</span>
-              {hoveredLink === "resume" && (
+              {hoveredLink === "resume" && !isResumeActive && (
                 <motion.div
-                  className="absolute inset-0 z-0 rounded-lg bg-fg/[0.04]"
+                  className="absolute inset-0 z-0 rounded bg-fg/[0.04]"
                   layoutId="navbar-hover"
                   transition={{
                     type: "spring",
@@ -180,7 +196,7 @@ export const Navbar = () => {
             {/* Theme Toggle */}
             <button
               aria-label={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
-              className="relative px-4 py-2 font-mono text-fg/60 text-sm uppercase transition-colors hover:text-fg"
+              className="relative border border-transparent px-3 py-1 font-mono text-neutral-500 text-xs uppercase transition-colors hover:text-neutral-900"
               onClick={toggleTheme}
               onMouseEnter={() => setHoveredLink("theme")}
               onMouseLeave={() => setHoveredLink(null)}
@@ -191,7 +207,7 @@ export const Navbar = () => {
               </span>
               {hoveredLink === "theme" && (
                 <motion.div
-                  className="absolute inset-0 z-0 rounded-lg bg-fg/[0.04]"
+                  className="absolute inset-0 z-0 rounded bg-fg/[0.04]"
                   layoutId="navbar-hover"
                   transition={{
                     type: "spring",
@@ -210,10 +226,10 @@ export const Navbar = () => {
                 aria-expanded={contactOpen}
                 aria-haspopup="true"
                 className={cn(
-                  "group flex cursor-pointer items-center gap-1.5 rounded-lg px-3 py-1.5 font-mono text-sm uppercase transition-all duration-300",
+                  "group flex cursor-pointer items-center gap-1.5 border border-dashed px-3 py-1 font-mono text-xs uppercase transition-all duration-200",
                   contactOpen
-                    ? "bg-fg text-surface hover:bg-fg/90"
-                    : "text-fg/60 hover:bg-fg/[0.04] hover:text-fg"
+                    ? "border-neutral-900 bg-neutral-900 text-white"
+                    : "border-neutral-300 bg-neutral-50/50 text-neutral-700 hover:border-neutral-900 hover:bg-neutral-900 hover:text-white"
                 )}
                 onClick={toggleContact}
                 onKeyDown={(e) => {
@@ -225,7 +241,7 @@ export const Navbar = () => {
                 ref={contactBtnRef}
                 type="button"
               >
-                Contact
+                <span>Contact</span>
                 <motion.svg
                   animate={{ rotate: contactOpen ? 180 : 0 }}
                   aria-hidden="true"
@@ -249,7 +265,7 @@ export const Navbar = () => {
                 {contactOpen && (
                   <motion.div
                     animate={{ opacity: 1, y: 0, scale: 1 }}
-                    className="absolute top-full right-0 mt-3 w-56 origin-top-right overflow-hidden rounded-xl border border-fg/[0.08] bg-surface-elevated shadow-lg ring-1 ring-fg/[0.03] backdrop-blur-xl"
+                    className="absolute top-full right-0 mt-3 w-56 overflow-hidden border border-neutral-300 border-dashed bg-white shadow-xl backdrop-blur-md"
                     exit={{ opacity: 0, y: -4, scale: 0.96 }}
                     initial={{ opacity: 0, y: -8, scale: 0.96 }}
                     ref={dropdownRef}
@@ -260,10 +276,10 @@ export const Navbar = () => {
                       damping: 30,
                     }}
                   >
-                    <div className="p-1.5">
+                    <div className="space-y-0.5 p-1.5">
                       {CONTACT_ITEMS.map((item) => (
                         <a
-                          className="group flex items-center justify-between rounded-lg px-3 py-2.5 font-mono text-[12px] text-fg/60 transition-colors duration-200 hover:bg-fg/[0.04] hover:text-fg"
+                          className="group flex items-center justify-between border border-transparent border-dashed px-3 py-2 font-mono text-neutral-600 text-xs transition-colors duration-150 hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-900"
                           href={item.href}
                           key={item.label}
                           rel={
@@ -272,33 +288,20 @@ export const Navbar = () => {
                           role="menuitem"
                           target={item.external ? "_blank" : undefined}
                         >
-                          <span className="flex items-center gap-2">
-                            {item.label}
-                          </span>
-                          {item.external && (
-                            <svg
-                              aria-hidden="true"
-                              className="h-2.5 w-2.5 opacity-0 transition-opacity duration-200 group-hover:opacity-40"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth={1.5}
-                              viewBox="0 0 12 12"
-                            >
-                              <path d="M2 10L10 2M10 2H5M10 2v5" />
-                            </svg>
-                          )}
+                          <span className="truncate">{item.label}</span>
+                          <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-neutral-400 group-hover:text-neutral-800" />
                         </a>
                       ))}
                     </div>
-                    {/* Bottom accent */}
-                    <div className="border-fg/[0.06] border-t bg-fg/[0.02] px-4 py-2.5">
-                      <span className="flex items-center gap-2 font-mono text-[10px] text-fg/40 uppercase tracking-widest">
+                    {/* Bottom status accent */}
+                    <div className="flex items-center justify-between border-neutral-200 border-t border-dashed bg-neutral-50/50 px-3.5 py-2 font-mono text-[10px] text-neutral-500 uppercase tracking-wider">
+                      <div className="flex items-center gap-1.5">
                         <span className="relative flex h-1.5 w-1.5">
                           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                           <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
                         </span>
-                        Open to work
-                      </span>
+                        <span>Open to work</span>
+                      </div>
                     </div>
                   </motion.div>
                 )}

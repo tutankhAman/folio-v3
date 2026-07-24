@@ -25,7 +25,7 @@ function ArchivedProjectCard({ project }: { project: ArchivedProject }) {
           <span className="underline-offset-4 group-hover:underline">
             {project.title}
           </span>
-          <ArrowUpRight className="h-5 w-5 shrink-0 text-neutral-400 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-neutral-800" />
+          <ArrowUpRight className="h-5 w-5 shrink-0 text-neutral-400 group-hover:text-neutral-800" />
         </a>
       ) : (
         <h3 className="font-medium font-serif text-2xl text-neutral-800 tracking-tight">
@@ -391,7 +391,7 @@ export default function ResumePage() {
               <span className="underline-offset-4 group-hover:underline">
                 Larity
               </span>
-              <ArrowUpRight className="h-6 w-6 shrink-0 text-neutral-400 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-neutral-800" />
+              <ArrowUpRight className="h-6 w-6 shrink-0 text-neutral-400 group-hover:text-neutral-800" />
             </a>
             <p className="mt-1.5 font-poppins text-neutral-500 text-sm">
               Organizational memory and intelligence platform | Tauri,
@@ -427,7 +427,7 @@ export default function ResumePage() {
               <span className="underline-offset-4 group-hover:underline">
                 Saltwise
               </span>
-              <ArrowUpRight className="h-6 w-6 shrink-0 text-neutral-400 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-neutral-800" />
+              <ArrowUpRight className="h-6 w-6 shrink-0 text-neutral-400 group-hover:text-neutral-800" />
             </a>
             <p className="mt-1.5 font-poppins text-neutral-500 text-sm">
               Prescription intelligence system | Next.js, TypeScript, Supabase,
