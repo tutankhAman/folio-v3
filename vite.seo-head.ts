@@ -79,14 +79,14 @@ function headMarkup(head: HeadData): string {
   return tags.join("\n");
 }
 
-const CHARSET_RE = /<meta charset="[^"]*">/;
-const FAVICON_RE = /<link rel="icon"[^>]*>/;
-
 /**
- * Rebuild the <head> from scratch. The Vite template ships static <title>,
- * <meta description>, OpenGraph, Twitter, and canonical tags; we drop them so
- * per-route markup is the single source of truth, while retaining the minimal
- * infra tags (charset, favicon, viewport) and the inline theme script in <body>.
+ * Replace the template's static SEO tags with per-route markup while preserving
+ * everything else in the <head> — critically the Vite-injected module script and
+ * stylesheet that bootstrap the app.
+ *
+ * The template head is a known region: <title> through the canonical <link>.
+ * We cut that region out and insert the per-route markup before </head>, keeping
+ * charset, favicon, viewport, theme-color, and Vite's assets intact.
  */
 function rebuildHead(html: string, markup: string): string {
   const headStart = html.indexOf("<head>");
@@ -95,22 +95,21 @@ function rebuildHead(html: string, markup: string): string {
     return html;
   }
 
-  const prefix = html.slice(0, headStart + "<head>".length);
-  const suffix = html.slice(headEnd);
-
-  // Capture just the charset + favicon link from the template head.
-  let keep = "";
-  const charset = html.match(CHARSET_RE);
-  if (charset) {
-    keep += `\n  ${charset[0]}`;
+  const seoStart = html.indexOf("<title>", headStart);
+  if (seoStart === -1) {
+    return html;
   }
-  const favicon = html.match(FAVICON_RE);
-  if (favicon) {
-    keep += `\n  ${favicon[0]}`;
-  }
-  keep += `\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">`;
 
-  return `${prefix}${keep}\n${markup}\n  ${suffix.trimStart()}`;
+  // The template's static SEO block ends with the canonical <link>; everything
+  // after it (theme-color, Vite's <script>/<link> assets) must be preserved.
+  const canonicalIdx = html.indexOf('<link rel="canonical"', seoStart);
+  const seoEnd =
+    canonicalIdx === -1 ? headEnd : html.indexOf(">", canonicalIdx) + 1;
+
+  const before = html.slice(0, seoStart);
+  const after = html.slice(seoEnd);
+
+  return `${before}\n${markup}\n${after}`;
 }
 
 /**
