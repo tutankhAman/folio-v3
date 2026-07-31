@@ -11,12 +11,7 @@ import {
 import { TechStack } from "@/components/resume/tech-stack";
 import { Seo } from "@/components/shared/seo";
 import { StylizedName } from "@/components/shared/stylized-name";
-import {
-  ARCHIVED_PROJECTS,
-  type ArchivedProject,
-  projects,
-} from "@/data/projects";
-import { personSchema, softwareApplicationSchema } from "@/data/seo";
+import { ARCHIVED_PROJECTS, type ArchivedProject } from "@/data/projects";
 
 function ArchivedProjectCard({ project }: { project: ArchivedProject }) {
   return (
@@ -234,23 +229,7 @@ export default function ResumePage({
 
   return (
     <div className="resume-page relative min-h-screen bg-white font-generalsans">
-      <Seo
-        description="Aman Aziz — final-year CS student, Co-founder and Frontend Lead at Singularity Works. National hackathon winner. Builds Larity, Saltwise, and systems at the intersection of design and engineering."
-        jsonLd={[
-          personSchema(),
-          ...projects.map((p) => softwareApplicationSchema(p)),
-          ...ARCHIVED_PROJECTS.map((p) => ({
-            "@context": "https://schema.org",
-            "@type": "CreativeWork",
-            name: p.title,
-            description: p.description,
-            creator: personSchema(),
-          })),
-        ]}
-        ogType="profile"
-        path="/tldr"
-        title="Aman Aziz — Resume, Projects & Records"
-      />
+      <Seo route="/tldr" />
       {/* Sticky Desktop Side Section Navigation */}
       <StickySideNav
         activeSectionId={activeSection}

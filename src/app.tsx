@@ -9,22 +9,13 @@ import { ProjectModal } from "./components/shared/project-modal";
 import { Seo } from "./components/shared/seo";
 import { SmoothScroll } from "./components/shared/smooth-scroll";
 import type { Project } from "./data/projects";
-import { personSchema } from "./data/seo";
 import NotFoundPage from "./pages/not-found";
 import TestPage from "./pages/test";
 import ResumePage from "./pages/tldr";
 
 function App() {
   const location = useLocation();
-  // Skip the intro loader when the page is being prerendered by react-snap
-  // (it identifies itself via the user agent), so the static HTML snapshot
-  // contains the real content for crawlers instead of the loader overlay.
-  const isPrerendering =
-    typeof navigator !== "undefined" &&
-    navigator.userAgent.includes("ReactSnap");
-  const [loading, setLoading] = useState(
-    !isPrerendering && location.pathname === "/"
-  );
+  const [loading, setLoading] = useState(location.pathname === "/");
   const [pageRevealComplete, setPageRevealComplete] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
@@ -42,14 +33,7 @@ function App() {
     <main className="relative min-h-screen w-full bg-surface text-fg transition-colors duration-300">
       <SmoothScroll />
 
-      {isHome && (
-        <Seo
-          description="Designing systems that feel inevitable. Clean interfaces. Brutal efficiency. Code and aesthetics locked together, built to scale, built to last."
-          jsonLd={[personSchema()]}
-          path="/"
-          title="Aman Aziz — Systems & Interfaces"
-        />
-      )}
+      {isHome && <Seo route="/" />}
 
       <AnimatePresence mode="wait">
         {loading && (

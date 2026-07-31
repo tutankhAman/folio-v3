@@ -1,59 +1,27 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import type { Plugin } from "vite";
-import { ARCHIVED_PROJECTS, projects } from "./src/data/projects";
-import {
-  personSchema,
-  SITE_URL,
-  softwareApplicationSchema,
-} from "./src/data/seo";
+import { OG_IMAGE, ROUTE_SEO, SITE_URL } from "./src/data/seo";
 
-const OG_IMAGE =
-  "https://res.cloudinary.com/dojj6zxs3/image/upload/v1785309937/og_gmtxeu.png";
+// The static head is generated for these routes; all data comes from ROUTE_SEO.
+const STATIC_ROUTES = ["/", "/tldr"] as const;
 
-interface HeadData {
-  path: string;
-  title: string;
-  description: string;
-  ogType: string;
-  jsonLd: object[];
-}
-
-const HEADS: Record<string, HeadData> = {
-  "/": {
-    path: "/",
-    title: "Aman Aziz — Systems & Interfaces",
-    description:
-      "Designing systems that feel inevitable. Clean interfaces. Brutal efficiency. Code and aesthetics locked together, built to scale, built to last.",
-    ogType: "website",
-    jsonLd: [personSchema()],
-  },
-  "/tldr": {
-    path: "/tldr",
-    title: "Aman Aziz — Resume, Projects & Records",
-    description:
-      "Aman Aziz — final-year CS student, Co-founder and Frontend Lead at Singularity Works. National hackathon winner. Builds Larity, Saltwise, and systems at the intersection of design and engineering.",
-    ogType: "profile",
-    jsonLd: [
-      personSchema(),
-      ...projects.map((p) => softwareApplicationSchema(p)),
-      ...ARCHIVED_PROJECTS.map((p) => ({
-        "@context": "https://schema.org",
-        "@type": "CreativeWork",
-        name: p.title,
-        description: p.description,
-        creator: personSchema(),
-      })),
-    ],
-  },
-};
+/** Regexes matching the template's static SEO tags, to strip before injection. */
+const SEO_TAG_PATTERNS = [
+  /<title>[\s\S]*?<\/title>/,
+  /<meta\s+name="description"[\s\S]*?>/,
+  /<meta\s+property="og:[^"]*"[\s\S]*?>/g,
+  /<meta\s+name="twitter:[^"]*"[\s\S]*?>/g,
+  /<link\s+rel="canonical"[\s\S]*?>/,
+];
 
 function tag(content: string): string {
   return `  ${content}`;
 }
 
-function headMarkup(head: HeadData): string {
-  const url = `${SITE_URL}${head.path}`;
+function headMarkup(path: string): string {
+  const head = ROUTE_SEO[path];
+  const url = `${SITE_URL}${path}`;
   const tags = [
     tag(`<title>${head.title}</title>`),
     tag(`<meta name="description" content="${head.description}">`),
@@ -65,6 +33,12 @@ function headMarkup(head: HeadData): string {
     tag('<meta property="og:site_name" content="Aman Aziz">'),
     tag('<meta property="og:locale" content="en_US">'),
     tag(`<meta property="og:image" content="${OG_IMAGE}">`),
+    tag('<meta property="og:image:width" content="1200">'),
+    tag('<meta property="og:image:height" content="628">'),
+    tag('<meta property="og:image:type" content="image/png">'),
+    tag(
+      '<meta property="og:image:alt" content="Aman Aziz — Systems & Interfaces">'
+    ),
     tag('<meta name="twitter:card" content="summary_large_image">'),
     tag('<meta name="twitter:site" content="@amancooks">'),
     tag('<meta name="twitter:creator" content="@amancooks">'),
@@ -80,42 +54,29 @@ function headMarkup(head: HeadData): string {
 }
 
 /**
- * Replace the template's static SEO tags with per-route markup while preserving
- * everything else in the <head> — critically the Vite-injected module script and
- * stylesheet that bootstrap the app.
- *
- * The template head is a known region: <title> through the canonical <link>.
- * We cut that region out and insert the per-route markup before </head>, keeping
- * charset, favicon, viewport, theme-color, and Vite's assets intact.
+ * Strip the template's static SEO tags and insert per-route markup before
+ * </head>. Only the known SEO tags are removed — everything else (charset,
+ * favicon, viewport, theme-color, and critically Vite's module script and
+ * stylesheet) is left untouched, so the app bootstrap can never be dropped.
  */
 function rebuildHead(html: string, markup: string): string {
-  const headStart = html.indexOf("<head>");
   const headEnd = html.indexOf("</head>");
-  if (headStart === -1 || headEnd === -1) {
+  if (headEnd === -1) {
     return html;
   }
 
-  const seoStart = html.indexOf("<title>", headStart);
-  if (seoStart === -1) {
-    return html;
+  let head = html.slice(0, headEnd);
+  for (const pattern of SEO_TAG_PATTERNS) {
+    head = head.replace(pattern, "");
   }
 
-  // The template's static SEO block ends with the canonical <link>; everything
-  // after it (theme-color, Vite's <script>/<link> assets) must be preserved.
-  const canonicalIdx = html.indexOf('<link rel="canonical"', seoStart);
-  const seoEnd =
-    canonicalIdx === -1 ? headEnd : html.indexOf(">", canonicalIdx) + 1;
-
-  const before = html.slice(0, seoStart);
-  const after = html.slice(seoEnd);
-
-  return `${before}\n${markup}\n${after}`;
+  return `${head}\n${markup}\n${html.slice(headEnd)}`;
 }
 
 /**
  * Inject static per-route <head> markup into the built HTML files (no browser,
- * no runtime deps). The Seo component mirrors the same data at runtime so
- * client navigation keeps head tags in sync with the prerendered snapshots.
+ * no runtime deps). Data comes from the same ROUTE_SEO map the runtime Seo
+ * component uses, so build-time and client-side head tags cannot drift.
  */
 export function seoHeadPlugin(): Plugin {
   return {
@@ -131,15 +92,12 @@ export function seoHeadPlugin(): Plugin {
         }
         const base = readFileSync(indexHtml, "utf8");
 
-        for (const [route, head] of Object.entries(HEADS)) {
-          const rendered = rebuildHead(base, headMarkup(head));
+        for (const route of STATIC_ROUTES) {
+          const rendered = rebuildHead(base, headMarkup(route));
           const rel = route === "/" ? "" : route.slice(1);
           const dir = rel ? join(dist, rel) : dist;
           mkdirSync(dir, { recursive: true });
           writeFileSync(join(dir, "index.html"), rendered);
-          if (route === "/") {
-            writeFileSync(join(dist, "200.html"), rendered);
-          }
           console.log(`seo-head: wrote head for ${route}`);
         }
       },

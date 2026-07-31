@@ -1,6 +1,9 @@
-import type { Project } from "./projects";
+import { ARCHIVED_PROJECTS, type Project, projects } from "./projects";
 
 const SITE_URL = "https://aamn.dev";
+
+export const OG_IMAGE =
+  "https://res.cloudinary.com/dojj6zxs3/image/upload/v1785309937/og_gmtxeu.png";
 
 const SOCIAL_URLS = {
   github: "https://github.com/tutankhAman",
@@ -66,5 +69,54 @@ export function creativeWorkSchema(project: Project): object {
     datePublished: project.year,
   };
 }
+
+export interface RouteSeo {
+  path: string;
+  title: string;
+  description: string;
+  ogType: string;
+  jsonLd: object[];
+}
+
+/**
+ * Single source of truth for per-route SEO head data. Consumed by the static
+ * Vite plugin (build-time HTML) and the runtime Seo component (client nav),
+ * so the two can never drift.
+ */
+export const ROUTE_SEO: Record<string, RouteSeo> = {
+  "/": {
+    path: "/",
+    title: "Aman Aziz — Systems & Interfaces",
+    description:
+      "Designing systems that feel inevitable. Clean interfaces. Brutal efficiency. Code and aesthetics locked together, built to scale, built to last.",
+    ogType: "website",
+    jsonLd: [personSchema()],
+  },
+  "/tldr": {
+    path: "/tldr",
+    title: "Aman Aziz — tldr, Projects & Records",
+    description:
+      "Aman Aziz — final-year CS student, Co-founder and Frontend Lead at Singularity Works. National hackathon winner. Builds Larity, Saltwise, and systems at the intersection of design and engineering.",
+    ogType: "profile",
+    jsonLd: [
+      personSchema(),
+      ...projects.map((p) => softwareApplicationSchema(p)),
+      ...ARCHIVED_PROJECTS.map((p) => ({
+        "@context": "https://schema.org",
+        "@type": "CreativeWork",
+        name: p.title,
+        description: p.description,
+        creator: personSchema(),
+      })),
+    ],
+  },
+  "/test": {
+    path: "/test",
+    title: "Test Page",
+    description: "",
+    ogType: "website",
+    jsonLd: [],
+  },
+};
 
 export { SITE_URL };

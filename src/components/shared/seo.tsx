@@ -1,22 +1,12 @@
 import { useEffect } from "react";
+import { OG_IMAGE, ROUTE_SEO, SITE_URL } from "@/data/seo";
 
 interface SeoProps {
-  title: string;
-  description: string;
-  /** Absolute canonical URL. Defaults to https://aamn.dev/ */
-  canonical?: string;
-  /** Absolute path-safe path for og:url. e.g. "/tldr" */
-  path?: string;
-  ogImage?: string;
-  ogType?: string;
-  jsonLd?: object[];
-  /** Emit <meta name="robots" content="noindex"> (e.g. for scaffolding/404 pages). */
+  /** Route key into ROUTE_SEO, e.g. "/" or "/tldr". */
+  route: string;
+  /** Emit <meta name="robots" content="noindex"> (e.g. for scaffolding pages). */
   noindex?: boolean;
 }
-
-const SITE_URL = "https://aamn.dev";
-const DEFAULT_OG_IMAGE =
-  "https://res.cloudinary.com/dojj6zxs3/image/upload/v1785309937/og_gmtxeu.png";
 
 function upsertMeta(attr: "name" | "property", key: string, content: string) {
   let el = document.head.querySelector<HTMLMetaElement>(
@@ -42,22 +32,18 @@ function upsertLink(rel: string, href: string) {
 
 /**
  * Lightweight, dependency-free head manager. Writes per-route title, meta,
- * canonical, OpenGraph, Twitter, and JSON-LD into <head>. Runs client-side
- * during React Router navigation and is captured by prerendering so the same
- * tags exist in the static HTML served to crawlers.
+ * canonical, OpenGraph, Twitter, and JSON-LD into <head>. All data comes from
+ * the module-level ROUTE_SEO map, so the effect deps stay stable across
+ * re-renders (e.g. scroll-driven state on /tldr) and only run on route change.
+ * The same map is used at build time by the static-head Vite plugin, so the
+ * prerendered HTML and client-side head stay in sync.
  */
-export function Seo({
-  title,
-  description,
-  canonical,
-  path = "/",
-  ogImage = DEFAULT_OG_IMAGE,
-  ogType = "website",
-  jsonLd,
-  noindex = false,
-}: SeoProps) {
+export function Seo({ route, noindex = false }: SeoProps) {
+  const { title, description, path, ogType, jsonLd } =
+    ROUTE_SEO[route] ?? ROUTE_SEO["/"];
+
   useEffect(() => {
-    const url = canonical ?? `${SITE_URL}${path}`;
+    const url = `${SITE_URL}${path}`;
 
     document.title = title;
     upsertMeta("name", "description", description);
@@ -74,11 +60,11 @@ export function Seo({
     upsertMeta("property", "og:url", url);
     upsertMeta("property", "og:title", title);
     upsertMeta("property", "og:description", description);
-    upsertMeta("property", "og:image", ogImage);
+    upsertMeta("property", "og:image", OG_IMAGE);
     upsertMeta("property", "og:type", ogType);
     upsertMeta("name", "twitter:title", title);
     upsertMeta("name", "twitter:description", description);
-    upsertMeta("name", "twitter:image", ogImage);
+    upsertMeta("name", "twitter:image", OG_IMAGE);
     upsertMeta("name", "twitter:card", "summary_large_image");
     upsertLink("canonical", url);
 
@@ -87,14 +73,16 @@ export function Seo({
     for (const el of document.querySelectorAll("script[data-seo-jsonld]")) {
       el.remove();
     }
-    if (jsonLd && jsonLd.length > 0) {
+    if (jsonLd.length > 0) {
       const script = document.createElement("script");
       script.type = "application/ld+json";
       script.setAttribute("data-seo-jsonld", "true");
       script.textContent = JSON.stringify(jsonLd);
       document.head.appendChild(script);
     }
-  }, [title, description, canonical, path, ogImage, ogType, jsonLd, noindex]);
+    // jsonLd comes from the module-level ROUTE_SEO map, so its reference is
+    // stable across re-renders; the effect only re-runs on route change.
+  }, [title, description, path, ogType, jsonLd, noindex]);
 
   return null;
 }
