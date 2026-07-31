@@ -1,4 +1,4 @@
-import { useEffect, useId } from "react";
+import { useEffect } from "react";
 
 interface SeoProps {
   title: string;
@@ -31,13 +31,10 @@ function upsertMeta(attr: "name" | "property", key: string, content: string) {
 }
 
 function upsertLink(rel: string, href: string) {
-  let el = document.head.querySelector<HTMLLinkElement>(
-    `link[rel="${rel}"][data-seo]`
-  );
+  let el = document.head.querySelector<HTMLLinkElement>(`link[rel="${rel}"]`);
   if (!el) {
     el = document.createElement("link");
     el.setAttribute("rel", rel);
-    el.setAttribute("data-seo", "true");
     document.head.appendChild(el);
   }
   el.setAttribute("href", href);
@@ -59,8 +56,6 @@ export function Seo({
   jsonLd,
   noindex = false,
 }: SeoProps) {
-  const id = useId();
-
   useEffect(() => {
     const url = canonical ?? `${SITE_URL}${path}`;
 
@@ -87,31 +82,19 @@ export function Seo({
     upsertMeta("name", "twitter:card", "summary_large_image");
     upsertLink("canonical", url);
 
-    // Manage JSON-LD blocks tagged with this component's id.
-    for (const el of document.querySelectorAll(
-      `script[data-seo-jsonld][data-seo-id="${id}"]`
-    )) {
+    // Manage JSON-LD: remove any existing JSON-LD block (prerendered static or
+    // previously injected by this component), then re-emit the current schema.
+    for (const el of document.querySelectorAll("script[data-seo-jsonld]")) {
       el.remove();
     }
     if (jsonLd && jsonLd.length > 0) {
       const script = document.createElement("script");
       script.type = "application/ld+json";
       script.setAttribute("data-seo-jsonld", "true");
-      script.setAttribute("data-seo-id", id);
       script.textContent = JSON.stringify(jsonLd);
       document.head.appendChild(script);
     }
-  }, [
-    id,
-    title,
-    description,
-    canonical,
-    path,
-    ogImage,
-    ogType,
-    jsonLd,
-    noindex,
-  ]);
+  }, [title, description, canonical, path, ogImage, ogType, jsonLd, noindex]);
 
   return null;
 }
