@@ -249,6 +249,7 @@ export const HeroSection = ({ onProjectClick }: HeroSectionProps) => {
 
   return (
     <section className="relative h-[2000vh]" ref={containerRef}>
+      <h1 className="sr-only">Aman Aziz — Systems & Interfaces</h1>
       <div
         className="sticky top-0 flex h-dvh w-full flex-col items-center justify-center overflow-hidden"
         style={

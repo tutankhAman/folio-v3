@@ -9,8 +9,14 @@ import {
   StickySideNav,
 } from "@/components/resume/sticky-side-nav";
 import { TechStack } from "@/components/resume/tech-stack";
+import { Seo } from "@/components/shared/seo";
 import { StylizedName } from "@/components/shared/stylized-name";
-import { ARCHIVED_PROJECTS, type ArchivedProject } from "@/data/projects";
+import {
+  ARCHIVED_PROJECTS,
+  type ArchivedProject,
+  projects,
+} from "@/data/projects";
+import { personSchema, softwareApplicationSchema } from "@/data/seo";
 
 function ArchivedProjectCard({ project }: { project: ArchivedProject }) {
   return (
@@ -228,6 +234,23 @@ export default function ResumePage({
 
   return (
     <div className="resume-page relative min-h-screen bg-white font-generalsans">
+      <Seo
+        description="Aman Aziz — final-year CS student, Co-founder and Frontend Lead at Singularity Works. National hackathon winner. Builds Larity, Saltwise, and systems at the intersection of design and engineering."
+        jsonLd={[
+          personSchema(),
+          ...projects.map((p) => softwareApplicationSchema(p)),
+          ...ARCHIVED_PROJECTS.map((p) => ({
+            "@context": "https://schema.org",
+            "@type": "CreativeWork",
+            name: p.title,
+            description: p.description,
+            creator: personSchema(),
+          })),
+        ]}
+        ogType="profile"
+        path="/tldr"
+        title="Aman Aziz — Resume, Projects & Records"
+      />
       {/* Sticky Desktop Side Section Navigation */}
       <StickySideNav
         activeSectionId={activeSection}
@@ -369,17 +392,6 @@ export default function ResumePage({
                 →
               </span>
             </a>
-
-            {/* <video
-              autoPlay
-              className="mt-8 w-full"
-              loop
-              muted
-              playsInline
-              poster="http://cdn.itssingularity.com/image/huA"
-            >
-              <source src="/singularity-hero.mp4" type="video/mp4" />
-            </video> */}
           </section>
 
           {/* Section 3 */}
@@ -409,13 +421,18 @@ export default function ResumePage({
               memory, all without storing raw audio. $1.22 per meeting, sub-2s
               latency.
             </p>
-            <img
-              alt="Larity"
-              className="mt-10 w-full border border-neutral-300 border-dashed"
-              height={600}
-              src="/Larity.png"
-              width={1200}
-            />
+            <picture>
+              <source srcSet="/Larity.avif" type="image/avif" />
+              <source srcSet="/Larity.webp" type="image/webp" />
+              <img
+                alt="Larity - desktop meeting intelligence platform"
+                className="mt-10 w-full border border-neutral-300 border-dashed"
+                height={600}
+                loading="lazy"
+                src="/Larity.webp"
+                width={1200}
+              />
+            </picture>
           </section>
 
           {/* Section 4 */}
@@ -539,7 +556,8 @@ export default function ResumePage({
                       alt="Chorus - MLH HackByte 4.0"
                       className="h-44 w-full object-cover transition-transform duration-500 group-hover:scale-105"
                       height={350}
-                      src="/hackbyte.jpg"
+                      loading="lazy"
+                      src="/hackbyte.avif"
                       width={600}
                     />
                   </div>
@@ -571,7 +589,8 @@ export default function ResumePage({
                       alt="VerQ - Summer of Codefest 2025"
                       className="h-44 w-full object-cover object-[center_75%] transition-transform duration-500 group-hover:scale-105"
                       height={350}
-                      src="/codefest-1.jpg"
+                      loading="lazy"
+                      src="/codefest-1.avif"
                       width={600}
                     />
                   </div>
@@ -603,7 +622,8 @@ export default function ResumePage({
                       alt="UI Design Featured - AsyncAPI Conference Singapore"
                       className="h-44 w-full object-cover transition-transform duration-500 group-hover:scale-105"
                       height={350}
-                      src="/asyncapi.png"
+                      loading="lazy"
+                      src="/asyncapi.avif"
                       width={600}
                     />
                   </div>
@@ -686,7 +706,8 @@ export default function ResumePage({
                       alt="Designing the Singularity Works Website"
                       className="aspect-[2/1] w-full object-cover transition-transform duration-500 group-hover:scale-105"
                       height={300}
-                      src="/singularity-design.webp"
+                      loading="lazy"
+                      src="/singularity-design.avif"
                       width={600}
                     />
                   </div>

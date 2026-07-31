@@ -1,0 +1,4 @@
+/res  /Aman_Aziz_Resume.pdf  200
+/tldr  /tldr/index.html  200
+/tldr/*  /tldr/index.html  200
+/*  /index.html  200

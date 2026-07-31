@@ -23,9 +23,9 @@ const PROJECTS = [
 
 const SITE_LINKS = [
   { label: "Home", href: "/" },
-  { label: "Projects", href: "/projects" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "Projects", href: "/tldr#section-5" },
+  { label: "tl;dr", href: "/tldr" },
+  { label: "Contact", href: "/tldr#section-8" },
 ];
 
 // ─── Sub-components ──────────────────────────────────────────────────────────

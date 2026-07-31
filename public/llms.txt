@@ -1,0 +1,17 @@
+# Aman Aziz
+
+Final-year computer science student, Co-founder and Frontend Lead at Singularity Works, and a twice national hackathon winner (MLH HackByte 4.0, Summer of Codefest 2025). I build systems and interfaces at the intersection of design and engineering — clean, performant software that runs in the real world.
+
+## Key pages
+
+- [Home](https://aamn.dev/): Portfolio story — who I am, what I build, and why.
+- [Resume / tl;dr](https://aamn.dev/tldr): Full background — experience, projects (Larity, Saltwise, Chorus, VerQ, and more), hackathon records, tech stack, and contact.
+- [Larity](https://larity.itssingularity.com): Desktop meeting-intelligence platform built with Tauri, TypeScript, Elysia, pgvector, and Redis.
+- [Saltwise](https://saltwise.vercel.app): Prescription intelligence system mapping branded drugs to generic equivalents.
+- [GitHub](https://github.com/tutankhAman): Open-source work.
+- [LinkedIn](https://linkedin.com/in/aman-aziz): Professional profile.
+
+## Contact
+
+- Email: amanaziz2020@gmail.com
+- X / Twitter: @amancooks
