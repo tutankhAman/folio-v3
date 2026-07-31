@@ -4,7 +4,7 @@
   X-Frame-Options: SAMEORIGIN
 
 /res
-  Content-Disposition: attachment; filename="Aman_Aziz_Resume.pdf"
+  Content-Disposition: inline; filename="Aman_Aziz_Resume.pdf"
 
 /test
   X-Robots-Tag: noindex, nofollow
