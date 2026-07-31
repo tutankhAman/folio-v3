@@ -1,7 +1,7 @@
 import { Analytics } from "@vercel/analytics/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { HeroSection } from "./components/homepage/hero.section";
 import { Footer } from "./components/shared/footer";
 import { Loader } from "./components/shared/loader";
@@ -14,7 +14,8 @@ import TestPage from "./pages/test";
 import ResumePage from "./pages/tldr";
 
 function App() {
-  const [loading, setLoading] = useState(true);
+  const location = useLocation();
+  const [loading, setLoading] = useState(location.pathname === "/");
   const [pageRevealComplete, setPageRevealComplete] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
