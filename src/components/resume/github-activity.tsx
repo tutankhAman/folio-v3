@@ -1,12 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
 import { GitHubCalendar } from "react-github-calendar";
 
+import { useTheme } from "@/lib/theme";
+
 interface GitHubStats {
   publicRepos: number;
   followers: number;
 }
 
 export function GitHubActivity({ inView: _inView }: { inView?: boolean }) {
+  const { theme } = useTheme();
   const [stats, setStats] = useState<GitHubStats | null>(null);
 
   const fetchGitHubData = useCallback(async () => {
@@ -79,7 +82,7 @@ export function GitHubActivity({ inView: _inView }: { inView?: boolean }) {
           blockMargin={3}
           blockRadius={2}
           blockSize={11}
-          colorScheme="dark"
+          colorScheme={theme === "dark" ? "dark" : "light"}
           fontSize={10}
           showWeekdayLabels={false}
           username="tutankhAman"
