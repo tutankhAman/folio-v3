@@ -41,11 +41,11 @@ export function OutroSection() {
       <div className="relative z-10">
         {/* Memorable Quote */}
         <blockquote className="mx-auto mt-1 max-w-xl font-serif text-neutral-800 text-xl leading-relaxed tracking-tight sm:text-2xl md:text-3xl">
-          “He who cooks in silence shall speak in production.”
+          “El, Psy, Congroo”
         </blockquote>
 
         <p className="mt-2.5 font-mono text-neutral-400 text-xs uppercase tracking-widest">
-          — Sun Tzu, The Art of War
+          — Hououin Kyouma
         </p>
 
         {/* Dashed Divider */}
